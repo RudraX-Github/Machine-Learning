@@ -1,8 +1,13 @@
 Project Summary:-
 
-This project involves exploratory data analysis (EDA), feature engineering, and ensemble regression modeling on a taxi trip dataset (Green Taxi). The workflow includes data cleaning, outlier removal, encoding categorical variables, scaling, and transforming features to improve model performance. Multiple ensemble models (Random Forest, Gradient Boosting, Extra Trees, and Stacking) are trained to predict the total fare amount for a trip. The best models and scaler are saved for deployment in a web application.
+This project involves exploratory data analysis (EDA), feature engineering, and ensemble regression modeling on a taxi trip dataset (Green Taxi).
+The workflow includes data cleaning, outlier removal, encoding categorical variables, scaling, and transforming features to improve model performance.
+Multiple ensemble models (Random Forest, Gradient Boosting, Extra Trees, and Stacking) are trained to predict the total fare amount for a trip.
+The best models and scaler are saved for deployment in a web application.
 
-Problem Statement: To accurately predict the 'Total_amount' (total fare) for a taxi trip based on features such as trip distance, passenger count, payment type, vendor, rate code, and other trip-related variables. The goal is to build a robust regression model that can be used in a web application for fare estimation and analysis.
+Problem Statement:
+To accurately predict the 'Total_amount' (total fare) for a taxi trip based on features such as trip distance, passenger count, payment type, vendor, rate code, and other trip-related variables.
+The goal is to build a robust regression model that can be used in a web application for fare estimation and analysis.
 
 Suggestions:
 
