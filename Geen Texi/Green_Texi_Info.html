@@ -163,7 +163,7 @@
             height: 500px;
             background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0) 60%);
             border-radius: 45% 55% 70% 30% / 30% 60% 40% 70%;
-            z-index: -1;
+            z-index: -10; /* Behind content */
             animation: rotate-illusion 25s infinite ease-in-out;
             filter: blur(20px);
         }
@@ -176,7 +176,7 @@
             height: 600px;
             background: radial-gradient(circle, rgba(190, 242, 100, 0.1) 0%, rgba(190, 242, 100, 0) 60%);
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            z-index: -1;
+            z-index: -10; /* Behind content */
             animation: rotate-illusion 30s infinite linear reverse;
             filter: blur(10px);
         }
@@ -285,7 +285,7 @@
             to { transform: translateX(0); }
         }
         
-        /* NEW: Data Transformation Visual */
+        /* Data Transformation Visual */
         .hist-container {
             display: flex;
             justify-content: space-between;
@@ -304,9 +304,55 @@
              background: linear-gradient(180deg, #a7f3d0, #22c55e);
         }
         
+        /* Download Button Style */
+        .download-btn {
+            flex: 1;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            background-color: rgba(34, 197, 94, 0.3); /* green-600/50 */
+            color: white;
+            font-weight: 600;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            transition: all 0.3s;
+            font-size: 0.875rem; /* text-sm */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem; /* gap-2 */
+            text-align: center;
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background-color: #22c55e; /* bg-green-600 */
+        }
+        /* Style for disabled state */
+        .download-btn:disabled {
+            background-color: rgba(107, 114, 128, 0.3); /* gray-500/50 */
+            color: rgba(209, 213, 219, 0.7); /* gray-300/70 */
+            cursor: not-allowed;
+        }
+
     </style>
 </head>
 <body class="antialiased relative">
+
+    <div class="fixed inset-0 -z-20 overflow-hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <defs>
+                <pattern id="lines" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <path d="M 0 10 H 40" stroke="rgba(34, 197, 94, 0.05)" stroke-width="1"/>
+                    <path d="M 0 30 H 40" stroke="rgba(190, 242, 100, 0.05)" stroke-width="1"/>
+                </pattern>
+            </defs>
+            <rect width="200%" height="200%" fill="url(#lines)">
+                <animate attributeName="x" from="-400" to="0" dur="25s" repeatCount="indefinite" />
+                <animate attributeName="y" from="-400" to="0" dur="35s" repeatCount="indefinite" />
+            </rect>
+        </svg>
+    </div>
 
     <div class="illusion-1"></div>
     <div class="illusion-2"></div>
@@ -314,7 +360,7 @@
     <div class="absolute bottom-1/4 left-0 w-80 h-80 md:w-[450px] md:h-[450px] bg-lime-400 rounded-full -z-10 filter blur-[120px] animate-[pulse_10s_infinite_ease-in-out_2s]"></div>
 
     <header class="sticky top-0 z-50 w-full">
-        <nav class="glass-card max-w-5xl mx-auto m-4 rounded-xl">
+        <nav class="glass-card max-w-4xl mx-auto m-4 rounded-xl">
             <div class="flex items-center justify-between p-4 lg:px-8">
                 <a href="#" class="text-xl font-bold gradient-text">Green Taxi Project</a>
                 <div class="flex items-center space-x-6">
@@ -326,7 +372,7 @@
         </nav>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 md:px-8">
+    <main class="max-w-4xl mx-auto px-4 md:px-8">
 
         <section id="overview" class="min-h-[70vh] flex items-center justify-center text-center py-24 reveal">
             <div>
@@ -351,8 +397,25 @@
                         <i data-lucide="database" class="w-10 h-10 text-green-400"></i>
                         <h3 class="text-2xl font-bold text-white">Data Source</h3>
                     </div>
-                    <p class="text-gray-300">Analysis is based on the <code>Green_Dataset.csv</code> file, detailing individual trip records.</p>
-                </div>
+                    <p class="text-gray-300 mb-6">Analysis is based on the <code>Green_Dataset.csv</code> file, detailing individual trip records.</p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button id="download-csv-btn" 
+                           data-url="https://raw.githubusercontent.com/RudraX-Github/Machine-Learning/main/Geen%20Texi/Green_Dataset.csv" 
+                           data-filename="Green_Dataset.csv"
+                           class="download-btn">
+                            <i data-lucide="download-cloud" class="w-4 h-4 icon"></i>
+                            <span class="btn-text">Download CSV</span>
+                        </button>
+                        <button id="download-ipynb-btn" 
+                           data-url="https://raw.githubusercontent.com/RudraX-Github/Machine-Learning/main/Geen%20Texi/EDA-Green.ipynb" 
+                           data-filename="EDA-Green.ipynb"
+                           class="download-btn">
+                            <i data-lucide="download-cloud" class="w-4 h-4 icon"></i>
+                            <span class="btn-text">Download Notebook</span>
+                        </button>
+                    </div>
+                    </div>
 
                 <div class="glass-card rounded-2xl p-6 reveal">
                     <div class="flex items-center gap-4 mb-6">
@@ -551,7 +614,17 @@
                     <div class="glass-card rounded-2xl p-6">
                         <h3 class="text-2xl font-bold text-white mb-3">7. Evaluation & Serialization</h3>
                         <p class="text-gray-300">Assessed models using R² on unseen test data and saved the best performers (<code>.pkl</code>) for deployment in an app.</p>
-                    </div>
+                        
+                        <div class="mt-4 pt-4 border-t border-white/10">
+                            <h4 class="text-sm font-semibold text-gray-200 mb-2">Serialized Project Files:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>gb_model.pkl</code></span>
+                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>meta_model.pkl</code></span>
+                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>rf_model.pkl</code></span>
+                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>scaler.pkl</code></span>
+                            </div>
+                        </div>
+                        </div>
                 </div>
             </div>
         </section>
@@ -621,6 +694,71 @@
                     animatedLine.style.height = `${drawHeight}px`;
                 }
             }
+            
+            // --- NEW: Force Download Helper Function ---
+            async function forceDownload(url, filename, btnElement) {
+                const originalText = btnElement.querySelector('.btn-text').textContent;
+                const icon = btnElement.querySelector('.icon');
+                
+                // Set loading state
+                btnElement.querySelector('.btn-text').textContent = "Downloading...";
+                btnElement.disabled = true;
+                if (icon) icon.style.display = 'none'; // Hide icon
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                    const blob = await response.blob();
+                    
+                    const objectUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = objectUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Cleanup
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(objectUrl);
+
+                } catch (error) {
+                    console.error("Download failed:", error);
+                    btnElement.querySelector('.btn-text').textContent = "Error";
+                    // Re-enable after a delay so user sees "Error"
+                    setTimeout(() => {
+                         btnElement.querySelector('.btn-text').textContent = originalText;
+                         if (icon) icon.style.display = 'inline-flex';
+                         btnElement.disabled = false;
+                    }, 2000);
+                } finally {
+                    // Restore button state
+                    if (btnElement.querySelector('.btn-text').textContent !== "Error") {
+                        btnElement.querySelector('.btn-text').textContent = originalText;
+                        if (icon) icon.style.display = 'inline-flex';
+                        btnElement.disabled = false;
+                    }
+                }
+            }
+
+            // --- Add Download Event Listeners ---
+            const csvBtn = document.getElementById('download-csv-btn');
+            const ipynbBtn = document.getElementById('download-ipynb-btn');
+
+            if (csvBtn) {
+                csvBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default button action
+                    forceDownload(this.dataset.url, this.dataset.filename, this);
+                });
+            }
+            
+            if (ipynbBtn) {
+                ipynbBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default button action
+                    forceDownload(this.dataset.url, this.dataset.filename, this);
+                });
+            }
+            // --- End Download Script ---
+            
         });
     </script>
 
