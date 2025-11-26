@@ -1,0 +1,57 @@
+Overcast clouds
+Broken clouds
+Scattered clouds
+Few clouds
+Clear Sky
+Light snow
+Snow
+Flurries
+Fog
+Haze
+Mix snow/rain
+Drizzle
+Light rain
+Heavy snow
+
+
+
+🌦️ Weather Dataset Column Descriptions
+Column				Description								Unit
+clouds			Cloud cover percentage								%
+datetime		Date of observation								Date (DD-MM-YYYY)
+dewpt			Dew point temperature								°C
+dhi			Diffuse Horizontal Irradiance (solar radiation scattered by atmosphere)		W/m²
+dni			Direct Normal Irradiance (solar radiation directly from the sun)		W/m²
+ghi			Global Horizontal Irradiance (total solar radiation on horizontal surface)	W/m²
+max_dhi			Maximum DHI recorded during the day						W/m²
+max_dni			Maximum DNI recorded during the day						W/m²
+max_ghi			Maximum GHI recorded during the day						W/m²
+max_temp		Maximum temperature recorded							°C
+max_temp_ts		Timestamp when maximum temperature occurred					Unix time (seconds)
+max_uv			Maximum UV index								Index (dimensionless)
+max_wind_dir		Wind direction at maximum wind speed						Degrees (° from North)
+max_wind_spd		Maximum wind speed recorded							m/s
+max_wind_spd_ts		Timestamp when maximum wind speed occurred					Unix time (seconds)
+min_temp		Minimum temperature recorded							°C
+min_temp_ts		Timestamp when minimum temperature occurred					Unix time (seconds)
+precip			Precipitation amount								mm
+precip_gpm		Precipitation rate (from GPM satellite or model)				mm/hr
+pres			Atmospheric pressure at station level						hPa
+revision_status		Data quality flag (e.g., final, provisional)					Text
+rh			Relative humidity								%
+slp			Sea-level pressure								hPa
+snow			Snowfall amount									mm
+snow_depth		Snow depth									mm
+solar_rad		Solar radiation									W/m²
+t_dhi			Timestamp for DHI measurement							Unix time (seconds)
+t_dni			Timestamp for DNI measurement							Unix time (seconds)
+t_ghi			Timestamp for GHI measurement							Unix time (seconds)
+t_solar_rad		Timestamp for solar radiation measurement					Unix time (seconds)
+temp			Air temperature									°C
+ts			General timestamp for record							Unix time (seconds)
+wind_dir		Average wind direction								Degrees (° from North)
+wind_gust_spd		Wind gust speed (short-term peak)						m/s
+wind_spd		Average wind speed								m/s
+market_name		Market/location name								Text
+query_lat		Latitude of market location							Decimal degrees
+query_lon		Longitude of market location							Decimal degrees

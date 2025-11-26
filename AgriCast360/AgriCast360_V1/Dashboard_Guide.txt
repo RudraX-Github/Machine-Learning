@@ -1,0 +1,3399 @@
+## 🎯 1. Project Overview & Goals <a id="overview"></a>
+
+### Project Mission
+**AgriCast360** is a comprehensive agricultural commodity price prediction system that analyzes:
+- **68 Commodities** across **19 Markets** in Gujarat's Surat District
+- **14,965 Price Records** with complete weather integration
+- **365 Days** of continuous data (Full Year 2024)
+- **108 Engineered Features** for machine learning predictions
+
+### Dashboard Goals
+1. **Visualize Historical Trends**: Show price movements, seasonality, and volatility
+2. **Weather Impact Analysis**: Display correlation between weather and prices
+3. **Market Intelligence**: Compare markets, commodities, and trading volumes
+4. **Predictive Insights**: Integrate ML model predictions (when available)
+5. **User-Friendly Interface**: Easy navigation, interactive filters, stunning visuals
+
+### Key Insights to Highlight
+- **Price Peak**: June 2024 (₹5,164 average) - Pre-monsoon surge
+- **Price Low**: January-February 2024 (₹3,847 average) - Harvest season
+- **Top Price**: Sesamum at ₹12,010 average
+- **Most Volatile**: Lemon with 226% volatility
+- **Weather Correlation**: Temperature minimum (+0.81) strongest predictor
+- **Seasonal Swing**: 34% price difference between peak and low seasons
+
+---
+
+## 🏗️ 2. Data Architecture Summary <a id="data-architecture"></a>
+
+### Available Data Files
+
+#### Primary Datasets (Processed_Data/)
+
+| File | Size | Records | Columns | Purpose |
+|------|------|---------|---------|---------|
+| **Price_Data_Processed.csv** | 2.5 MB | 14,965 | 18 | Base price data with features |
+| **Features_Engineered.csv** | 303 MB | 14,905 | 112 | ML-ready dataset with 108 features |
+| **Commodity_Summary.csv** | 15 KB | 68 | Multiple | Commodity statistics & rankings |
+| **Market_Summary.csv** | 3 KB | 19 | Multiple | Market-level aggregations |
+| **Monthly_Commodity_Prices.csv** | 250 KB | 8,000+ | Multiple | Time-series breakdowns |
+| **Feature_Correlations.csv** | 3.5 KB | 108 | 2 | Feature importance ranking |
+| **Model_Performance.csv** | - | - | - | ML model metrics (if generated) |
+| **ML_Predictions.csv** | - | - | - | Prediction results (if generated) |
+
+#### Weather Data (csv_exports/)
+- **21 CSV Files**: Individual market weather data
+- **Daily Records**: Temperature, rainfall, wind, cloud cover
+- **Period**: January 1, 2024 - January 1, 2025 (365+ days)
+
+### Data Schema Overview
+
+#### Core Columns (Price_Data_Processed.csv)
+```
+State, District, Market, Commodity, Variety, Grade
+Arrival_Date, Min_Price, Max_Price, Modal_Price
+Commodity_Code, Year, Month, Day, DayName, Quarter
+Price_Range, Price_Volatility_%
+```
+
+#### Weather Integration Columns
+```
+temperature_max, temperature_min, temperature_mean
+precipitation_sum, rain_sum, wind_speed_max
+wind_gusts_max, weather_code, cloud_cover_mean
+```
+
+#### Engineered Features (108 Features in Features_Engineered.csv)
+- **Lagged Price Features** (12): t-1, t-7, t-14, t-30 day lags
+- **Rolling Statistics** (16): 7/14/30-day moving averages, std, min, max
+- **Momentum Features** (3): 1-day, 7-day, 30-day price changes
+- **Seasonal Features** (8): Month, season, day-of-week, sin/cos encodings
+- **Weather Features** (31): Current + lagged temperatures, rainfall, wind, clouds
+- **Business Features** (6): Commodity averages, market averages, volatility
+- **Categorical Features** (12): One-hot encoded markets, grades, days
+
+---
+
+## 🎨 3. Dashboard Design Strategy <a id="design-strategy"></a>
+
+### Dashboard Structure (5-Page Layout)
+
+#### **Page 1: Executive Overview** 📊
+**Purpose**: High-level KPIs and trends at a glance
+
+**Key Visuals**:
+- 🔢 **KPI Cards**: Total records, commodities, markets, average price, date range
+- 📈 **Line Chart**: Monthly price trends (2024)
+- 🗺️ **Map Visual**: Market locations with price indicators
+- 📊 **Bar Chart**: Top 10 commodities by average price
+- 🔥 **Heat Map**: Price volatility by commodity
+
+**Color Scheme**: 
+- Primary: Green (#2E7D32) for agriculture
+- Accent: Gold (#FFD700) for highlights
+- Background: Clean white with subtle green gradient
+
+---
+
+#### **Page 2: Commodity Analysis** 🌾
+**Purpose**: Deep dive into individual commodity performance
+
+**Key Visuals**:
+- 🎯 **Slicer Panel**: Filter by commodity, market, date range
+- 📉 **Line Chart**: Selected commodity price over time (with min/max bands)
+- 📊 **Column Chart**: Price comparison across markets
+- 📈 **Scatter Plot**: Volatility vs. Average Price
+- 📋 **Table**: Commodity rankings with sparklines
+- 🔄 **Price Change Cards**: Daily, Weekly, Monthly % changes
+
+**Interactive Elements**:
+- Commodity dropdown with search
+- Market multi-select checkboxes
+- Date range slider
+- Drill-through to detailed commodity view
+
+---
+
+#### **Page 3: Weather Impact Dashboard** 🌦️
+**Purpose**: Visualize weather-price correlations
+
+**Key Visuals**:
+- 🌡️ **Dual-Axis Chart**: Temperature vs. Price trends
+- 🌧️ **Waterfall Chart**: Rainfall distribution across months
+- ☁️ **Area Chart**: Cloud cover patterns
+- 💨 **Gauge Chart**: Wind speed ranges
+- 📊 **Correlation Matrix**: Visual heatmap of weather-price correlations
+- 📈 **Scatter Plot**: Temperature vs. Price with trendline
+
+**Insights Panel**:
+- "Temperature Minimum has +0.81 correlation with price"
+- "June shows highest prices despite moderate weather"
+- "Monsoon season (Jul-Aug) shows price decline despite rainfall"
+
+---
+
+#### **Page 4: Market Intelligence** 🏪
+**Purpose**: Compare markets and trading patterns
+
+**Key Visuals**:
+- 🗺️ **Filled Map**: Market concentration by volume
+- 📊 **Bar Chart**: Market comparison (total value traded)
+- 📈 **Line Chart**: Market share trends over time
+- 🔄 **Matrix Visual**: Market × Commodity cross-tab
+- 📋 **Table**: Market rankings with conditional formatting
+- 🕐 **Timeline**: Trading activity by day of week
+
+**Market Cards**:
+- Total markets: 19
+- Top market: Surat (highest volume)
+- Average commodities per market: 35-40
+
+---
+
+#### **Page 5: Predictive Analytics** 🔮
+**Purpose**: ML predictions and forecasts (future integration)
+
+**Key Visuals**:
+- 📈 **Forecast Line Chart**: Historical + predicted prices
+- 📊 **Accuracy Gauge**: Model performance metrics
+- 🎯 **Target vs. Actual**: Comparison visual
+- 📋 **Prediction Table**: Next 7-30 days forecast
+- 🔬 **Feature Importance**: Horizontal bar chart
+- ⚙️ **Model Info Cards**: Algorithm, accuracy, last updated
+
+**Note**: This page can use historical data initially and integrate ML predictions once Phase 3 is complete.
+
+---
+
+### Design Principles
+
+#### 1. **Color Psychology**
+- 🟢 **Green**: Agriculture, growth, prosperity
+- 🟡 **Gold/Yellow**: Wealth, commodities
+- 🔵 **Blue**: Trust, stability, water/weather
+- 🔴 **Red**: Alerts, high volatility
+- ⚪ **White/Light Gray**: Clean background
+
+#### 2. **Visual Hierarchy**
+1. **KPIs at Top**: Large, bold numbers
+2. **Main Chart Center**: Primary insight
+3. **Supporting Charts**: Grid layout
+4. **Filters Left**: Easy access
+5. **Insights Right**: Text boxes with findings
+
+#### 3. **Consistency Rules**
+- Same font family throughout (Segoe UI recommended)
+- Consistent color scheme across pages
+- Uniform chart sizes in grids
+- Standard padding/margins (10-15px)
+- Matching border styles
+
+#### 4. **Mobile-First Considerations**
+- Minimum font size: 12pt
+- Touch-friendly buttons (min 44×44px)
+- Simplified mobile layouts
+- Essential filters only on mobile
+- Scrollable sections for long content
+
+---
+
+## 📂 4. Data Sources & Integration <a id="data-sources"></a>
+
+### Step 1: Load Data into Power BI
+
+#### A. Import CSV Files
+
+```
+File → Get Data → Text/CSV
+```
+
+**Primary File**: `Price_Data_Processed.csv`
+- Path: `D:\CUDA_Experiments\Git_HUB\AgriCast360\Script\Processed_Data\Price_Data_Processed.csv`
+- Action: Import
+- Options: 
+  - First row as headers: ✅
+  - Data type detection: Automatic
+  - Delimiter: Comma
+
+**Supporting Files**:
+1. `Commodity_Summary.csv` - Commodity statistics
+2. `Market_Summary.csv` - Market aggregations
+3. `Monthly_Commodity_Prices.csv` - Time series
+4. `Feature_Correlations.csv` - ML insights
+5. Weather files (if needed for granular analysis)
+
+#### B. Data Type Validation
+
+In **Power Query Editor**, verify:
+
+```
+Arrival_Date → Date type
+Modal_Price → Decimal Number (Currency)
+Min_Price → Decimal Number
+Max_Price → Decimal Number
+Price_Volatility_% → Percentage
+Year → Whole Number
+Month → Whole Number
+Day → Whole Number
+Commodity → Text
+Market → Text
+State → Text
+```
+
+---
+
+### Step 2: Create Relationships
+
+#### Data Model Relationships
+
+```
+Price_Data_Processed [Commodity] ←→ Commodity_Summary [Commodity]
+Price_Data_Processed [Market] ←→ Market_Summary [Market]
+Price_Data_Processed [Arrival_Date] ←→ Date_Table [Date] (Create calendar table)
+```
+
+**Cardinality**: Many-to-One (*:1)  
+**Cross-filter Direction**: Both (for interactive filtering)
+
+---
+
+### Step 3: Create Calendar Table
+
+#### DAX Formula for Date Table
+
+```DAX
+Date_Table = 
+ADDCOLUMNS (
+    CALENDAR(DATE(2024, 1, 1), DATE(2025, 1, 1)),
+    "Year", YEAR([Date]),
+    "Month", MONTH([Date]),
+    "Month Name", FORMAT([Date], "MMMM"),
+    "Month Short", FORMAT([Date], "MMM"),
+    "Quarter", "Q" & FORMAT([Date], "Q"),
+    "Week Number", WEEKNUM([Date]),
+    "Day Name", FORMAT([Date], "dddd"),
+    "Day Short", FORMAT([Date], "ddd"),
+    "Day of Year", [Date] - DATE(YEAR([Date]), 1, 1) + 1,
+    "Is Weekend", IF(WEEKDAY([Date]) IN {1, 7}, TRUE, FALSE)
+)
+```
+
+**Mark as Date Table**: Right-click → Mark as Date Table
+
+---
+
+### Step 4: Data Preparation Steps
+
+#### In Power Query, create these transformations:
+
+1. **Remove Duplicates** (if any)
+```
+Right-click column → Remove Duplicates
+```
+
+2. **Create Price Range Category**
+```M
+= Table.AddColumn(
+    PreviousStep, 
+    "Price Category", 
+    each if [Modal_Price] < 2000 then "Low"
+         else if [Modal_Price] < 5000 then "Medium"
+         else if [Modal_Price] < 10000 then "High"
+         else "Premium"
+)
+```
+
+3. **Create Season Column**
+```M
+= Table.AddColumn(
+    PreviousStep,
+    "Season",
+    each if [Month] >= 3 and [Month] <= 5 then "Spring"
+         else if [Month] >= 6 and [Month] <= 8 then "Monsoon"
+         else if [Month] >= 9 and [Month] <= 11 then "Autumn"
+         else "Winter"
+)
+```
+
+4. **Create Volatility Category**
+```M
+= Table.AddColumn(
+    PreviousStep,
+    "Volatility Level",
+    each if [Price_Volatility_%] < 50 then "Stable"
+         else if [Price_Volatility_%] < 100 then "Moderate"
+         else if [Price_Volatility_%] < 150 then "High"
+         else "Very High"
+)
+```
+
+---
+
+### Step 5: Optional - Weather Data Integration
+
+If you want granular weather analysis:
+
+1. **Load weather CSVs** from `csv_exports/` folder
+2. **Combine all weather files** using "Append Queries"
+3. **Create relationship**: 
+   ```
+   Weather [market_name] ←→ Price_Data [Market]
+   Weather [time] ←→ Price_Data [Arrival_Date]
+   ```
+
+**Note**: This is optional since `Price_Data_Processed.csv` already includes basic weather features.
+
+---
+
+
+## 📊 5. Visual Components Guide <a id="visual-components"></a>
+
+### Essential Visuals for Each Page
+
+---
+
+#### **Page 1: Executive Overview**
+
+##### 1. KPI Cards (Top Row)
+```
+Visual: Card
+Data Field: 
+  - Total Records: COUNT(Price_Data[Modal_Price])
+  - Total Commodities: DISTINCTCOUNT(Price_Data[Commodity])
+  - Total Markets: DISTINCTCOUNT(Price_Data[Market])
+  - Average Price: AVERAGE(Price_Data[Modal_Price])
+  - Date Range: MIN/MAX(Price_Data[Arrival_Date])
+
+Formatting:
+  - Font Size: 32pt (value), 12pt (label)
+  - Color: Dark Green (#2E7D32)
+  - Background: White with subtle shadow
+  - Icon: Add relevant icon (📊, 🌾, 🏪, 💰, 📅)
+```
+
+##### 2. Monthly Price Trend Line Chart
+```
+Visual: Line Chart
+X-Axis: Month Name (from Date_Table)
+Y-Axis: Average Modal Price
+Legend: None or Commodity (if comparing)
+
+Formatting:
+  - Line Color: Green gradient
+  - Line Width: 3px
+  - Data Labels: Show values
+  - Gridlines: Light gray
+  - Background: Transparent
+```
+
+##### 3. Market Map
+```
+Visual: Map or Filled Map
+Location: Market (with latitude/longitude if available)
+Size: Total Value (SUM of Modal_Price)
+Color: Average Price (gradient)
+
+Formatting:
+  - Bubble size: Medium
+  - Color Scale: Light Green → Dark Green
+  - Labels: Market names
+  - Zoom: Gujarat region
+```
+
+##### 4. Top Commodities Bar Chart
+```
+Visual: Horizontal Bar Chart
+Y-Axis: Commodity (Top 10)
+X-Axis: Average Modal Price
+Data Labels: Show values with ₹ symbol
+
+Formatting:
+  - Bars: Gold (#FFD700) gradient
+  - Sort: Descending by price
+  - Font: Bold for commodity names
+```
+
+##### 5. Volatility Heatmap
+```
+Visual: Matrix or Table with Conditional Formatting
+Rows: Commodity
+Values: Price_Volatility_%
+
+Conditional Formatting:
+  - Low (0-50%): Green
+  - Medium (50-100%): Yellow
+  - High (100-150%): Orange
+  - Very High (150%+): Red
+```
+
+---
+
+#### **Page 2: Commodity Analysis**
+
+##### 1. Slicer Panel (Left Side)
+```
+Visual: Multiple Slicers
+1. Commodity Slicer
+   - Style: Dropdown with search
+   - Default: All selected
+   
+2. Market Slicer
+   - Style: Checkbox list
+   - Vertical layout
+   
+3. Date Range Slicer
+   - Style: Between slider
+   - Range: Full year 2024
+   
+4. Price Category Slicer
+   - Style: Buttons
+   - Options: Low, Medium, High, Premium
+```
+
+##### 2. Price Trend with Bands
+```
+Visual: Line and Clustered Column Chart
+X-Axis: Arrival_Date
+Y-Axis (Line): Modal_Price
+Y-Axis (Columns): Min_Price and Max_Price (as range)
+
+Formatting:
+  - Line: Solid green, 3px
+  - Columns: Transparent with border (shows range)
+  - Legend: Top right
+  - Tooltip: Enhanced with price details
+```
+
+##### 3. Market Comparison Column Chart
+```
+Visual: Clustered Column Chart
+X-Axis: Market
+Y-Axis: Average Modal_Price
+Color: By Market
+
+Formatting:
+  - Gradient colors
+  - Data labels on bars
+  - Sort: Descending
+```
+
+##### 4. Volatility vs Price Scatter
+```
+Visual: Scatter Chart
+X-Axis: Average Modal_Price
+Y-Axis: Price_Volatility_%
+Size: Record Count
+Color: Commodity Category
+
+Formatting:
+  - Bubbles: Semi-transparent
+  - Trendline: Enable
+  - Quadrant lines: Optional
+```
+
+##### 5. Commodity Rankings Table
+```
+Visual: Table
+Columns:
+  - Commodity Name
+  - Average Price (with ₹ formatting)
+  - Min Price
+  - Max Price
+  - Volatility %
+  - Record Count
+  - Sparkline (trend)
+
+Formatting:
+  - Alternate row colors
+  - Top 3 rows: Bold & highlighted
+  - Price columns: Currency format
+  - Sorting: By Average Price (descending)
+```
+
+---
+
+#### **Page 3: Weather Impact**
+
+##### 1. Temperature vs Price Dual-Axis
+```
+Visual: Line and Clustered Column Chart
+X-Axis: Month
+Y-Axis (Primary): Average Modal_Price (Line)
+Y-Axis (Secondary): Avg Temperature (Columns)
+
+Formatting:
+  - Price Line: Green, solid
+  - Temp Columns: Orange gradient
+  - Dual Y-axes: Different scales
+  - Legend: Top center
+```
+
+##### 2. Rainfall Distribution Waterfall
+```
+Visual: Waterfall Chart
+Category: Month Name
+Y-Axis: Total Rainfall (rain_sum)
+
+Formatting:
+  - Increase: Blue
+  - Decrease: Light blue
+  - Total: Dark blue
+  - Connector lines: Dotted
+```
+
+##### 3. Cloud Cover Area Chart
+```
+Visual: Area Chart
+X-Axis: Date
+Y-Axis: Average Cloud Cover %
+
+Formatting:
+  - Fill: Gray gradient (0% → 100% opacity)
+  - Line: Dark gray, 2px
+  - Area below line: Semi-transparent
+```
+
+##### 4. Wind Speed Gauge
+```
+Visual: Gauge
+Value: Average Wind Speed
+Min: 0
+Max: 100 (or maximum in data)
+Target: Average across all data
+
+Formatting:
+  - Color Coding:
+    - 0-30: Green (Calm)
+    - 30-60: Yellow (Moderate)
+    - 60-100: Red (Strong)
+```
+
+##### 5. Correlation Matrix Heatmap
+```
+Visual: Matrix
+Rows: Weather variables (Temp, Rain, Wind, Cloud)
+Columns: Price metrics (Modal, Min, Max, Volatility)
+Values: Correlation coefficient
+
+Data Bars: Enable
+Color Scale:
+  - Negative correlation: Red scale
+  - Positive correlation: Green scale
+  - Zero: White
+```
+
+---
+
+#### **Page 4: Market Intelligence**
+
+##### 1. Filled Map with Market Concentration
+```
+Visual: Filled Map
+Location: Market
+Color Saturation: Total Trading Volume
+Tooltip: Market name, total value, commodity count
+
+Formatting:
+  - Default color: Light green
+  - Highest volume: Dark green
+  - Borders: White
+  - Zoom: Gujarat
+```
+
+##### 2. Market Value Comparison
+```
+Visual: Horizontal Bar Chart
+Y-Axis: Market Name
+X-Axis: Total Trading Value (SUM of Modal_Price × Records)
+Data Labels: Show ₹ values
+
+Formatting:
+  - Gradient: Yellow to gold
+  - Sort: Descending
+  - Top market: Highlighted
+```
+
+##### 3. Market Share Trend
+```
+Visual: 100% Stacked Area Chart
+X-Axis: Month
+Y-Axis: % of Total Value
+Legend: Top Markets
+
+Formatting:
+  - Colors: Distinct for each market
+  - Smooth lines: Enable
+  - Tooltip: Show absolute values + %
+```
+
+##### 4. Market × Commodity Matrix
+```
+Visual: Matrix
+Rows: Market
+Columns: Commodity (Top 20)
+Values: Average Price
+
+Formatting:
+  - Conditional formatting: Color scale
+  - Subtotals: Row totals
+  - Drill-down: Enable
+```
+
+##### 5. Day-of-Week Timeline
+```
+Visual: Line Chart
+X-Axis: Day Name (Monday-Sunday)
+Y-Axis: Record Count (trading activity)
+
+Formatting:
+  - Line: Blue
+  - Markers: Circles
+  - Highlight: Weekend days (different color)
+```
+
+---
+
+#### **Page 5: Predictive Analytics** (Future)
+
+##### 1. Forecast Line Chart
+```
+Visual: Line Chart with Forecast
+X-Axis: Date (Historical + Future)
+Y-Axis: Modal Price
+Series:
+  - Historical (solid line)
+  - Predicted (dashed line)
+  - Confidence interval (shaded area)
+
+Formatting:
+  - Historical: Green solid
+  - Predicted: Blue dashed
+  - Confidence: Light blue transparent
+```
+
+##### 2. Model Accuracy Gauge
+```
+Visual: Gauge
+Value: Model Accuracy % (from ML_Predictions)
+Target: 85% (project goal)
+
+Color Zones:
+  - 0-70%: Red (Poor)
+  - 70-85%: Yellow (Good)
+  - 85-100%: Green (Excellent)
+```
+
+##### 3. Feature Importance Chart
+```
+Visual: Horizontal Bar Chart
+Y-Axis: Feature Name (Top 15)
+X-Axis: Importance Score (from Feature_Correlations.csv)
+
+Formatting:
+  - Sort: Descending
+  - Top 5: Gold color
+  - Others: Green gradient
+  - Data labels: Correlation values
+```
+
+---
+
+### Visual Best Practices
+
+#### Do's ✅
+- Use consistent chart types for similar data
+- Add clear titles and labels
+- Enable tooltips with additional context
+- Use appropriate color scales (sequential for continuous, categorical for discrete)
+- Show data labels for key insights
+- Enable drill-through for detailed analysis
+- Use slicers for user control
+
+#### Don'ts ❌
+- Don't overcrowd visuals with too much data
+- Avoid 3D effects (they distort perception)
+- Don't use pie charts for >5 categories
+- Avoid rainbow color schemes (use max 5-7 colors)
+- Don't show unnecessary decimal places
+- Avoid cluttered legends
+- Don't use small fonts (<10pt)
+
+---
+
+## 🧮 6. DAX Measures & Calculations <a id="dax-measures"></a>
+
+### Essential Measures for Dashboard
+
+Create these measures in Power BI by going to **Modeling → New Measure**
+
+---
+
+#### Basic Aggregations
+
+```DAX
+// Total Records
+Total Records = COUNT(Price_Data[Modal_Price])
+
+// Average Price
+Average Price = AVERAGE(Price_Data[Modal_Price])
+
+// Total Commodities
+Total Commodities = DISTINCTCOUNT(Price_Data[Commodity])
+
+// Total Markets
+Total Markets = DISTINCTCOUNT(Price_Data[Market])
+
+// Total Trading Value (approximate)
+Total Trading Value = SUMX(Price_Data, Price_Data[Modal_Price] * 1)
+```
+
+---
+
+#### Price Analysis Measures
+
+```DAX
+// Minimum Price
+Min Price = MIN(Price_Data[Min_Price])
+
+// Maximum Price
+Max Price = MAX(Price_Data[Max_Price])
+
+// Price Range
+Price Range = [Max Price] - [Min Price]
+
+// Average Volatility
+Average Volatility = AVERAGE(Price_Data[Price_Volatility_%])
+
+// Weighted Average Price (by volume, if available)
+Weighted Avg Price = 
+DIVIDE(
+    SUMX(Price_Data, Price_Data[Modal_Price] * 1),
+    COUNT(Price_Data[Modal_Price])
+)
+```
+
+---
+
+#### Time Intelligence Measures
+
+```DAX
+// Previous Month Price
+Previous Month Price = 
+CALCULATE(
+    [Average Price],
+    DATEADD(Date_Table[Date], -1, MONTH)
+)
+
+// Month-over-Month Change
+MoM Change = [Average Price] - [Previous Month Price]
+
+// MoM % Change
+MoM % Change = 
+DIVIDE(
+    [MoM Change],
+    [Previous Month Price],
+    0
+)
+
+// Year-to-Date Average
+YTD Average Price = 
+CALCULATE(
+    [Average Price],
+    DATESYTD(Date_Table[Date])
+)
+
+// Moving Average 7-Day
+MA7 = 
+CALCULATE(
+    [Average Price],
+    DATESINPERIOD(Date_Table[Date], LASTDATE(Date_Table[Date]), -7, DAY)
+)
+
+// Moving Average 30-Day
+MA30 = 
+CALCULATE(
+    [Average Price],
+    DATESINPERIOD(Date_Table[Date], LASTDATE(Date_Table[Date]), -30, DAY)
+)
+```
+
+---
+
+#### Comparative Measures
+
+```DAX
+// Price vs Market Average
+Price vs Market Avg = 
+VAR MarketAvg = CALCULATE([Average Price], ALL(Price_Data[Market]))
+VAR CommodityPrice = [Average Price]
+RETURN CommodityPrice - MarketAvg
+
+// Price Index (Base = 100 in January)
+Price Index = 
+VAR BasePrice = 
+    CALCULATE(
+        [Average Price],
+        Date_Table[Month] = 1
+    )
+RETURN DIVIDE([Average Price], BasePrice, 0) * 100
+
+// Rank by Price
+Price Rank = 
+RANKX(
+    ALL(Price_Data[Commodity]),
+    [Average Price],
+    ,
+    DESC,
+    DENSE
+)
+
+// Top N Commodities
+Is Top 10 Commodity = IF([Price Rank] <= 10, TRUE(), FALSE())
+```
+
+---
+
+#### Statistical Measures
+
+```DAX
+// Standard Deviation
+Price Std Dev = STDEV.P(Price_Data[Modal_Price])
+
+// Coefficient of Variation (CV)
+Price CV = DIVIDE([Price Std Dev], [Average Price], 0) * 100
+
+// Price Percentiles
+Price 25th Percentile = PERCENTILE.INC(Price_Data[Modal_Price], 0.25)
+Price 50th Percentile = PERCENTILE.INC(Price_Data[Modal_Price], 0.50)
+Price 75th Percentile = PERCENTILE.INC(Price_Data[Modal_Price], 0.75)
+
+// Interquartile Range
+IQR = [Price 75th Percentile] - [Price 25th Percentile]
+```
+
+---
+
+#### Weather-Related Measures
+
+```DAX
+// Average Temperature (if weather data loaded)
+Avg Temperature = 
+AVERAGE(Price_Data[temperature_mean])
+
+// Total Rainfall
+Total Rainfall = SUM(Price_Data[rain_sum])
+
+// Rainy Days Count
+Rainy Days = 
+CALCULATE(
+    COUNT(Price_Data[Arrival_Date]),
+    Price_Data[rain_sum] > 0
+)
+
+// Temperature-Price Correlation (simplified)
+Temp Price Correlation = 
+// Note: Requires Python/R visual for true correlation
+// This is a directional indicator
+VAR TempTable = 
+    SUMMARIZE(
+        Price_Data,
+        Price_Data[Arrival_Date],
+        "AvgTemp", AVERAGE(Price_Data[temperature_mean]),
+        "AvgPrice", AVERAGE(Price_Data[Modal_Price])
+    )
+RETURN
+    // Return count for visualization
+    COUNTROWS(TempTable)
+```
+
+---
+
+#### Conditional Formatting Measures
+
+```DAX
+// Price Status Color
+Price Status Color = 
+SWITCH(
+    TRUE(),
+    [Average Price] < 2000, "Red",
+    [Average Price] < 5000, "Yellow",
+    [Average Price] < 10000, "Green",
+    "Gold"
+)
+
+// Volatility Status
+Volatility Status = 
+SWITCH(
+    TRUE(),
+    [Average Volatility] < 50, "Stable",
+    [Average Volatility] < 100, "Moderate",
+    [Average Volatility] < 150, "High",
+    "Very High"
+)
+
+// Performance Indicator
+Performance Indicator = 
+IF([MoM % Change] > 0, "▲", IF([MoM % Change] < 0, "▼", "●"))
+```
+
+---
+
+#### KPI Measures
+
+```DAX
+// Price Growth Rate (YoY if multi-year, otherwise MoM)
+Growth Rate = [MoM % Change]
+
+// Market Share %
+Market Share % = 
+DIVIDE(
+    CALCULATE([Total Records], ALLSELECTED(Price_Data[Commodity])),
+    CALCULATE([Total Records], ALL(Price_Data[Commodity]))
+) * 100
+
+// Record Density (records per day)
+Record Density = 
+DIVIDE(
+    [Total Records],
+    DISTINCTCOUNT(Price_Data[Arrival_Date]),
+    0
+)
+
+// Active Commodities (with records in period)
+Active Commodities = 
+CALCULATE(
+    DISTINCTCOUNT(Price_Data[Commodity]),
+    Price_Data[Modal_Price] <> BLANK()
+)
+```
+
+---
+
+#### Advanced Analytics Measures
+
+```DAX
+// Seasonality Index
+Seasonality Index = 
+VAR AnnualAvg = CALCULATE([Average Price], ALL(Date_Table[Month]))
+VAR MonthlyAvg = [Average Price]
+RETURN DIVIDE(MonthlyAvg, AnnualAvg, 1) * 100
+
+// Volatility Score (normalized 0-100)
+Volatility Score = 
+VAR MaxVol = CALCULATE(MAX(Price_Data[Price_Volatility_%]), ALL())
+VAR CurrentVol = [Average Volatility]
+RETURN DIVIDE(CurrentVol, MaxVol, 0) * 100
+
+// Trend Direction
+Trend Direction = 
+VAR CurrentPeriod = [Average Price]
+VAR PreviousPeriod = [Previous Month Price]
+RETURN
+    SWITCH(
+        TRUE(),
+        CurrentPeriod > PreviousPeriod * 1.05, "Strong Up",
+        CurrentPeriod > PreviousPeriod, "Up",
+        CurrentPeriod < PreviousPeriod * 0.95, "Strong Down",
+        CurrentPeriod < PreviousPeriod, "Down",
+        "Stable"
+    )
+```
+
+---
+
+#### Text Measures for Display
+
+```DAX
+// Date Range Text
+Date Range = 
+"From " & FORMAT(MIN(Price_Data[Arrival_Date]), "DD MMM YYYY") & 
+" to " & FORMAT(MAX(Price_Data[Arrival_Date]), "DD MMM YYYY")
+
+// Top Commodity Text
+Top Commodity = 
+VAR TopComm = 
+    TOPN(
+        1,
+        VALUES(Price_Data[Commodity]),
+        [Average Price],
+        DESC
+    )
+RETURN
+    CONCATENATEX(TopComm, Price_Data[Commodity], ", ")
+
+// Summary Text
+Price Summary = 
+"Average: ₹" & FORMAT([Average Price], "#,##0") & 
+" | Range: ₹" & FORMAT([Price Range], "#,##0") &
+" | Volatility: " & FORMAT([Average Volatility], "0.0%")
+```
+
+---
+
+### Measure Organization
+
+Create **Measure Tables** for better organization:
+
+1. **_Measures - Basic**: Total Records, Average Price, etc.
+2. **_Measures - Time Intelligence**: MoM, YTD, MA7, MA30
+3. **_Measures - Statistical**: Std Dev, Percentiles, CV
+4. **_Measures - Weather**: Temperature, Rainfall measures
+5. **_Measures - Display**: Text measures, formatting
+
+**Right-click in Fields pane → New Table → Create hidden measure table**
+
+---
+
+
+## 🔄 7. Interactive Features <a id="interactive-features"></a>
+
+### Slicers & Filters
+
+#### 1. Global Filters (Applied to All Pages)
+
+**Date Range Slicer**
+```
+Type: Between slider
+Field: Arrival_Date
+Position: Top right of every page
+Style: Horizontal slider with date labels
+Default: Full year 2024
+```
+
+**Commodity Multi-Select**
+```
+Type: Dropdown with search
+Field: Commodity
+Position: Top left filter panel
+Allow Multiple: Yes
+Show "Select All": Yes
+```
+
+**Market Filter**
+```
+Type: Checkbox list
+Field: Market
+Position: Left panel
+Layout: Vertical
+Limit: Show all 19 markets
+```
+
+---
+
+#### 2. Page-Specific Filters
+
+**Executive Overview Page**
+- Price Category slicer (Low/Medium/High/Premium)
+- Quarter filter
+
+**Commodity Analysis Page**
+- Volatility Level slicer
+- Season filter
+- Grade filter
+
+**Weather Impact Page**
+- Weather Code filter
+- Temperature Range slicer
+- Rainfall Category filter
+
+**Market Intelligence Page**
+- Day of Week filter
+- Month selector
+
+---
+
+### Drill-Through Actions
+
+#### Commodity Detail Drill-Through
+
+**Setup**:
+1. Create new page: "Commodity Detail"
+2. Right-click page → Add drill-through field → Commodity
+3. Design page with:
+   - Commodity name as title
+   - Detailed price history chart
+   - Market-by-market breakdown
+   - Weather correlation specific to commodity
+   - Statistical summary
+
+**User Experience**:
+- Right-click any commodity → Drill through → Commodity Detail
+- Back button appears automatically
+
+---
+
+#### Market Detail Drill-Through
+
+**Setup**:
+1. Create page: "Market Detail"
+2. Add drill-through field → Market
+3. Include:
+   - Market location map
+   - Top commodities in this market
+   - Trading volume over time
+   - Market-specific weather patterns
+
+---
+
+### Bookmarks & Navigation
+
+#### Create Bookmarks for Views
+
+```
+View → Bookmarks → New Bookmark
+```
+
+**Bookmark Examples**:
+
+1. **High Value Commodities**
+   - Filter: Price > ₹8,000
+   - Highlight: Top 10 commodities
+   - Page: Executive Overview
+
+2. **Volatile Markets**
+   - Filter: Volatility > 100%
+   - Chart: Focus on lemon, onion, tomato
+   - Page: Commodity Analysis
+
+3. **Monsoon Impact**
+   - Filter: Month = June, July, August
+   - Show: Weather correlation charts
+   - Page: Weather Impact
+
+4. **Peak Season**
+   - Filter: Month = June
+   - Highlight: Price peaks
+   - Page: Executive Overview
+
+**Add Bookmark Navigator**:
+- Insert → Buttons → Navigator → Bookmarks
+- Position: Top navigation bar
+
+---
+
+### Tooltips (Enhanced)
+
+#### Custom Tooltip Pages
+
+**Create Tooltip Page**:
+1. Insert → New Page → Name: "Commodity Tooltip"
+2. Page Settings:
+   - Check "Allow use as tooltip"
+   - Canvas Settings: Tooltip size (320×240px)
+
+**Tooltip Content**:
+```
+- Commodity Name (large font)
+- Average Price (₹ format)
+- Price Range (Min - Max)
+- Record Count
+- Small trend sparkline
+- Volatility indicator
+```
+
+**Apply Tooltip**:
+- Select visual → Visualizations → Tooltips → Report page
+- Choose: "Commodity Tooltip"
+
+---
+
+### Sync Slicers Across Pages
+
+**Setup**:
+1. View → Sync Slicers
+2. Select slicer (e.g., Date Range)
+3. In Sync Slicers pane:
+   - Check pages where it should appear
+   - Check pages where it should sync
+4. Repeat for all global slicers
+
+**Recommended Sync**:
+- Date Range: All pages ✅
+- Commodity Filter: All pages ✅
+- Market Filter: All except Executive Overview
+- Price Category: Executive Overview, Commodity Analysis
+
+---
+
+### Cross-Filtering Behavior
+
+#### Configure Visual Interactions
+
+**For each visual**:
+1. Click visual to select
+2. Format → Edit interactions
+3. Choose interaction type for each other visual:
+   - **Filter** 🔽: Apply filter
+   - **Highlight** 💡: Highlight data
+   - **None** ⊘: No interaction
+
+**Recommended Settings**:
+
+| Source Visual | Target Visual | Interaction |
+|---------------|---------------|-------------|
+| Commodity List | Price Chart | Filter |
+| Market Map | All charts | Filter |
+| Date Slicer | All charts | Filter |
+| Volatility Chart | Price Chart | Highlight |
+| Bar Charts | Line Charts | Filter |
+| KPI Cards | - | None |
+
+---
+
+### Buttons & Navigation
+
+#### Create Navigation Buttons
+
+**Add Button**:
+```
+Insert → Buttons → Blank
+```
+
+**Button Properties**:
+```
+Action: On
+Type: Page navigation
+Destination: [Target Page]
+
+Style:
+- Background: Green (#2E7D32)
+- Text: White, 14pt, Bold
+- Border: 2px, rounded corners
+- Hover: Lighter green
+- Icon: Optional (home, arrow, etc.)
+```
+
+**Button Layout**:
+```
+[📊 Overview] [🌾 Commodities] [🌦️ Weather] [🏪 Markets] [🔮 Predictions]
+```
+Position: Top center, consistent across all pages
+
+---
+
+#### Reset Filters Button
+
+```
+Insert → Buttons → Blank
+Text: "Reset All Filters"
+Action: Bookmark → Create bookmark with no filters applied
+
+Position: Near slicers
+Color: Light gray (secondary action)
+```
+
+---
+
+### Dynamic Titles
+
+#### Title with Selected Filters
+
+Create text box with dynamic content:
+
+```DAX
+// Dynamic Title Measure
+Dynamic Title = 
+VAR SelectedCommodity = 
+    IF(
+        ISFILTERED(Price_Data[Commodity]),
+        " - " & SELECTEDVALUE(Price_Data[Commodity], "Multiple"),
+        ""
+    )
+VAR SelectedMarket = 
+    IF(
+        ISFILTERED(Price_Data[Market]),
+        " - " & SELECTEDVALUE(Price_Data[Market], "Multiple"),
+        ""
+    )
+RETURN
+    "Agricultural Price Analysis" & SelectedCommodity & SelectedMarket
+```
+
+Insert as Card visual, style as title
+
+---
+
+### What-If Parameters
+
+#### Create Price Scenario Parameter
+
+```
+Modeling → New Parameter
+Name: Price Adjustment %
+Data Type: Decimal
+Minimum: -50
+Maximum: 50
+Increment: 5
+Default: 0
+```
+
+**Use in Measure**:
+```DAX
+Adjusted Price = 
+[Average Price] * (1 + 'Price Adjustment %'[Price Adjustment % Value] / 100)
+```
+
+Display slider on Executive Overview for scenario analysis
+
+---
+
+### Performance Tips
+
+#### Optimize Interactions
+
+1. **Reduce Visual Count**: Max 10-12 visuals per page
+2. **Limit Slicer Items**: Use hierarchies or limit to top N
+3. **Disable Unnecessary Cross-Filters**: Set to "None" where not needed
+4. **Use Aggregated Tables**: Pre-aggregate data for large datasets
+5. **Optimize DAX**: Use variables, avoid expensive functions in iterators
+
+---
+
+## 🎨 8. Design & Styling Tips <a id="design-tips"></a>
+
+### Theme & Branding
+
+#### Custom Theme JSON
+
+Create `AgriCast360_Theme.json`:
+
+```json
+{
+  "name": "AgriCast360",
+  "dataColors": [
+    "#2E7D32", "#66BB6A", "#FFD700", "#FFA726", 
+    "#42A5F5", "#AB47BC", "#26A69A", "#EF5350"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#212121",
+  "tableAccent": "#2E7D32",
+  "good": "#66BB6A",
+  "neutral": "#FFA726",
+  "bad": "#EF5350",
+  "textClasses": {
+    "title": {
+      "fontFamily": "Segoe UI",
+      "fontSize": 24,
+      "fontColor": "#2E7D32"
+    },
+    "header": {
+      "fontFamily": "Segoe UI Semibold",
+      "fontSize": 18,
+      "fontColor": "#424242"
+    },
+    "label": {
+      "fontFamily": "Segoe UI",
+      "fontSize": 12,
+      "fontColor": "#616161"
+    }
+  }
+}
+```
+
+**Import Theme**:
+```
+View → Themes → Browse for themes → Select AgriCast360_Theme.json
+```
+
+---
+
+### Color Palette
+
+#### Primary Colors
+
+| Color | Hex Code | Usage |
+|-------|----------|-------|
+| 🟢 Forest Green | `#2E7D32` | Primary brand, headers, KPIs |
+| 🟢 Light Green | `#66BB6A` | Secondary elements, charts |
+| 🟢 Mint | `#A5D6A7` | Backgrounds, highlights |
+| 🟡 Gold | `#FFD700` | Premium commodities, accents |
+| 🟠 Orange | `#FFA726` | Warnings, medium volatility |
+| 🔴 Red | `#EF5350` | Alerts, high volatility |
+| 🔵 Blue | `#42A5F5` | Water/weather related |
+| ⚪ White | `#FFFFFF` | Background, clean space |
+| ⚫ Dark Gray | `#212121` | Text, borders |
+
+#### Gradient Examples
+
+**Price Gradient** (Low → High):
+```
+Light Green (#A5D6A7) → Forest Green (#2E7D32) → Gold (#FFD700)
+```
+
+**Volatility Gradient** (Stable → Volatile):
+```
+Green (#66BB6A) → Yellow (#FFD700) → Orange (#FFA726) → Red (#EF5350)
+```
+
+**Temperature Gradient** (Cool → Hot):
+```
+Blue (#42A5F5) → White (#FFFFFF) → Orange (#FFA726) → Red (#EF5350)
+```
+
+---
+
+### Typography
+
+#### Font Hierarchy
+
+```
+Page Title: Segoe UI Bold, 28pt, #2E7D32
+Section Header: Segoe UI Semibold, 20pt, #424242
+Visual Title: Segoe UI Semibold, 14pt, #616161
+Body Text: Segoe UI, 11pt, #757575
+Data Labels: Segoe UI, 10pt, #212121
+KPI Value: Segoe UI Bold, 32pt, #2E7D32
+KPI Label: Segoe UI, 12pt, #757575
+```
+
+#### Font Pairing
+
+**Primary Font**: Segoe UI (built-in, clean, professional)
+**Accent Font**: Segoe UI Semibold (for emphasis)
+**Data Font**: Segoe UI (maintain consistency)
+
+---
+
+### Layout & Grid
+
+#### Grid System
+
+**Page Dimensions**: 1280×720 (16:9 ratio for optimal viewing)
+
+**Grid Layout** (8-column system):
+```
+┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│  Col 1  │  Col 2  │  Col 3  │  Col 4  │  Col 5  │  Col 6  │  Col 7  │  Col 8  │
+├─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┤
+│ Header / Navigation (Full Width)                                               │
+├─────────┬─────────┬─────────────────────────────────────────┬─────────┬─────────┤
+│ Sidebar │ Filters │ Main Content Area (4-5 cols)            │ Insight │ Insight │
+│ (1 col) │ (1 col) │                                         │ (1 col) │ (1 col) │
+└─────────┴─────────┴─────────────────────────────────────────┴─────────┴─────────┘
+```
+
+**Spacing**:
+- Padding: 15px between visuals
+- Margin: 20px from page edges
+- Visual height: 250-350px (medium charts)
+- KPI card height: 100-120px
+
+---
+
+### Visual Styling Standards
+
+#### KPI Cards
+
+```
+Background: White
+Border: 2px solid #E0E0E0
+Border Radius: 8px
+Shadow: 0px 2px 4px rgba(0,0,0,0.1)
+Padding: 15px
+Icon: 32×32px, aligned left
+Value: 32pt Bold, #2E7D32, centered
+Label: 12pt, #757575, centered below value
+```
+
+#### Charts
+
+**General Settings**:
+```
+Background: Transparent
+Grid Lines: Light gray (#E0E0E0), 1px
+Axis Lines: Dark gray (#424242), 2px
+Data Labels: 10pt, #212121
+Legend: Top right, 11pt
+Title: 14pt Semibold, #616161
+```
+
+**Bar Charts**:
+```
+Bar Width: Auto
+Gap: 20%
+Border: None
+Gradient: Enable for premium look
+Data Labels: Outside end
+```
+
+**Line Charts**:
+```
+Line Width: 3px
+Markers: Optional (use for sparse data)
+Area Fill: Optional (20% opacity)
+Smooth Lines: Enable
+```
+
+**Maps**:
+```
+Style: Road (for India)
+Zoom: Auto-fit to Gujarat
+Bubbles: Semi-transparent (70%)
+Labels: Show for top markets
+```
+
+---
+
+### Background & Canvas
+
+#### Page Background
+
+**Option 1: Solid Color**
+```
+Color: White (#FFFFFF)
+Transparency: 0%
+```
+
+**Option 2: Subtle Gradient**
+```
+Type: Linear gradient
+Colors: White (#FFFFFF) → Light Green (#F1F8E9)
+Direction: Top to bottom
+Transparency: 95%
+```
+
+**Option 3: Branded Background**
+```
+Image: Light watermark of grain/agriculture
+Opacity: 5-10%
+Fit: Tile or Fit
+Layer: Send to back
+```
+
+#### Canvas Background
+
+```
+Color: Light gray (#FAFAFA)
+Wallpaper: Optional branded image
+Transparency: 0%
+```
+
+---
+
+### Icons & Graphics
+
+#### Recommended Icon Set
+
+Use **Flaticon** or **Font Awesome** for consistency:
+
+```
+📊 Overview: Bar chart icon
+🌾 Commodities: Wheat/grain icon
+🌦️ Weather: Cloud/sun icon
+🏪 Markets: Shopping bag/store icon
+🔮 Predictions: Crystal ball/trend icon
+📈 Trend Up: Arrow up
+📉 Trend Down: Arrow down
+💰 Price: Rupee symbol
+📅 Date: Calendar icon
+🎯 Target: Bullseye icon
+⚠️ Alert: Warning triangle
+✅ Success: Check mark
+```
+
+**Icon Properties**:
+- Size: 24×24px (standard), 32×32px (prominent)
+- Color: Match theme (#2E7D32 primary)
+- Style: Flat, no shadows
+- Format: SVG or PNG with transparency
+
+---
+
+### Conditional Formatting
+
+#### Price-Based Coloring
+
+```DAX
+// Data Bar Gradient
+Minimum: Light Green (#A5D6A7) at 0
+Center: Forest Green (#2E7D32) at average
+Maximum: Gold (#FFD700) at max
+```
+
+#### Volatility-Based Coloring
+
+```
+Rules:
+  If Volatility < 50: Green (#66BB6A)
+  If Volatility < 100: Yellow (#FFD700)
+  If Volatility < 150: Orange (#FFA726)
+  Else: Red (#EF5350)
+```
+
+#### Traffic Light Indicators
+
+```
+KPI Status:
+  Good: Green circle ●
+  Neutral: Yellow circle ●
+  Bad: Red circle ●
+
+Trend Arrows:
+  Positive: Green ▲
+  Neutral: Gray ●
+  Negative: Red ▼
+```
+
+---
+
+### Animation & Transitions
+
+#### Enable Smooth Transitions
+
+```
+File → Options and Settings → Options
+→ Report Settings
+→ Enable "Persistent filters"
+→ Enable "Cross-report drillthrough"
+
+Visual Settings:
+→ Animation: On
+→ Duration: 300ms
+→ Easing: Ease-in-out
+```
+
+#### Page Transition Effects
+
+```
+View → Page Navigator
+→ Fade in/out: 200ms
+→ Slide: From right (50ms)
+```
+
+---
+
+### Accessibility
+
+#### Ensure Accessible Design
+
+**Color Contrast**:
+- Text on white: Minimum contrast ratio 4.5:1
+- Use dark text (#212121) on light backgrounds
+- Avoid red-green combinations only
+
+**Alt Text**:
+- Add descriptive alt text to all visuals
+- Format → General → Alt text → Add description
+
+**Tab Order**:
+- Set logical tab order for keyboard navigation
+- View → Selection → Tab order
+
+**High Contrast**:
+- Test with Windows High Contrast mode
+- Ensure all visuals are visible
+
+---
+
+### Mobile Layout
+
+#### Optimize for Mobile
+
+```
+View → Mobile Layout
+```
+
+**Mobile Specific Design**:
+- Single column layout
+- Larger fonts (minimum 14pt)
+- Touch-friendly filters (sliders, dropdowns)
+- Simplified visuals (fewer data points)
+- Priority: KPIs → Main chart → Key insights
+
+**Mobile Page Structure**:
+```
+┌─────────────────┐
+│ Navigation      │
+├─────────────────┤
+│ Date Filter     │
+├─────────────────┤
+│ KPI 1 | KPI 2   │
+├─────────────────┤
+│ Main Chart      │
+│ (Full Width)    │
+├─────────────────┤
+│ Supporting      │
+│ Chart 1         │
+├─────────────────┤
+│ Supporting      │
+│ Chart 2         │
+└─────────────────┘
+```
+
+---
+
+### Best Practices Summary
+
+#### Do's ✅
+- Use consistent spacing (15px grid)
+- Align visuals to grid
+- Group related visuals
+- Use white space effectively
+- Maintain color consistency
+- Add descriptive titles
+- Enable tooltips
+- Optimize for performance
+- Test on mobile
+
+#### Don'ts ❌
+- Don't overcrowd pages
+- Avoid clashing colors
+- Don't use too many fonts
+- Avoid tiny text
+- Don't use unnecessary 3D effects
+- Avoid random visual placement
+- Don't skip alt text
+- Avoid heavy animations
+
+---
+
+
+## 🌐 9. Publishing Without Login <a id="publishing"></a>
+
+### Method 1: Export to PDF/PowerPoint (No Server Required)
+
+#### Export Dashboard
+
+```
+File → Export → Export to PDF
+```
+
+**Settings**:
+- Pages: All pages or selected
+- Optimize for: Screen (1280×720)
+- Include hidden pages: No
+- Export visuals: Current data state
+
+**Advantages**:
+- ✅ No Power BI account needed
+- ✅ Easy to share via email
+- ✅ Works offline
+- ✅ Preserves formatting
+
+**Limitations**:
+- ❌ Not interactive
+- ❌ Static data (no refresh)
+- ❌ Large file size
+
+---
+
+#### Export to PowerPoint
+
+```
+File → Export → Export to PowerPoint
+```
+
+**Features**:
+- One slide per page
+- Live data links (requires Power BI Desktop)
+- Editable in PowerPoint
+- Add annotations
+
+---
+
+### Method 2: Publish to Web (Public Link - No Login)
+
+#### ⚠️ Important Security Warning
+
+**Publish to Web** makes your dashboard **publicly accessible** on the internet. Anyone with the link can view it. **DO NOT use for sensitive data**.
+
+#### Publishing Steps
+
+1. **Prepare Dashboard**
+   ```
+   - Remove any sensitive information
+   - Finalize all visuals
+   - Test all interactions
+   - Save .pbix file
+   ```
+
+2. **Publish to Power BI Service**
+   ```
+   File → Publish → Publish to Power BI
+   Select: My Workspace (or specific workspace)
+   Wait for upload to complete
+   ```
+
+3. **Generate Public Link**
+   ```
+   Open Power BI Service (app.powerbi.com)
+   Navigate to: My Workspace → Your report
+   Click: File → Embed report → Publish to web (public)
+   Click: Create embed code
+   Confirm: Yes, publish publicly
+   Copy: Embed code or link
+   ```
+
+4. **Share Link**
+   ```
+   Share the public URL
+   Format: https://app.powerbi.com/view?r=XXXXXX
+   Anyone can view without login
+   ```
+
+---
+
+### Method 3: Power BI Desktop + Local Files (Offline)
+
+#### Create Standalone Dashboard
+
+This method allows users to open the .pbix file directly without publishing:
+
+1. **Finalize Dashboard**
+   - Complete all pages
+   - Test all visuals
+   - Remove unnecessary data
+
+2. **Optimize File Size**
+   ```
+   File → Options → Data Load
+   - Import only necessary columns
+   - Remove unused tables
+   - Reduce data rows (filter to relevant dates)
+   ```
+
+3. **Package Dashboard**
+   ```
+   Save As → .pbix file
+   Include:
+     - PowerBI file (.pbix)
+     - Data files (CSV) - optional
+     - Instructions PDF
+     - README.txt
+   ```
+
+4. **Distribution**
+   ```
+   Share via:
+     - Email attachment (if <25 MB)
+     - OneDrive/Google Drive
+     - USB drive
+     - Company network share
+   ```
+
+**User Requirements**:
+- Power BI Desktop installed (free)
+- Double-click .pbix to open
+- Refresh data if CSV files included
+
+---
+
+### Method 4: Screenshots + HTML (Simple Alternative)
+
+#### Create Static HTML Dashboard
+
+For truly no-login, no-software solution:
+
+1. **Export High-Quality Images**
+   ```
+   For each page:
+     - View → Actual Size
+     - Windows Snipping Tool or Snip & Sketch
+     - Save as PNG (high resolution)
+   ```
+
+2. **Create HTML Page**
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AgriCast360 Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #FAFAFA;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            background: #2E7D32;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .dashboard-page {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .dashboard-page h2 {
+            color: #2E7D32;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+        .dashboard-page img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+        }
+        .nav-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .nav-button {
+            background: #2E7D32;
+            color: white;
+            padding: 12px 24px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .nav-button:hover {
+            background: #66BB6A;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌾 AgriCast360 Dashboard</h1>
+        <p>Agricultural Commodity Price Analysis - 2024</p>
+    </div>
+
+    <div class="nav-buttons">
+        <a href="#overview" class="nav-button">📊 Overview</a>
+        <a href="#commodities" class="nav-button">🌾 Commodities</a>
+        <a href="#weather" class="nav-button">🌦️ Weather</a>
+        <a href="#markets" class="nav-button">🏪 Markets</a>
+    </div>
+
+    <div id="overview" class="dashboard-page">
+        <h2>Executive Overview</h2>
+        <img src="page1_overview.png" alt="Executive Overview">
+    </div>
+
+    <div id="commodities" class="dashboard-page">
+        <h2>Commodity Analysis</h2>
+        <img src="page2_commodities.png" alt="Commodity Analysis">
+    </div>
+
+    <div id="weather" class="dashboard-page">
+        <h2>Weather Impact</h2>
+        <img src="page3_weather.png" alt="Weather Impact">
+    </div>
+
+    <div id="markets" class="dashboard-page">
+        <h2>Market Intelligence</h2>
+        <img src="page4_markets.png" alt="Market Intelligence">
+    </div>
+
+    <div class="header" style="margin-top: 30px;">
+        <p>📧 Contact: your-email@example.com</p>
+        <p>📅 Last Updated: November 13, 2025</p>
+    </div>
+</body>
+</html>
+```
+
+3. **Package Files**
+   ```
+   Folder structure:
+   AgriCast360_Dashboard/
+   ├── index.html
+   ├── page1_overview.png
+   ├── page2_commodities.png
+   ├── page3_weather.png
+   ├── page4_markets.png
+   └── README.txt
+   ```
+
+4. **Host Online** (Optional)
+   - GitHub Pages (free, no login)
+   - Netlify (free tier)
+   - Google Sites
+
+---
+
+### Method 5: Power BI Embedded (For Developers)
+
+#### Embed in Web Application
+
+If you have coding skills:
+
+```javascript
+// Install: npm install powerbi-client
+
+import { models, service } from 'powerbi-client';
+
+const embedConfig = {
+    type: 'report',
+    id: 'YOUR_REPORT_ID',
+    embedUrl: 'YOUR_EMBED_URL',
+    accessToken: 'YOUR_ACCESS_TOKEN',
+    settings: {
+        filterPaneEnabled: false,
+        navContentPaneEnabled: true
+    }
+};
+
+const powerbi = new service.Service(
+    models.Factories.hpmFactory,
+    models.Factories.wpmpFactory,
+    models.Factories.routerFactory
+);
+
+const reportContainer = document.getElementById('reportContainer');
+powerbi.embed(reportContainer, embedConfig);
+```
+
+**Requirements**:
+- Power BI Embedded capacity (paid)
+- Azure Active Directory app
+- Web hosting
+
+---
+
+### Comparison Table
+
+| Method | Interactive | Login Required | Cost | Data Refresh | Best For |
+|--------|-------------|----------------|------|--------------|----------|
+| **PDF Export** | ❌ No | ❌ No | 💰 Free | ❌ No | One-time reports |
+| **PowerPoint** | ⚠️ Limited | ❌ No | 💰 Free | ⚠️ Manual | Presentations |
+| **Publish to Web** | ✅ Yes | ❌ No | 💰 Free | ✅ Yes | Public dashboards |
+| **PBIX File** | ✅ Yes | ⚠️ Software | 💰 Free | ✅ Yes | Internal teams |
+| **HTML + Images** | ❌ No | ❌ No | 💰 Free | ❌ No | Simple sharing |
+| **Power BI Embedded** | ✅ Yes | ⚠️ Optional | 💰💰 Paid | ✅ Yes | Custom apps |
+
+---
+
+### Recommended Approach for AgriCast360
+
+**For Public Sharing (No Login)**:
+```
+Method: Publish to Web
+Pros:
+  ✅ Fully interactive
+  ✅ Auto-refresh data
+  ✅ Professional look
+  ✅ Easy to share (just a link)
+
+Steps:
+  1. Ensure no sensitive data
+  2. Publish to Power BI Service
+  3. Generate public link
+  4. Share with stakeholders
+```
+
+**For Internal/Team Use**:
+```
+Method: PBIX File + OneDrive
+Pros:
+  ✅ Full control
+  ✅ Data security
+  ✅ Easy updates
+
+Steps:
+  1. Save finalized .pbix
+  2. Upload to OneDrive/SharePoint
+  3. Share link with edit permissions
+  4. Team opens with Power BI Desktop
+```
+
+**For Presentations**:
+```
+Method: Export to PowerPoint
+Pros:
+  ✅ Editable slides
+  ✅ Add speaker notes
+  ✅ Works offline
+
+Steps:
+  1. Export each page
+  2. Add context/annotations
+  3. Present during meetings
+```
+
+---
+
+### Security Best Practices
+
+#### Before Publishing Publicly
+
+**Data Review Checklist**:
+- ☐ Remove personal information (if any)
+- ☐ Mask sensitive prices (if needed)
+- ☐ Remove internal notes/comments
+- ☐ Verify all data is approved for public view
+- ☐ Check for hidden fields
+- ☐ Review row-level security (disable for public)
+
+#### Access Control
+
+**For Publish to Web**:
+- Link is permanently public
+- Cannot add authentication later
+- Anyone with link can embed in their site
+- Microsoft logs views (analytics available)
+
+**For PBIX Sharing**:
+- Use OneDrive/SharePoint permissions
+- Set to "View only" if needed
+- Monitor who downloaded file
+- Use encrypted email if very sensitive
+
+---
+
+### Maintenance & Updates
+
+#### Keep Dashboard Current
+
+**Schedule**:
+```
+Daily: Automated data refresh (if using Power BI Service)
+Weekly: Review visual performance
+Monthly: Update insights/annotations
+Quarterly: Design refresh, add new features
+```
+
+**Update Process**:
+1. Update source data (CSV files)
+2. Open .pbix file
+3. Refresh data (Home → Refresh)
+4. Verify all visuals
+5. Re-publish if using Power BI Service
+6. Notify users of update
+
+---
+
+
+## 🚀 10. Step-by-Step Implementation Guide <a id="implementation"></a>
+
+### Phase 1: Setup & Data Preparation (Day 1)
+
+#### ⏱️ Estimated Time: 2-3 hours
+
+**Step 1: Install Power BI Desktop**
+```
+1. Go to: https://powerbi.microsoft.com/downloads/
+2. Download Power BI Desktop (free)
+3. Install with default settings
+4. Launch application
+```
+
+**Step 2: Prepare Data Files**
+```
+✅ Checklist:
+☐ Price_Data_Processed.csv (main dataset)
+☐ Features_Engineered.csv (ML features)
+☐ All 21 weather CSV files in csv_exports/
+☐ Commodity_Summary.csv
+☐ Market_Summary.csv
+☐ Monthly_Commodity_Prices.csv
+
+📂 Organize in folder:
+   AgriCast_PowerBI_Data/
+   ├── Price_Data_Processed.csv
+   ├── Features_Engineered.csv
+   ├── Commodity_Summary.csv
+   ├── Market_Summary.csv
+   └── csv_exports/
+       ├── Ahwa.csv
+       ├── Bardoli.csv
+       └── [other market files...]
+```
+
+**Step 3: Create New Power BI File**
+```
+1. File → New
+2. Save As → "AgriCast360_Dashboard.pbix"
+3. Set Auto-save (File → Options → Current File)
+```
+
+---
+
+### Phase 2: Data Import & Modeling (Day 1-2)
+
+#### ⏱️ Estimated Time: 3-4 hours
+
+**Step 4: Import Main Dataset**
+```
+1. Home tab → Get Data → Text/CSV
+2. Select: Price_Data_Processed.csv
+3. Click: Transform Data (opens Power Query Editor)
+
+4. In Power Query Editor:
+   ☐ Check column types (date, text, number)
+   ☐ Arrival_Date: Change type to Date
+   ☐ Min_Price, Max_Price, Modal_Price: Decimal Number
+   ☐ Remove any error rows (if any)
+   ☐ Rename query to: "Price_Data"
+
+5. Click: Close & Apply
+```
+
+**Step 5: Import Supporting Tables**
+```
+Repeat for each file:
+┌─────────────────────────────┬────────────────────┐
+│ File                        │ Query Name         │
+├─────────────────────────────┼────────────────────┤
+│ Commodity_Summary.csv       │ Commodities        │
+│ Market_Summary.csv          │ Markets            │
+│ Monthly_Commodity_Prices.csv│ Monthly_Prices     │
+│ Features_Engineered.csv     │ ML_Features        │
+└─────────────────────────────┴────────────────────┘
+```
+
+**Step 6: Import Weather Data**
+```
+1. Get Data → Folder
+2. Browse to: csv_exports/
+3. Select: Combine & Transform Data
+4. Remove unnecessary columns (keep):
+   - market_name
+   - time (as Date)
+   - temperature_2m_mean
+   - precipitation_sum
+   - rain_sum
+   - wind_speed_10m_max
+
+5. Rename query to: "Weather_Data"
+6. Close & Apply
+```
+
+**Step 7: Create Relationships**
+```
+Model view (left panel, 3rd icon)
+
+Drag to connect:
+┌─────────────────┬──────────┬─────────────────┬──────────────┐
+│ From Table      │ Field    │ To Table        │ Field        │
+├─────────────────┼──────────┼─────────────────┼──────────────┤
+│ Price_Data      │ Market   │ Markets         │ Market       │
+│ Price_Data      │ Commodity│ Commodities     │ Commodity    │
+│ Price_Data      │ Market   │ Weather_Data    │ market_name  │
+│ Price_Data      │ Arrival  │ Weather_Data    │ time         │
+│ ML_Features     │ Market   │ Price_Data      │ Market       │
+└─────────────────┴──────────┴─────────────────┴──────────────┘
+
+All relationships:
+- Cardinality: Many to One (*)
+- Cross filter direction: Single
+- Make relationship active: Yes
+```
+
+**Step 8: Create Date Table**
+```
+Modeling tab → New Table
+
+Paste DAX:
+DateTable = 
+ADDCOLUMNS(
+    CALENDAR(
+        DATE(2024, 1, 1),
+        DATE(2025, 1, 31)
+    ),
+    "Year", YEAR([Date]),
+    "Month", FORMAT([Date], "MMMM"),
+    "MonthNum", MONTH([Date]),
+    "Quarter", "Q" & FORMAT([Date], "Q"),
+    "DayName", FORMAT([Date], "dddd"),
+    "DayNum", DAY([Date])
+)
+
+Mark as Date Table:
+- Right-click DateTable → Mark as date table
+- Select column: Date
+```
+
+---
+
+### Phase 3: Create Calculated Measures (Day 2)
+
+#### ⏱️ Estimated Time: 2-3 hours
+
+**Step 9: Create Measure Table**
+```
+Modeling tab → New Table
+
+Type: _Measures = ROW("X", 1)
+
+This creates a blank table to organize all measures.
+```
+
+**Step 10: Add Core Measures**
+
+Copy and paste each measure into _Measures table:
+
+```dax
+// 1. Total Records
+Total Records = COUNTROWS(Price_Data)
+
+// 2. Average Modal Price
+Avg Modal Price = AVERAGE(Price_Data[Modal_Price])
+
+// 3. Price Range
+Price Range = MAX(Price_Data[Max_Price]) - MIN(Price_Data[Min_Price])
+
+// 4. YoY Growth
+YoY Price Growth = 
+VAR CurrentYear = MAX(Price_Data[Year])
+VAR PrevYear = CurrentYear - 1
+VAR CurrentPrice = CALCULATE([Avg Modal Price], Price_Data[Year] = CurrentYear)
+VAR PrevPrice = CALCULATE([Avg Modal Price], Price_Data[Year] = PrevYear)
+RETURN
+DIVIDE(CurrentPrice - PrevPrice, PrevPrice, 0)
+
+// 5. Market Share
+Market Share % = 
+DIVIDE(
+    COUNTROWS(Price_Data),
+    CALCULATE(COUNTROWS(Price_Data), ALL(Price_Data[Market]))
+) * 100
+
+// 6. Price Volatility Avg
+Avg Volatility = AVERAGE(Price_Data[Price_Volatility_%])
+
+// 7. Top Commodity
+Top Commodity = 
+CALCULATE(
+    MAX(Price_Data[Commodity]),
+    TOPN(1, ALL(Price_Data), [Avg Modal Price], DESC)
+)
+
+// 8. Weather Impact Score
+Weather Impact = 
+AVERAGE(Weather_Data[temperature_2m_mean]) * 0.4 +
+AVERAGE(Weather_Data[precipitation_sum]) * 0.3 +
+AVERAGE(Weather_Data[rain_sum]) * 0.3
+```
+
+**Step 11: Add Comparison Measures**
+
+```dax
+// Month-over-Month
+MoM Change = 
+VAR CurrentMonth = MAX(Price_Data[Month])
+VAR PrevMonth = CurrentMonth - 1
+VAR CurrentPrice = CALCULATE([Avg Modal Price], Price_Data[Month] = CurrentMonth)
+VAR PrevPrice = CALCULATE([Avg Modal Price], Price_Data[Month] = PrevMonth)
+RETURN
+DIVIDE(CurrentPrice - PrevPrice, PrevPrice, 0)
+
+// MoM Change % Formatted
+MoM % = 
+FORMAT([MoM Change], "0.00%")
+
+// Previous Month Price
+Prev Month Price = 
+CALCULATE(
+    [Avg Modal Price],
+    DATEADD(DateTable[Date], -1, MONTH)
+)
+```
+
+**Step 12: Test Measures**
+```
+1. Insert Card visual
+2. Drag each measure to test
+3. Verify values make sense
+4. Format as currency or percentage
+```
+
+---
+
+### Phase 4: Build Dashboard Pages (Day 3-5)
+
+#### ⏱️ Estimated Time: 8-12 hours
+
+**Step 13: Page 1 - Executive Overview**
+
+```
+Time: 2-3 hours
+
+Layout (8-column grid):
+┌─────────┬─────────┬─────────┬─────────┐
+│  KPI 1  │  KPI 2  │  KPI 3  │  KPI 4  │  (Row 1, Height: 120px)
+├─────────┴─────────┴─────────┴─────────┤
+│  Line Chart: Price Trends Over Time   │  (Row 2-3, Height: 300px)
+├──────────────────┬────────────────────┤
+│  Pie Chart:      │  Column Chart:     │  (Row 4-5, Height: 300px)
+│  Market Share    │  Top Commodities   │
+└──────────────────┴────────────────────┘
+
+Visuals to create:
+1️⃣ KPI Cards (4 cards, 2 columns each):
+   - Total Records: [Total Records] measure
+   - Avg Price: [Avg Modal Price] measure, format ₹#,##0
+   - Highest Price: MAX(Modal_Price), format ₹#,##0
+   - YoY Growth: [YoY Price Growth], format 0.00%, conditional color
+
+2️⃣ Line Chart (8 columns wide):
+   X-axis: DateTable[Date]
+   Y-axis: [Avg Modal Price]
+   Legend: Price_Data[Commodity] (top 5)
+   Title: "📈 Commodity Price Trends - 2024"
+
+3️⃣ Pie Chart (4 columns wide):
+   Values: [Total Records]
+   Legend: Price_Data[Market]
+   Title: "🏪 Market Distribution"
+
+4️⃣ Column Chart (4 columns wide):
+   X-axis: Price_Data[Commodity]
+   Y-axis: [Avg Modal Price]
+   Sort: Descending by Y-axis
+   Top N: 10
+   Title: "🌾 Top 10 Commodities by Price"
+
+Interactions:
+- Click on market → filter all visuals
+- Click on commodity → highlight in charts
+```
+
+**Step 14: Page 2 - Commodity Deep Dive**
+
+```
+Time: 2-3 hours
+
+Layout:
+┌────────────────────────────────────────┐
+│  Commodity Slicer (dropdown)           │  (Row 1)
+├─────────────┬──────────────────────────┤
+│  Stacked    │  Table:                  │  (Row 2-4)
+│  Bar Chart: │  Commodity Stats         │
+│  Varieties  │  (filtered by selection) │
+├─────────────┴──────────────────────────┤
+│  Area Chart: Monthly Prices            │  (Row 5-6)
+└────────────────────────────────────────┘
+
+Visuals:
+1️⃣ Slicer (Dropdown):
+   Field: Price_Data[Commodity]
+   Settings: Single select, dropdown style
+
+2️⃣ Stacked Bar Chart:
+   Y-axis: Price_Data[Variety]
+   X-axis: [Avg Modal Price]
+   Legend: Price_Data[Grade]
+   Title: "📊 Varieties & Grades Analysis"
+
+3️⃣ Table:
+   Columns:
+     - Commodity
+     - Avg_Price: [Avg Modal Price]
+     - Min_Price: MIN(Modal_Price)
+     - Max_Price: MAX(Modal_Price)
+     - Volatility: [Avg Volatility]
+   
+   Conditional formatting:
+     - Avg_Price: Data bars (green)
+     - Volatility: Color scale (red to green)
+
+4️⃣ Area Chart:
+   X-axis: DateTable[Month]
+   Y-axis: [Avg Modal Price]
+   Line color: Green gradient
+   Title: "📅 Monthly Price Movement"
+```
+
+**Step 15: Page 3 - Weather Impact**
+
+```
+Time: 2-3 hours
+
+Layout:
+┌──────────┬──────────┬──────────┬──────────┐
+│  Temp    │  Rain    │  Wind    │  Cloud   │  (KPIs)
+├──────────┴──────────┴──────────┴──────────┤
+│  Scatter Chart: Weather vs Prices        │  (Main chart)
+├─────────────────────┬────────────────────┤
+│  Line Chart: Temp   │  Line Chart: Rain  │  (Bottom)
+│  Over Time          │  Over Time         │
+└─────────────────────┴────────────────────┘
+
+Visuals:
+1️⃣ KPI Cards (4 cards):
+   - Avg Temperature: AVG(temperature_2m_mean) & "°C"
+   - Total Rainfall: SUM(precipitation_sum) & " mm"
+   - Avg Wind Speed: AVG(wind_speed_10m_max) & " km/h"
+   - Cloud Cover: AVG(cloud_cover_mean) & "%"
+
+2️⃣ Scatter Chart:
+   X-axis: Weather_Data[temperature_2m_mean]
+   Y-axis: Price_Data[Modal_Price]
+   Size: Price_Data[Price_Volatility_%]
+   Legend: Price_Data[Commodity]
+   Title: "🌡️ Temperature vs Price Correlation"
+   
+   Add trend line (Analytics pane → Trend line)
+
+3️⃣ Line Chart (Temperature):
+   X-axis: Weather_Data[time]
+   Y-axis: temperature_2m_mean
+   Color: Orange gradient
+
+4️⃣ Line Chart (Rainfall):
+   X-axis: Weather_Data[time]
+   Y-axis: precipitation_sum
+   Color: Blue gradient
+```
+
+**Step 16: Page 4 - Market Intelligence**
+
+```
+Time: 2-3 hours
+
+Layout:
+┌────────────────────────────────────────┐
+│  Map Visual: Markets with Bubbles      │  (Row 1-3)
+├──────────────────┬─────────────────────┤
+│  Matrix: Market  │  Clustered Column:  │  (Row 4-5)
+│  Comparison      │  Quarterly Trends   │
+└──────────────────┴─────────────────────┘
+
+Visuals:
+1️⃣ Map (Bubble Map):
+   Location: Weather_Data[market_name]
+   Latitude: Weather_Data[latitude]
+   Longitude: Weather_Data[longitude]
+   Size: [Total Records]
+   Color: [Avg Modal Price]
+   
+   Tooltips: Add custom tooltip page showing:
+     - Market name
+     - Total commodities
+     - Avg price
+     - Price trend sparkline
+
+2️⃣ Matrix:
+   Rows: Price_Data[Market]
+   Columns: Price_Data[Quarter]
+   Values: [Avg Modal Price]
+   
+   Conditional formatting:
+     - Background color: Color scale
+     - Data bars: Yes
+   
+   Title: "📊 Market-Quarter Price Matrix"
+
+3️⃣ Clustered Column Chart:
+   X-axis: DateTable[Quarter]
+   Y-axis: [Avg Modal Price]
+   Legend: Price_Data[Market] (top 5)
+   Title: "📈 Quarterly Market Performance"
+```
+
+**Step 17: Page 5 - ML Insights (Optional Advanced)**
+
+```
+Time: 2-3 hours
+
+Layout:
+┌────────────────────────────────────────┐
+│  Feature Importance Chart              │  (Row 1-2)
+├──────────────────┬─────────────────────┤
+│  Prediction Card │  What-If Parameters │  (Row 3-4)
+│  (Forecasted)    │  (Sliders)          │
+└──────────────────┴─────────────────────┘
+
+Visuals:
+1️⃣ Bar Chart (Feature Importance):
+   If you have Feature_Correlations.csv:
+   X-axis: Feature names
+   Y-axis: Correlation values
+   Sort: Descending
+   Title: "🔍 Top 15 Price Predictors"
+
+2️⃣ Card (Prediction):
+   Measure: [Predicted Price] (if ML model exported)
+   Format: ₹#,##0
+   Title: "🎯 Predicted Modal Price"
+
+3️⃣ What-If Parameters:
+   Create 3 parameters:
+   - Temperature (15-45°C)
+   - Rainfall (0-500mm)
+   - Days Since Last Rain (0-30)
+   
+   Use in prediction measure to show impact
+```
+
+---
+
+### Phase 5: Add Interactivity (Day 5-6)
+
+#### ⏱️ Estimated Time: 3-4 hours
+
+**Step 18: Create Slicers (All Pages)**
+
+```
+Add to each page header:
+
+1. Date Slicer:
+   Field: DateTable[Date]
+   Style: Between (date range)
+   Position: Top-right
+
+2. Market Slicer:
+   Field: Price_Data[Market]
+   Style: Dropdown
+   Default: All selected
+
+3. Commodity Slicer:
+   Field: Price_Data[Commodity]
+   Style: List with search
+```
+
+**Step 19: Configure Cross-Filtering**
+
+```
+For each visual:
+1. Select visual
+2. Format pane → Edit interactions (appears in ribbon)
+3. Set other visuals to:
+   - Filter (crosshair icon) - for related data
+   - Highlight (funnel icon) - for comparisons
+   - None (circle with line) - if independent
+
+Example:
+Page 1 - Line Chart selected:
+  - Pie Chart → Highlight
+  - Column Chart → Highlight
+  - KPI Cards → None (keep stable)
+```
+
+**Step 20: Create Drill-Through Pages**
+
+```
+1. Create new page: "Commodity_DrillThrough"
+
+2. Add drill-through field:
+   Visualizations → Drill-through → Add field
+   Drag: Price_Data[Commodity]
+
+3. Add visuals:
+   - Card: Commodity name
+   - Line: Price trend
+   - Table: All records for this commodity
+   - Card: Min, Max, Avg prices
+
+4. Test:
+   Go to Page 2 → Right-click on commodity → Drill through → Commodity_DrillThrough
+```
+
+**Step 21: Add Bookmarks**
+
+```
+View tab → Bookmarks Pane
+
+Create bookmarks:
+1. "All Markets" - All slicers cleared
+2. "Top 5 Commodities" - Filter applied
+3. "Monsoon Period" - Date range: Jun-Sep
+4. "High Volatility" - Filter: Volatility > 50%
+
+For each bookmark:
+- Set filters
+- Click: Add (in Bookmarks pane)
+- Rename bookmark
+- Update if needed
+```
+
+**Step 22: Create Navigation Buttons**
+
+```
+Insert → Buttons → Blank
+
+For each page:
+1. Create 5 buttons (one per page)
+2. Format:
+   - Text: "📊 Overview", "🌾 Commodities", etc.
+   - Fill: #2E7D32
+   - Text color: White
+   - Border: 2px, #FFD700
+
+3. Set Action:
+   - Action: On
+   - Type: Page navigation
+   - Destination: [Target page]
+
+4. Align buttons horizontally at top
+5. Group buttons: Select all → Format → Group
+
+6. Copy group to all pages (Ctrl+C, Ctrl+V)
+```
+
+---
+
+### Phase 6: Design & Polish (Day 6-7)
+
+#### ⏱️ Estimated Time: 3-5 hours
+
+**Step 23: Apply Custom Theme**
+
+```
+1. Create theme JSON (see Section 8)
+2. Save as: AgriCast_Theme.json
+
+3. Import theme:
+   View → Themes → Browse for themes
+   Select: AgriCast_Theme.json
+   Click: Apply
+
+All visuals auto-update with theme colors
+```
+
+**Step 24: Format Each Visual**
+
+```
+For EVERY visual, check:
+☐ Title: Clear, concise, with emoji
+☐ Font: Segoe UI, 14pt title
+☐ Colors: Match theme palette
+☐ Data labels: Show if <10 items
+☐ Gridlines: Subtle (#E0E0E0)
+☐ Background: White or subtle (#FAFAFA)
+☐ Border: 1px, #E0E0E0
+☐ Shadow: Subtle (2px blur, 10% opacity)
+```
+
+**Step 25: Add Page Backgrounds**
+
+```
+For each page:
+1. Format pane → Canvas background
+2. Choose:
+   - Color: #FAFAFA (light gray)
+   - Transparency: 0%
+   - Image: Optional header image
+
+3. Consistency: All pages same background
+```
+
+**Step 26: Create Custom Tooltips**
+
+```
+1. Create new page: "Tooltip_Market"
+2. Page settings:
+   - Canvas → Tooltip: On
+   - Size: 320x240px
+
+3. Add visuals (small):
+   - Card: Market name
+   - Card: Avg price
+   - Small line chart: 30-day trend
+   - Card: Total commodities
+
+4. Apply to map visual:
+   Map visual → Format → Tooltip
+   Report page: Tooltip_Market
+```
+
+**Step 27: Add Report Header**
+
+```
+All pages:
+1. Insert → Text box
+2. Text: "🌾 AgriCast360 | Agricultural Price Intelligence"
+3. Format:
+   - Font: Segoe UI Semibold, 20pt
+   - Color: #2E7D32
+   - Background: White
+   - Border bottom: 3px, #FFD700
+
+4. Position: Top of page, full width
+5. Copy to all pages (exact position)
+```
+
+---
+
+### Phase 7: Testing & Validation (Day 7)
+
+#### ⏱️ Estimated Time: 2-3 hours
+
+**Step 28: Data Validation**
+
+```
+Checklist:
+☐ All measures calculate correctly
+☐ No blank visuals
+☐ No error messages
+☐ Date ranges correct (2024-2025)
+☐ Currency formatted as ₹
+☐ Percentages formatted with %
+☐ Numbers have thousand separators
+☐ All slicers work
+☐ Cross-filtering works
+☐ Drill-through works
+☐ Bookmarks work
+☐ Navigation buttons work
+```
+
+**Step 29: Performance Check**
+
+```
+View → Performance Analyzer
+
+1. Click: Start recording
+2. Navigate through all pages
+3. Interact with each visual
+4. Click: Stop
+
+Review results:
+- Any visual >3 seconds? Optimize
+- DAX queries slow? Simplify measures
+- Visual rendering slow? Reduce data points
+```
+
+**Step 30: Mobile Layout**
+
+```
+View → Mobile Layout
+
+For each page:
+1. Rearrange visuals for mobile
+2. Priority order:
+   - KPIs at top
+   - Main chart
+   - Filters
+   - Supporting charts
+
+3. Test: Resize window to mobile size
+```
+
+---
+
+### Phase 8: Publishing (Day 8)
+
+#### ⏱️ Estimated Time: 1-2 hours
+
+**Step 31: Final Preparation**
+
+```
+☐ Save file (Ctrl+S)
+☐ Refresh all data (Home → Refresh)
+☐ Run Performance Analyzer one final time
+☐ Test all interactions
+☐ Proofread all titles/text
+☐ Remove any test visuals
+☐ Verify color scheme consistency
+```
+
+**Step 32: Publish (Choose Method)**
+
+**Option A: Publish to Web** (No Login)
+```
+1. File → Publish → Publish to Power BI
+2. Select: My workspace
+3. After publishing:
+   - Open Power BI Service
+   - File → Embed → Publish to web
+   - Confirm: Create embed code
+   - Copy public URL
+4. Share URL with stakeholders
+```
+
+**Option B: Export PBIX** (For Teams)
+```
+1. File → Save As
+2. Location: Shared drive / OneDrive
+3. Include README with:
+   - Data source locations
+   - Refresh instructions
+   - Change log
+```
+
+**Option C: Export to PDF** (Static Report)
+```
+1. File → Export → Export to PDF
+2. Settings:
+   - Current page or All pages
+   - Optimize for: Screen
+3. Save as: AgriCast360_Dashboard_[Date].pdf
+```
+
+---
+
+### Phase 9: Maintenance Plan
+
+#### Ongoing Tasks
+
+**Weekly** (15 minutes):
+```
+☐ Refresh data (Home → Refresh)
+☐ Verify all visuals updated
+☐ Check for errors
+☐ Review performance metrics
+```
+
+**Monthly** (1 hour):
+```
+☐ Update insights/annotations
+☐ Add new commodities (if any)
+☐ Review user feedback
+☐ Optimize slow visuals
+☐ Check for Power BI Desktop updates
+```
+
+**Quarterly** (2-3 hours):
+```
+☐ Design refresh (colors, fonts)
+☐ Add new features/visuals
+☐ Archive old data
+☐ Performance deep-dive
+☐ User training (if needed)
+```
+
+---
+
+### Troubleshooting Guide
+
+**Common Issues & Solutions:**
+
+| Issue | Solution |
+|-------|----------|
+| **Visuals not loading** | Check data source paths, Refresh data |
+| **Relationships broken** | Model view → Recreate relationships |
+| **Measures showing errors** | Verify table/column names, Check DAX syntax |
+| **Slow performance** | Reduce data rows, Simplify DAX, Aggregate data |
+| **Colors not applying** | Re-apply theme, Manually set colors |
+| **Slicers not filtering** | Check Edit interactions settings |
+| **Drill-through not working** | Verify drill-through field added |
+| **Mobile layout broken** | Rebuild mobile layout from scratch |
+| **Publishing fails** | Check file size (<1GB), Remove unused data |
+
+---
+
+### Quick Reference Commands
+
+**Essential Keyboard Shortcuts:**
+
+```
+Ctrl + S         Save file
+Ctrl + N         New file
+Ctrl + R         Refresh data
+Ctrl + Z         Undo
+Ctrl + Y         Redo
+Ctrl + C         Copy visual
+Ctrl + V         Paste visual
+Ctrl + G         Group visuals
+Ctrl + Shift + G Ungroup visuals
+Alt + F1         Insert chart
+F5               Refresh visuals
+Ctrl + F         Find
+Ctrl + H         Replace
+Alt + Shift + F5 Performance Analyzer
+```
+
+---
+
+### Success Metrics
+
+After completion, your dashboard should have:
+
+✅ **5 complete pages** with 20+ visuals
+✅ **10+ DAX measures** calculating correctly
+✅ **4+ slicers** for interactivity
+✅ **Drill-through** capability
+✅ **Bookmarks** for quick views
+✅ **Navigation** between pages
+✅ **Custom theme** applied
+✅ **Mobile layout** configured
+✅ **Performance** <3 seconds per visual
+✅ **Published** and accessible (no login if using Publish to Web)
+
+---
+
+### Next Steps After Completion
+
+1. **User Training**
+   - Create video walkthrough
+   - Write user guide
+   - Host Q&A session
+
+2. **Feedback Loop**
+   - Collect user feedback
+   - Track usage analytics (if using Power BI Service)
+   - Iterate on design
+
+3. **Advanced Features**
+   - Integrate ML predictions
+   - Add real-time data refresh
+   - Create mobile app
+   - Build Power Apps integration
+
+4. **Documentation**
+   - Create technical documentation
+   - Write maintenance guide
+   - Document data lineage
+
+---
+
+## 🎉 Congratulations!
+
+You now have a **complete, professional, interactive PowerBI dashboard** for AgriCast360!
+
+### Key Achievements:
+- ✅ Analyzed 14,965+ price records
+- ✅ Integrated 68 commodities across 19 markets
+- ✅ Visualized weather impact with 31 features
+- ✅ Created 108 ML-ready features
+- ✅ Built 5-page interactive dashboard
+- ✅ Published without login requirement (if using Publish to Web)
+
+### Total Time Investment: **30-40 hours**
+- Planning: 2-3 hours
+- Data prep: 3-4 hours
+- Modeling: 3-4 hours
+- Building: 12-15 hours
+- Testing: 2-3 hours
+- Publishing: 1-2 hours
+- Documentation: 6-8 hours
+
+---
+
+### Final Checklist
+
+Before sharing your dashboard, ensure:
+
+☑️ All data is current (refreshed)
+☑️ All visuals display correctly
+☑️ No error messages
+☑️ All interactions work
+☑️ Mobile layout tested
+☑️ Performance optimized
+☑️ Published successfully
+☑️ Link/file shared with stakeholders
+☑️ Documentation provided
+☑️ Maintenance plan in place
+
+---
+
+### Questions or Issues?
+
+If you encounter any problems during implementation:
+
+1. **Check documentation** in Markdowns folder
+2. **Review error messages** carefully
+3. **Test with smaller dataset** first
+4. **Consult Power BI Community**: https://community.powerbi.com/
+5. **Microsoft Documentation**: https://learn.microsoft.com/power-bi/
+
+---
+
+**Good luck building your AgriCast360 dashboard! 🚀🌾📊**
+## 🧩 Dashboard Visual Layouts (All Pages)
+
+Visual wireframes of each page. No mobile layouts included. These layouts are schematic and focus on the composition of visuals only.
+
+---
+
+### Page 1 — Executive Overview
+
+```
+┌──────────────┬──────────────┬──────────────┬──────────────┐
+│    KPI 1     │    KPI 2     │    KPI 3     │    KPI 4     │
+│  Total Rows  │  Avg Price   │  Max Price   │  YoY Growth  │
+└──────────────┴──────────────┴──────────────┴──────────────┘
+┌───────────────────────────────────────────────────────────┐
+│                 📈 Price Trends (Line)                    │
+│                Date × Avg Modal Price                     │
+└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────┐┌────────────────────────────┐
+│ 🥧 Market Share (Donut/Pie)  ││ 🌾 Top 10 Commodities      │
+│  Market × Share of Records   ││  Commodity × Avg Price     │
+└──────────────────────────────┘└────────────────────────────┘
+```
+
+Unique notes:
+- Legends inside visuals (top-right) to save header space.
+- KPI arrows (▲▼) next to values to hint direction.
+
+---
+
+### Page 2 — Commodity Deep Dive
+
+```
+┌───────────────────────────────────────────────────────────┐
+│  🔎 Commodity Slicer (Dropdown)                           │
+└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────┐┌────────────────────────────┐
+│ 📊 Varieties by Grade        ││ 📋 Commodity Stats Table   │
+│  Varieties × Avg Price       ││  Avg / Min / Max / Vol     │
+│  (Stacked bars by Grade)     ││  with conditional bars     │
+└──────────────────────────────┘└────────────────────────────┘
+┌───────────────────────────────────────────────────────────┐
+│  🕒 Monthly Price (Area)                                  │
+│  Month × Avg Modal Price                                  │
+└───────────────────────────────────────────────────────────┘
+```
+
+Unique notes:
+- Table shows volatility with color scale; values right-aligned.
+- Stacked bars emphasize Grade contribution by Variety.
+
+---
+
+### Page 3 — Weather Impact
+
+```
+┌──────────────┬──────────────┬──────────────┬──────────────┐
+│  🌡️ Temp     │  🌧️ Rain     │  💨 Wind     │  ☁️ Cloud     │
+│  KPI (Avg)   │  KPI (Sum)   │  KPI (Avg)   │  KPI (Avg)    │
+└──────────────┴──────────────┴──────────────┴──────────────┘
+┌───────────────────────────────────────────────────────────┐
+│  🔬 Weather vs Price (Scatter)                            │
+│  Temp (X) × Price (Y), Size = Volatility, Legend=Commodity│
+│  + Trend line                                             │
+└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────┐┌────────────────────────────┐
+│  Temp Over Time (Line)       ││  Rain Over Time (Line)     │
+│  Date × Avg Temperature      ││  Date × Precipitation      │
+└──────────────────────────────┘└────────────────────────────┘
+```
+
+Unique notes:
+- Emphasize outliers with larger markers (volatility-based size).
+- Use transparent markers (30–50%) to reduce overlap noise.
+
+---
+
+### Page 4 — Market Intelligence
+
+```
+┌───────────────────────────────────────────────────────────┐
+│  🗺️ Markets (Bubble Map)                                  │
+│  Bubble Size = Records, Color = Avg Price                 │
+│  Tooltip: Market, Avg Price, Trend sparkline              │
+└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────┐┌────────────────────────────┐
+│  🧮 Matrix: Market × Quarter  ││  📈 Quarterly Trends       │
+│  Values = Avg Price          ││  Quarter × Avg Price       │
+│  Background color scale      ││  (Top markets)             │
+└──────────────────────────────┘└────────────────────────────┘
+```
+
+Unique notes:
+- Keep map zoom fixed; disable auto-zoom on filter.
+- Matrix shows data bars for quick comparison by quarter.
+
+---
+
+### Page 5 — ML Insights (Optional)
+
+```
+┌───────────────────────────────────────────────────────────┐
+│  🧠 Feature Importance (Bar)                              │
+│  Top predictors by correlation/importance                 │
+└───────────────────────────────────────────────────────────┘
+┌──────────────────────────────┐┌────────────────────────────┐
+│  🎯 Prediction (Card)        ││  🎚️ What-If Panel (Sliders)│
+│  Forecasted Modal Price      ││  Temp / Rain / Days sliders │
+└──────────────────────────────┘└────────────────────────────┘
+```
+
+Unique notes:
+- Display prediction confidence (±) under the card value.
+- What-if panel updates a single, bold KPI for clarity.
+
+---
+
+### Additional, Non-duplicative Build Instructions
+
+- Legend strategy: Prefer inside-top position; hide legend if fewer than 3 series.
+- Empty-state text: Add a small textbox "No data for current selection" where applicable.
+- Tooltip cue: Place a subtle ℹ️ icon near visuals with custom tooltips.
+- Page tabs: Hide page tabs; navigation via header buttons only.
+- Sync Slicers: Use the Sync Slicers pane for Date/Market across pages.
+- Export-ready header: Add a faint "PUBLIC PREVIEW" watermark for publish-to-web variants.
+
+
+
+## 🧭 Exact Visual Blueprint (Pixel + Color Spec)
+
+Below is a precise, implementation-ready blueprint for all pages with absolute pixel positions and color assignments. Canvas assumes 16:9 at 1280×720, margins 24 px. No mobile layout.
+
+```json
+{
+  "canvas": {
+    "size": { "width": 1280, "height": 720 },
+    "margins": { "top": 24, "right": 24, "bottom": 24, "left": 24 },
+    "backgroundColor": "#FAFAFA"
+  },
+  "themeColors": {
+    "primary": "#2E7D32",
+    "primaryLight": "#66BB6A",
+    "primaryDark": "#1B5E20",
+    "accent": "#FFD700",
+    "seriesAlt1": "#0288D1",
+    "seriesAlt2": "#7E57C2",
+    "seriesAlt3": "#8D6E63",
+    "surface": "#FFFFFF",
+    "text": "#263238",
+    "textMuted": "#90A4AE",
+    "grid": "#E0E0E0",
+    "surfaceAlt": "#F5F5F5",
+    "success": "#2E7D32",
+    "danger": "#D32F2F"
+  },
+  "grid": {
+    "columns": 8,
+    "columnWidth": 140,
+    "gutter": 16,
+    "rowHeight": 120,
+    "rowGutter": 16,
+    "contentWidth": 1232
+  },
+  "pages": [
+    {
+      "name": "Page 1 — Executive Overview",
+      "visuals": [
+        { "id": "kpi_total_records", "type": "card", "title": "Total Records",
+          "x": 24, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "titleColor": "#2E7D32", "valueColor": "#2E7D32", "captionColor": "#90A4AE"
+        },
+        { "id": "kpi_avg_price", "type": "card", "title": "Avg Modal Price",
+          "x": 336, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "titleColor": "#2E7D32", "valueColor": "#2E7D32", "captionColor": "#90A4AE"
+        },
+        { "id": "kpi_max_price", "type": "card", "title": "Max Price",
+          "x": 648, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "titleColor": "#2E7D32", "valueColor": "#2E7D32", "captionColor": "#90A4AE"
+        },
+        { "id": "kpi_yoy_growth", "type": "card", "title": "YoY Growth",
+          "x": 960, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "titleColor": "#2E7D32", "valueColor": "#2E7D32", "negValueColor": "#D32F2F", "captionColor": "#90A4AE"
+        },
+        { "id": "line_trend", "type": "line", "title": "Commodity Price Trends — 2024",
+          "x": 24, "y": 160, "width": 1232, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0", "legendColor": "#263238",
+          "seriesColors": ["#2E7D32", "#66BB6A", "#1B5E20", "#A5D6A7", "#0288D1"]
+        },
+        { "id": "pie_market_share", "type": "pie", "title": "Market Share",
+          "x": 24, "y": 432, "width": 608, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "legendColor": "#263238",
+          "seriesColors": ["#2E7D32", "#66BB6A", "#A5D6A7", "#0288D1", "#FFD700", "#8D6E63"]
+        },
+        { "id": "col_top_commodities", "type": "column", "title": "Top 10 Commodities by Price",
+          "x": 648, "y": 432, "width": 608, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0", "legendColor": "#263238",
+          "seriesColors": ["#2E7D32"]
+        }
+      ]
+    },
+    {
+      "name": "Page 2 — Commodity Deep Dive",
+      "visuals": [
+        { "id": "slicer_commodity", "type": "slicer", "title": "Commodity",
+          "x": 24, "y": 24, "width": 1232, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "handleColor": "#2E7D32", "textColor": "#263238"
+        },
+        { "id": "stacked_variety_grade", "type": "stackedBar", "title": "Varieties by Grade",
+          "x": 24, "y": 160, "width": 608, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0",
+          "seriesColors": ["#66BB6A", "#2E7D32", "#A5D6A7"]
+        },
+        { "id": "table_stats", "type": "table", "title": "Commodity Stats",
+          "x": 648, "y": 160, "width": 608, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "headerBackground": "#FAFAFA", "headerText": "#263238", "rowAlt": "#F5F5F5",
+          "positiveColor": "#2E7D32", "negativeColor": "#D32F2F"
+        },
+        { "id": "area_monthly_price", "type": "area", "title": "Monthly Price Movement",
+          "x": 24, "y": 432, "width": 1232, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0",
+          "lineColor": "#2E7D32", "fillColor": "#66BB6A80"
+        }
+      ]
+    },
+    {
+      "name": "Page 3 — Weather Impact",
+      "visuals": [
+        { "id": "kpi_temp", "type": "card", "title": "Avg Temp (°C)",
+          "x": 24, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "titleColor": "#2E7D32", "valueColor": "#2E7D32" },
+        { "id": "kpi_rain", "type": "card", "title": "Total Rain (mm)",
+          "x": 336, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "titleColor": "#2E7D32", "valueColor": "#2E7D32" },
+        { "id": "kpi_wind", "type": "card", "title": "Avg Wind (km/h)",
+          "x": 648, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "titleColor": "#2E7D32", "valueColor": "#2E7D32" },
+        { "id": "kpi_cloud", "type": "card", "title": "Cloud Cover (%)",
+          "x": 960, "y": 24, "width": 296, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "titleColor": "#2E7D32", "valueColor": "#2E7D32" },
+        { "id": "scatter_weather_price", "type": "scatter", "title": "Weather vs Price",
+          "x": 24, "y": 160, "width": 1232, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0", "legendColor": "#263238",
+          "markerOpacity": 0.5, "seriesColors": ["#2E7D32", "#66BB6A", "#0288D1", "#FFD700"],
+          "trendLineColor": "#0288D1"
+        },
+        { "id": "line_temp", "type": "line", "title": "Temperature Over Time",
+          "x": 24, "y": 568, "width": 608, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0",
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0", "lineColor": "#EF6C00" },
+        { "id": "line_rain", "type": "line", "title": "Rainfall Over Time",
+          "x": 648, "y": 568, "width": 608, "height": 120,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0",
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0", "lineColor": "#0288D1" }
+        ]
+    },
+    {
+      "name": "Page 4 — Market Intelligence",
+      "visuals": [
+        { "id": "map_markets", "type": "map", "title": "Markets",
+          "x": 24, "y": 24, "width": 1232, "height": 392,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0",
+          "bubbleFillGradient": ["#A5D6A7", "#2E7D32"], "bubbleBorder": "#FFFFFF"
+        },
+        { "id": "matrix_market_quarter", "type": "matrix", "title": "Market × Quarter",
+          "x": 24, "y": 432, "width": 608, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0",
+          "dataBarColor": "#66BB6A", "backgroundScale": { "min": "#E8F5E9", "max": "#1B5E20" }
+        },
+        { "id": "col_quarter_trends", "type": "clusteredColumn", "title": "Quarterly Trends",
+          "x": 648, "y": 432, "width": 608, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0",
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0", "legendColor": "#263238",
+          "seriesColors": ["#2E7D32", "#0288D1", "#FFD700", "#7E57C2", "#8D6E63"]
+        }
+      ]
+    },
+    {
+      "name": "Page 5 — ML Insights (Optional)",
+      "visuals": [
+        { "id": "bar_feature_importance", "type": "bar", "title": "Feature Importance",
+          "x": 24, "y": 24, "width": 1232, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0",
+          "axisColor": "#263238", "gridlineColor": "#E0E0E0",
+          "posBarColor": "#2E7D32", "negBarColor": "#D32F2F"
+        },
+        { "id": "card_prediction", "type": "card", "title": "Predicted Price",
+          "x": 24, "y": 296, "width": 452, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "titleColor": "#2E7D32", "valueColor": "#2E7D32", "subTextColor": "#263238"
+        },
+        { "id": "panel_what_if", "type": "panel", "title": "What-If Parameters",
+          "x": 492, "y": 296, "width": 764, "height": 256,
+          "backgroundColor": "#FFFFFF", "borderColor": "#E0E0E0", "borderRadius": 8,
+          "sliderTrack": "#A5D6A7", "sliderThumb": "#2E7D32", "labelColor": "#263238"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Notes
+- Coordinates are absolute (px) and fit within 1280×720.
+- Colors reference a single theme palette for consistency.
+- Titles kept short; legends inside visuals where possible.
+- No duplicated guidance from earlier sections; this is a concrete spec.

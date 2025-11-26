@@ -1,0 +1,100 @@
+This file describes the columns in the Agmarknet_Price_Report.csv file.
+
+
+State: Full name of the Indian state where the market is located. Example: Gujarat
+District: District within the state where the market operates. Example: Surat
+Market: Specific market or mandi name. Example: Bardoli
+Commodity: Name of the agricultural product being traded. Example: Cabbage
+Variety: Specific variety or type of the commodity. Example: Other
+Grade: Quality classification of the commodity (e.g., FAQ = Fair Average Quality). Example: FAQ
+Arrival_Date: Date when the commodity arrived at the market (format: DD-MM-YYYY). Example: 05-12-2015
+Min_Price: Minimum price recorded for the commodity on that day. Example: 0
+Max_Price: Maximum price recorded for the commodity on that day. Example: 2005
+Modal_Price: Most frequently quoted price (modal price). Example: 2005
+Commodity_Code: System-generated code representing the commodity. Example: 154
+
+---------------------------------------------------------------------------------------------------------------------------------------
+This file describes the columns in the market_historical_weather_open-meteo.csv file.
+
+Context Columns
+
+market_name_lookup
+Description: The name of the market, as parsed from your "Market.xlsx" file.
+Example: "Bardoli", "Kosamba(D)"
+
+latitude_lookup
+Description: The WGS84 latitude coordinate for the market.
+Example: 21.124
+
+longitude_lookup
+Description: The WGS84 longitude coordinate for the market.
+Example: 73.1115
+
+API Data Columns (Daily)
+
+time
+Description: The date for the weather record in ISO 8601 format (YYYY-MM-DD). Each row represents one full day.
+Example: "2024-01-01"
+
+temperature_2m_max
+Description: The maximum air temperature 2 meters above the ground for the entire day.
+Unit: Celsius (°C)
+
+temperature_2m_min
+Description: The minimum air temperature 2 meters above the ground for the entire day.
+Unit: Celsius (°C)
+
+precipitation_sum
+Description: The total sum of precipitation (rain, showers, snow) for the entire day.
+Unit: Millimeters (mm)
+
+wind_speed_10m_max
+Description: The maximum wind speed 10 meters above the ground for the entire day.
+Unit: Kilometers per hour (km/h)
+
+
+
+
+🌍 Location & Identification
+
+market_name_lookup: The name or identifier of the market/location being referenced.
+latitude_lookup: Geographic latitude coordinate of the location (north–south position).
+longitude_lookup: Geographic longitude coordinate of the location (east–west position).
+
+⏰ Time Dimension
+
+time: The timestamp or date for which the weather data is recorded.
+
+🌡️ Temperature Metrics
+
+temperature_2m_max: Maximum air temperature at 2 meters above ground during the period.
+temperature_2m_min: Minimum air temperature at 2 meters above ground during the period.
+temperature_2m_mean: Average air temperature at 2 meters above ground during the period.
+
+🌧️ Precipitation & Rain
+
+precipitation_sum: Total precipitation (rain + snow + other forms) accumulated over the period.
+rain_sum: Total rainfall amount specifically (excluding snow/other precipitation).
+
+💨 Wind Conditions
+
+wind_speed_10m_max: Maximum sustained wind speed measured at 10 meters above ground.
+wind_gusts_10m_max: Maximum wind gusts (short bursts of stronger wind) at 10 meters above ground.
+
+🌤️ Weather & Atmosphere
+
+weather_code: Encoded numerical value representing the general weather condition (e.g., clear, cloudy, rain, snow).
+cloud_cover_mean: Average percentage of sky covered by clouds during the period.
+uv_index_max: Maximum UV index value, indicating the intensity of ultraviolet radiation from the sun.
+
+
+
+Weather CODE
+
+0:			Clear sky
+1, 2, 3:		Mainly clear, partly cloudy, or overcast
+45, 48:			Fog
+51, 53, 55:		Drizzle (Light, moderate, heavy)
+61, 63, 65:		Rain (Slight, moderate, heavy)
+80, 81, 82:		Rain showers (Slight, moderate, violent)
+95, 96, 99:		Thunderstorm

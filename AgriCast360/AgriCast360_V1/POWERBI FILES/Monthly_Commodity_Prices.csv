@@ -1,0 +1,633 @@
+Month,Commodity,mean,count
+1,Arhar (Tur/Red Gram)(Whole),7205,5
+1,Banana - Green,1600,20
+1,Beetroot,1382.61,23
+1,Bengal Gram(Gram)(Whole),5111.9,21
+1,Bhindi(Ladies Finger),3140.22,69
+1,Bitter gourd,3775,24
+1,Black Gram (Urd Beans)(Whole),7997.5,20
+1,Bottle gourd,1934.09,22
+1,Brinjal,2636.25,40
+1,Cabbage,1253.12,24
+1,Capsicum,2542.71,24
+1,Carrot,1467.39,23
+1,Castor Seed,5100,1
+1,Cauliflower,2728.26,23
+1,Chili Red,3318.8,5
+1,Cotton,6881.85,20
+1,Cucumbar(Kheera),2132.89,19
+1,Drumstick,3763.54,24
+1,Elephant Yam (Suran),4173.96,24
+1,French Beans (Frasbean),2934.38,24
+1,Ginger(Green),6160.87,23
+1,Gram Raw(Chholia),5770.83,6
+1,Green Chilli,2834.38,24
+1,Groundnut,7729.17,12
+1,Guar,6000,1
+1,Indian Beans (Seam),2286.96,23
+1,Jowar(Sorghum),2846.88,24
+1,Lemon,2813.54,24
+1,Little gourd (Kundru),4781.25,24
+1,Maize,2180,2
+1,Mango (Raw-Ripe),15306.82,22
+1,Onion,1411.96,23
+1,Paddy(Dhan)(Common),1998.23,77
+1,Papaya (Raw),695,20
+1,Pegeon Pea (Arhar Fali),5872.83,23
+1,Pointed gourd (Parval),4795.71,42
+1,Potato,1581.52,23
+1,Pumpkin,1336.96,23
+1,Rat Tail Radish (Mogari),4450,20
+1,Ridgeguard(Tori),3635.53,19
+1,"Sesamum(Sesame,Gingelly,Til)",10166.67,3
+1,Soyabean,4436.67,15
+1,Surat Beans (Papadi),8023.81,21
+1,Sweet Potato,2284.78,23
+1,Tomato,1767.71,24
+1,Turmeric (raw),8847.83,23
+1,Yam (Ratalu),9510.42,24
+2,Arhar (Tur/Red Gram)(Whole),9007.05,39
+2,Banana - Green,1483,25
+2,Beans,7250,5
+2,Beetroot,1340,25
+2,Bengal Gram(Gram)(Whole),5370.19,26
+2,Bhindi(Ladies Finger),2918.67,75
+2,Bitter gourd,3772,25
+2,Black Gram (Urd Beans)(Whole),7772.32,28
+2,Bottle gourd,2042,25
+2,Brinjal,1438.89,36
+2,Cabbage,1458.33,24
+2,Capsicum,3360.42,24
+2,Carrot,962.5,24
+2,Cauliflower,2175,24
+2,Chili Red,3215.45,11
+2,Cotton,6817.25,20
+2,Cucumbar(Kheera),2097.92,24
+2,Drumstick,2848.96,24
+2,Elephant Yam (Suran),4990.62,24
+2,French Beans (Frasbean),2467.71,24
+2,Ginger(Green),6154.17,24
+2,Gram Raw(Chholia),5856.25,16
+2,Green Chilli,3983.33,24
+2,Green Gram (Moong)(Whole),7000,3
+2,Guar,6800,15
+2,Indian Beans (Seam),1745.83,24
+2,Jowar(Sorghum),2254.55,11
+2,Lemon,5593.75,24
+2,Little gourd (Kundru),5781.25,24
+2,Mango (Raw-Ripe),8978.26,23
+2,Onion,1365.62,24
+2,Paddy(Dhan)(Common),2052.63,65
+2,Papaya (Raw),711.46,24
+2,Pegeon Pea (Arhar Fali),5406.25,24
+2,Pointed gourd (Parval),6147.87,47
+2,Potato,1180.21,24
+2,Pumpkin,1533.33,24
+2,Rat Tail Radish (Mogari),3427.08,24
+2,Ridgeguard(Tori),3098.96,24
+2,"Sesamum(Sesame,Gingelly,Til)",11975,10
+2,Soyabean,4000,1
+2,Surat Beans (Papadi),6385.42,24
+2,Sweet Potato,1901.04,24
+2,Tomato,1791.67,24
+2,Turmeric (raw),10583.33,24
+2,Wheat,2435.71,7
+2,Yam (Ratalu),9500,24
+3,Arhar (Tur/Red Gram)(Whole),8640.12,43
+3,Banana - Green,1318.18,22
+3,Beans,7843.64,25
+3,Beetroot,1314.77,22
+3,Bengal Gram(Gram)(Whole),5859.27,37
+3,Bhindi(Ladies Finger),2833.85,65
+3,Bitter gourd,4097.73,22
+3,Black Gram (Urd Beans)(Whole),8138.16,19
+3,Bottle gourd,2079.55,22
+3,Brinjal,1635.62,40
+3,Cabbage,1781.82,22
+3,Capsicum,4129.55,22
+3,Carrot,1327.27,22
+3,Castor Seed,5000,1
+3,Cauliflower,2743.18,22
+3,Cotton,7298.5,12
+3,Cowpea (Lobia/Karamani),4500,1
+3,Cucumbar(Kheera),1651.14,22
+3,Drumstick,2280.68,22
+3,Elephant Yam (Suran),5790.48,21
+3,French Beans (Frasbean),2847.73,22
+3,Ginger(Green),8075,22
+3,Gram Raw(Chholia),5715.48,21
+3,Green Chilli,5636.36,22
+3,Green Gram (Moong)(Whole),8100,9
+3,Guar,7550,5
+3,Indian Beans (Seam),2579.55,22
+3,Jowar(Sorghum),2409.07,14
+3,Lemon,6693.18,22
+3,Little gourd (Kundru),5318.18,22
+3,Maize,2235.56,18
+3,Mango (Raw-Ripe),7284.09,22
+3,Onion,1396.02,22
+3,Paddy(Dhan)(Common),2054.61,51
+3,Papaya (Raw),798.86,22
+3,Pegeon Pea (Arhar Fali),3995.24,21
+3,Pointed gourd (Parval),4768.75,40
+3,Potato,1336.9,21
+3,Pumpkin,1470,20
+3,Rat Tail Radish (Mogari),5295.45,11
+3,Ridgeguard(Tori),2907.14,21
+3,"Sesamum(Sesame,Gingelly,Til)",12022.73,11
+3,Soyabean,4162.5,4
+3,Surat Beans (Papadi),6285.71,21
+3,Sweet Potato,2145.24,21
+3,Tamarind Fruit,2847.5,2
+3,Tomato,1208.33,21
+3,Turmeric (raw),9714.29,21
+3,Wheat,2373,31
+3,Yam (Ratalu),8916.67,21
+4,Arhar (Tur/Red Gram)(Whole),8316.07,59
+4,Bajra(Pearl Millet/Cumbu),2100,1
+4,Banana - Green,1071.25,20
+4,Beans,7243.47,30
+4,Beetroot,1272.5,20
+4,Bengal Gram(Gram)(Whole),6111.87,47
+4,Bhindi(Ladies Finger),2714.38,65
+4,Bitter gourd,3270,20
+4,Black Gram (Urd Beans)(Whole),8131.73,33
+4,Bottle gourd,2014.25,20
+4,Brinjal,1539.86,37
+4,Cabbage,1321.25,20
+4,Capsicum,3747.5,20
+4,Carrot,1531.25,20
+4,Cauliflower,2067.5,20
+4,Cluster beans,3550,2
+4,Cotton,7423.33,12
+4,Cowpea (Lobia/Karamani),3500,5
+4,Cowpea(Veg),3425,2
+4,Cucumbar(Kheera),1612.5,20
+4,Drumstick,1890,20
+4,Elephant Yam (Suran),6450,20
+4,French Beans (Frasbean),4935,20
+4,Ginger(Green),8028.75,20
+4,Gram Raw(Chholia),6661.76,17
+4,Green Chilli,4237.5,20
+4,Green Gram (Moong)(Whole),8310.15,47
+4,Groundnut,6697.87,53
+4,Guar,4093.75,8
+4,Indian Beans (Seam),3161.25,20
+4,Jowar(Sorghum),2587.13,15
+4,Lemon,5685,20
+4,Little gourd (Kundru),4802.5,20
+4,Maize,2072.73,37
+4,Mango (Raw-Ripe),5672.5,20
+4,Mustard,5637,1
+4,Onion,1301.25,20
+4,Paddy(Dhan)(Common),2085.85,52
+4,Papaya (Raw),783,20
+4,Peas cod,5750,2
+4,Peas(Dry),4025,1
+4,Pegeon Pea (Arhar Fali),5800,20
+4,Pointed gourd (Parval),3625.25,40
+4,Potato,1817.25,20
+4,Pumpkin,1010,20
+4,Ridgeguard(Tori),2840,20
+4,"Sesamum(Sesame,Gingelly,Til)",12012.96,27
+4,Soyabean,3750,2
+4,Sponge gourd,1950,2
+4,Surat Beans (Papadi),5132.5,20
+4,Sweet Potato,2165,20
+4,Tamarind Fruit,3000.5,4
+4,Tomato,910,20
+4,Turmeric (raw),11250,19
+4,Wheat,2510.76,37
+4,Yam (Ratalu),8894.74,19
+5,Ajwan,7655,1
+5,Arhar (Tur/Red Gram)(Whole),8333.65,43
+5,Bajra(Pearl Millet/Cumbu),2135,4
+5,Banana - Green,842,25
+5,Beans,5791.67,6
+5,Beetroot,1362,25
+5,Bengal Gram(Gram)(Whole),6132.03,39
+5,Bhindi(Ladies Finger),2695.34,88
+5,Bitter gourd,2994,25
+5,Black Gram (Urd Beans)(Whole),8493.41,54
+5,Bottle gourd,2056,25
+5,Brinjal,2038.33,45
+5,Cabbage,1353,25
+5,Capsicum,2722,25
+5,Carrot,1837,25
+5,Cauliflower,2444,25
+5,Cluster beans,3432,25
+5,Cotton,7300.65,23
+5,Cowpea (Lobia/Karamani),3250,4
+5,Cowpea(Veg),4939,25
+5,Cucumbar(Kheera),1836,25
+5,Drumstick,2463,25
+5,Elephant Yam (Suran),7171,25
+5,French Beans (Frasbean),8320,25
+5,Ginger(Green),7992,25
+5,Green Chilli,3800,25
+5,Green Gram (Moong)(Whole),8266.49,79
+5,Groundnut,6595.58,89
+5,Guar,3606.25,20
+5,Indian Beans (Seam),4324,25
+5,Jowar(Sorghum),2426.31,42
+5,Lemon,4930,25
+5,Lentil (Masur)(Whole),8697.83,6
+5,Little gourd (Kundru),4176,25
+5,Maize,2080.65,68
+5,Mango,3409.09,11
+5,Mango (Raw-Ripe),5982,25
+5,Onion,1581,25
+5,Paddy(Dhan)(Common),2156.37,75
+5,Papaya (Raw),754.17,24
+5,Peas cod,6885,25
+5,Peas(Dry),4375,2
+5,Pegeon Pea (Arhar Fali),7650,25
+5,Pointed gourd (Parval),3105.2,50
+5,Potato,1902.8,25
+5,Pumpkin,892,25
+5,Ridgeguard(Tori),3993,25
+5,"Sesamum(Sesame,Gingelly,Til)",12798.2,70
+5,Soyabean,3500,1
+5,Sponge gourd,2023,25
+5,Sunflower,3800,1
+5,Surat Beans (Papadi),7100,25
+5,Sweet Potato,2670.83,24
+5,Tamarind Fruit,2500,1
+5,Tomato,979.17,24
+5,Turmeric (raw),12836.96,23
+5,Wheat,2555.07,29
+5,Yam (Ratalu),8375,24
+6,Arhar (Tur/Red Gram)(Whole),8365.13,38
+6,Bajra(Pearl Millet/Cumbu),2276.25,4
+6,Banana - Green,960,20
+6,Beans,4550,5
+6,Beetroot,1655,20
+6,Bengal Gram(Gram)(Whole),6199.21,29
+6,Bhindi(Ladies Finger),3657.27,75
+6,Bitter gourd,4230,20
+6,Black Gram (Urd Beans)(Whole),8400.76,51
+6,Bottle gourd,2862.5,20
+6,Brinjal,3814.1,39
+6,Cabbage,1472.5,20
+6,Capsicum,3952.5,20
+6,Carrot,1855,20
+6,Cauliflower,2830,20
+6,Cluster beans,5505,20
+6,Cotton,7277.11,19
+6,Cowpea (Lobia/Karamani),3604.17,12
+6,Cowpea(Veg),8275,20
+6,Cucumbar(Kheera),2170,20
+6,Drumstick,4392.5,20
+6,Elephant Yam (Suran),6887.5,20
+6,French Beans (Frasbean),9416.67,18
+6,Ginger(Green),7895,20
+6,Green Chilli,5393.75,20
+6,Green Gram (Moong)(Whole),7110.4,63
+6,Groundnut,6273.52,60
+6,Groundnut pods (raw),4531.25,16
+6,Guar,6659.09,11
+6,Indian Beans (Seam),6775,20
+6,Jowar(Sorghum),2268.12,32
+6,Kartali (Kantola),13333.33,15
+6,Lemon,3825,20
+6,Little gourd (Kundru),4820,20
+6,Maize,2170,16
+6,Mango,3802.78,90
+6,Mango (Raw-Ripe),5562.5,20
+6,Onion,2133.75,20
+6,Paddy(Dhan)(Common),2172.78,102
+6,Papaya (Raw),1058.75,20
+6,Peas cod,10250,20
+6,Pegeon Pea (Arhar Fali),8530,20
+6,Pointed gourd (Parval),3434.55,44
+6,Potato,2085.53,19
+6,Pumpkin,1107.89,19
+6,Ridgeguard(Tori),4615,20
+6,"Sesamum(Sesame,Gingelly,Til)",11750.55,58
+6,Soyabean,3450,5
+6,Sponge gourd,2880,20
+6,Surat Beans (Papadi),10075,20
+6,Sweet Potato,3212.5,20
+6,Tomato,3302.5,20
+6,Turmeric (raw),13425,20
+6,Wheat,2637.5,2
+6,Yam (Ratalu),7037.5,20
+7,Arhar (Tur/Red Gram)(Whole),8700,10
+7,Bajra(Pearl Millet/Cumbu),2495,3
+7,Banana - Green,1150,24
+7,Beetroot,1584.38,24
+7,Bengal Gram(Gram)(Whole),5732.35,17
+7,Bhindi(Ladies Finger),3457.19,73
+7,Bitter gourd,4000,24
+7,Black Gram (Urd Beans)(Whole),8033.82,17
+7,Bottle gourd,3143.75,24
+7,Brinjal,3364.29,49
+7,Cabbage,2098.96,24
+7,Capsicum,3613.04,23
+7,Carrot,1610.42,24
+7,Cauliflower,2616.67,24
+7,Cluster beans,5387.5,24
+7,Cotton,7652.44,18
+7,Cowpea (Lobia/Karamani),2500,2
+7,Cowpea(Veg),10791.67,24
+7,Cucumbar(Kheera),1833.33,24
+7,Drumstick,6147.92,24
+7,Elephant Yam (Suran),6685.42,24
+7,French Beans (Frasbean),9010.42,24
+7,Ginger(Green),6533.33,24
+7,Green Chilli,3775,24
+7,Green Gram (Moong)(Whole),7068.75,24
+7,Groundnut,6416.67,3
+7,Groundnut pods (raw),5713.54,24
+7,Indian Beans (Seam),5475,24
+7,Jowar(Sorghum),2028.57,7
+7,Kartali (Kantola),14020.83,24
+7,Lemon,3010.42,24
+7,Little gourd (Kundru),5657.29,24
+7,Mango,4028.85,26
+7,Mango (Raw-Ripe),5186.96,23
+7,Onion,2508.33,24
+7,Paddy(Dhan)(Common),2079.55,44
+7,Papaya (Raw),1137.92,24
+7,Peas cod,11597.92,24
+7,Pegeon Pea (Arhar Fali),9156.25,24
+7,Pointed gourd (Parval),2232.45,47
+7,Potato,2189.58,24
+7,Pumpkin,993.75,24
+7,Ridgeguard(Tori),3989.58,24
+7,"Sesamum(Sesame,Gingelly,Til)",10455.95,21
+7,Snakeguard,1919.05,21
+7,Soyabean,3714.29,7
+7,Sponge gourd,3041.67,24
+7,Surat Beans (Papadi),6406.25,24
+7,Sweet Potato,4977.08,24
+7,Tomato,4791.67,24
+7,Turmeric (raw),14406.25,24
+7,Yam (Ratalu),8125,24
+8,Ajwan,2415,1
+8,Arhar (Tur/Red Gram)(Whole),8318.75,4
+8,Bajra(Pearl Millet/Cumbu),2383.75,8
+8,Banana - Green,1305.56,27
+8,Beetroot,1456.48,27
+8,Bengal Gram(Gram)(Whole),6340,20
+8,Bhindi(Ladies Finger),2879.05,74
+8,Bitter gourd,2917.59,27
+8,Black Gram (Urd Beans)(Whole),7125,2
+8,Bottle gourd,3575.93,27
+8,Brinjal,3636,50
+8,Cabbage,1664.81,27
+8,Capsicum,3462.96,27
+8,Carrot,1612.96,27
+8,Cauliflower,2176.85,27
+8,Chili Red,4445,1
+8,Cluster beans,5814.81,27
+8,Cotton,7767.75,20
+8,Cotton Seed,7845,1
+8,Cowpea (Lobia/Karamani),3500,1
+8,Cowpea(Veg),7777.78,27
+8,Cucumbar(Kheera),1572.22,27
+8,Drumstick,4540.74,27
+8,Elephant Yam (Suran),5861.11,27
+8,French Beans (Frasbean),4212.96,27
+8,Ginger(Green),6115.74,27
+8,Green Chilli,3315.74,27
+8,Green Gram (Moong)(Whole),5668.75,4
+8,Groundnut,5625,2
+8,Groundnut pods (raw),5203.7,27
+8,Indian Beans (Seam),4942.59,27
+8,Jowar(Sorghum),2335.62,8
+8,Kartali (Kantola),10490.74,27
+8,Lemon,3425.93,27
+8,Little gourd (Kundru),6927.78,27
+8,Maize,2425,1
+8,Mango (Raw-Ripe),6850,5
+8,Onion,2628.7,27
+8,Paddy(Dhan)(Common),2048.13,46
+8,Papaya (Raw),1135.58,26
+8,Peas cod,9388.89,27
+8,Pegeon Pea (Arhar Fali),8435.19,27
+8,Pointed gourd (Parval),3586.46,48
+8,Potato,2093.52,27
+8,Pumpkin,1011.85,27
+8,Ridgeguard(Tori),3270.37,27
+8,"Sesamum(Sesame,Gingelly,Til)",11350,5
+8,Snakeguard,1799.07,27
+8,Soyabean,3895,3
+8,Sponge gourd,2782.41,27
+8,Surat Beans (Papadi),8425.93,27
+8,Sweet Potato,6907.41,27
+8,Tomato,2346.15,26
+8,Turmeric (raw),11453.7,27
+8,Wheat,2500,2
+8,Yam (Ratalu),9074.07,27
+9,Ajwan,7400,1
+9,Arhar (Tur/Red Gram)(Whole),7690,5
+9,Bajra(Pearl Millet/Cumbu),2446.67,15
+9,Banana - Green,1382.61,23
+9,Beetroot,1820.65,23
+9,Bengal Gram(Gram)(Whole),6515.62,16
+9,Bhindi(Ladies Finger),2826.19,63
+9,Bitter gourd,3210.87,23
+9,Black Gram (Urd Beans)(Whole),7666.67,3
+9,Bottle gourd,3882.61,23
+9,Brinjal,3753.33,45
+9,Cabbage,1422.83,23
+9,Capsicum,4728.26,23
+9,Carrot,1903.41,22
+9,Cauliflower,3523.91,23
+9,Chili Red,4365,1
+9,Cluster beans,5918.48,23
+9,Cotton,7465.74,34
+9,Cowpea(Veg),8847.83,23
+9,Cucumbar(Kheera),2454.55,22
+9,Drumstick,5141.3,23
+9,Elephant Yam (Suran),5729.35,23
+9,French Beans (Frasbean),4023.91,23
+9,Ginger(Green),4869.57,23
+9,Green Chilli,3365.22,23
+9,Green Gram (Moong)(Whole),5125,2
+9,Groundnut pods (raw),3731.52,23
+9,Indian Beans (Seam),5847.83,23
+9,Jowar(Sorghum),2321.46,24
+9,Kartali (Kantola),8934.78,23
+9,Lemon,5500,23
+9,Little gourd (Kundru),8380.43,23
+9,Maize,2339,5
+9,Mango (Raw-Ripe),12950,20
+9,Onion,3534.78,23
+9,Paddy(Dhan)(Common),2006.35,51
+9,Papaya (Raw),1269.57,23
+9,Peas cod,14521.74,23
+9,Pegeon Pea (Arhar Fali),9076.09,23
+9,Pointed gourd (Parval),4503.41,44
+9,Potato,2153.7,23
+9,Pumpkin,1265.22,23
+9,Ridgeguard(Tori),3003.26,23
+9,"Sesamum(Sesame,Gingelly,Til)",12505.56,9
+9,Snakeguard,2159.78,23
+9,Sponge gourd,2828.26,23
+9,Surat Beans (Papadi),11086.96,23
+9,Sweet Potato,5477.17,23
+9,Tomato,2521.74,23
+9,Turmeric (raw),10102.27,22
+9,Wheat,2415,1
+9,Yam (Ratalu),11000,23
+10,Arhar (Tur/Red Gram)(Whole),6625,2
+10,Bajra(Pearl Millet/Cumbu),2317.71,7
+10,Banana - Green,1480.43,23
+10,Beetroot,2900,22
+10,Bengal Gram(Gram)(Whole),6562.5,16
+10,Bhindi(Ladies Finger),2946.67,45
+10,Bitter gourd,3197.83,23
+10,Black Gram (Urd Beans)(Whole),6166.67,9
+10,Bottle gourd,3815.22,23
+10,Brinjal,3664.1,39
+10,Cabbage,1789.13,23
+10,Capsicum,5532.61,23
+10,Carrot,2467.39,23
+10,Cauliflower,3064.29,21
+10,Cluster beans,6967.39,23
+10,Cotton,7088.34,32
+10,Cowpea(Veg),9510.87,23
+10,Cucumbar(Kheera),1754.76,21
+10,Drumstick,7659.09,22
+10,Elephant Yam (Suran),5121.74,23
+10,French Beans (Frasbean),5641.3,23
+10,Ginger(Green),5928.26,23
+10,Green Chilli,4055.43,23
+10,Groundnut,4750,1
+10,Groundnut pods (raw),4163.04,23
+10,Indian Beans (Seam),4886.96,23
+10,Jowar(Sorghum),2188.16,19
+10,Kartali (Kantola),6833.33,15
+10,Lemon,4076.09,23
+10,Lentil (Masur)(Whole),6500,1
+10,Little gourd (Kundru),8423.91,23
+10,Maize,2083.7,30
+10,Mango (Raw-Ripe),6789.13,23
+10,Onion,3207.61,23
+10,Paddy(Dhan)(Basmati),1880,3
+10,Paddy(Dhan)(Common),1992.41,59
+10,Papaya (Raw),991.3,23
+10,Peas cod,11885.55,22
+10,Pegeon Pea (Arhar Fali),6271.74,23
+10,Pointed gourd (Parval),4442.39,46
+10,Potato,2321.74,23
+10,Pumpkin,1563.04,23
+10,Ridgeguard(Tori),3097.83,23
+10,"Sesamum(Sesame,Gingelly,Til)",12900,5
+10,Snakeguard,1813.04,23
+10,Soyabean,3805.96,26
+10,Sponge gourd,2858.7,23
+10,Surat Beans (Papadi),12184.78,23
+10,Sweet Potato,3691.3,23
+10,Tomato,4430.43,23
+10,Turmeric (raw),7945.65,23
+10,Yam (Ratalu),10652.17,23
+11,Ajwan,6997.5,2
+11,Arhar (Tur/Red Gram)(Whole),5500,1
+11,Banana - Green,1464.13,23
+11,Beetroot,3371.74,23
+11,Bengal Gram(Gram)(Whole),6916.18,17
+11,Bhindi(Ladies Finger),3485.34,58
+11,Bitter gourd,3200,23
+11,Black Gram (Urd Beans)(Whole),5111.11,9
+11,Bottle gourd,3200,23
+11,Brinjal,3796.05,38
+11,Cabbage,2430.43,23
+11,Capsicum,4315.22,23
+11,Carrot,4184.78,23
+11,Cauliflower,3845.65,23
+11,Cluster beans,6158.7,23
+11,Cotton,7015.47,47
+11,Cowpea(Veg),6108.7,23
+11,Cucumbar(Kheera),1510.87,23
+11,Drumstick,11670.45,22
+11,Elephant Yam (Suran),4395.65,23
+11,French Beans (Frasbean),3186.96,23
+11,Ginger(Green),4926.09,23
+11,Green Chilli,3202.17,23
+11,Groundnut,6854.55,11
+11,Groundnut pods (raw),5175,10
+11,Guar,6166.67,6
+11,Indian Beans (Seam),4834.78,23
+11,Jowar(Sorghum),2216.39,18
+11,Kartali (Kantola),6125,2
+11,Lemon,3475,23
+11,Little gourd (Kundru),5338.04,23
+11,Maize,2087.37,19
+11,Mango (Raw-Ripe),5065.22,23
+11,Onion,4052.17,23
+11,Paddy(Dhan)(Common),2158.83,102
+11,Papaya (Raw),1145.65,23
+11,Peas cod,8438.64,22
+11,Pegeon Pea (Arhar Fali),9175,23
+11,Pointed gourd (Parval),3421.43,42
+11,Potato,2301.09,23
+11,Pumpkin,1671.74,23
+11,Ridgeguard(Tori),3136.96,23
+11,"Sesamum(Sesame,Gingelly,Til)",7500,2
+11,Snakeguard,2352.17,23
+11,Soyabean,3800.98,59
+11,Sponge gourd,2343.48,23
+11,Surat Beans (Papadi),16369.57,23
+11,Sweet Potato,3086.96,23
+11,Tomato,2096.74,23
+11,Turmeric (raw),8021.74,23
+11,Yam (Ratalu),9228.26,23
+12,Ajwan,6900,1
+12,Arhar (Tur/Red Gram)(Whole),6250,2
+12,Bajra(Pearl Millet/Cumbu),2170.83,6
+12,Banana - Green,1394,25
+12,Beans,6000,1
+12,Beetroot,3156.25,24
+12,Bengal Gram(Gram)(Whole),6275,26
+12,Bhindi(Ladies Finger),4415.06,78
+12,Bitter gourd,4080,25
+12,Black Gram (Urd Beans)(Whole),6031.25,24
+12,Bottle gourd,2740,25
+12,Brinjal,2475.58,43
+12,Cabbage,1706,25
+12,Capsicum,3470,25
+12,Carrot,1791,25
+12,Cauliflower,2892,25
+12,Cluster beans,6700,25
+12,Cotton,6945.3,40
+12,Cowpea (Lobia/Karamani),2000,1
+12,Cowpea(Veg),5300,25
+12,Cucumbar(Kheera),2384,25
+12,Drumstick,9590,25
+12,Elephant Yam (Suran),4662,25
+12,French Beans (Frasbean),3544,25
+12,Ginger(Green),2598,25
+12,Gram Raw(Chholia),5867.86,14
+12,Green Chilli,3382,25
+12,Green Gram (Moong)(Whole),6500,2
+12,Groundnut,6670,25
+12,Guar,7444.44,18
+12,Indian Beans (Seam),2912,25
+12,Jowar(Sorghum),2063.65,17
+12,Kartali (Kantola),17500,1
+12,Lemon,2380,25
+12,Little gourd (Kundru),5710,25
+12,Maize,1992.5,12
+12,Mango (Raw-Ripe),8156.25,24
+12,Onion,3525,25
+12,Paddy(Dhan)(Common),2129.67,96
+12,Papaya (Raw),984,25
+12,Peas cod,5561,25
+12,Pegeon Pea (Arhar Fali),6326,25
+12,Pointed gourd (Parval),5083.33,48
+12,Potato,2129,25
+12,Pumpkin,1614,25
+12,Rat Tail Radish (Mogari),18058.82,17
+12,Ridgeguard(Tori),3870,25
+12,"Sesamum(Sesame,Gingelly,Til)",12750,2
+12,Snakeguard,2263.89,18
+12,Soyabean,3785.18,55
+12,Sponge gourd,2810,25
+12,Surat Beans (Papadi),8785,25
+12,Sweet Potato,3077,25
+12,Tomato,2231,25
+12,Turmeric (raw),7410,25
+12,Yam (Ratalu),6520,25

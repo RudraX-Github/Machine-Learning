@@ -1,0 +1,27 @@
+{
+  "name": "AgriCast360",
+  "dataColors": [
+    "#2E7D32", "#66BB6A", "#FFD700", "#FFA726", 
+    "#42A5F5", "#AB47BC", "#26A69A", "#EF5350"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#212121",
+  "tableAccent": "#2E7D32",
+  "good": "#66BB6A",
+  "neutral": "#FFA726",
+  "bad": "#EF5350",
+  "textClasses": {
+    "title": {
+      "fontSize": 24,
+      "color": "#2E7D32"
+    },
+    "header": {
+      "fontSize": 18,
+      "color": "#424242"
+    },
+    "label": {
+      "fontSize": 12,
+      "color": "#616161"
+    }
+  }
+}
