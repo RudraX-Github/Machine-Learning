@@ -1,0 +1,5 @@
+Column,IQR Outliers,IQR %,Z-Score Outliers (>3),Lower Bound,Upper Bound
+Min_Price,2589,7.28%,775,-3250.0,12350.0
+Max_Price,2875,8.09%,741,-3175.0,14625.0
+Modal_Price,2710,7.62%,753,-3419.5,13832.5
+Commodity_Code,4088,11.50%,1340,-51.0,109.0

@@ -1,0 +1,11 @@
+Column,Data Type,Non-Null Count,Null Count,Unique Values,Sample Values
+State,object,28007,0,1,"['Gujarat', 'Gujarat', 'Gujarat']"
+District,object,28007,0,1,"['Surat', 'Surat', 'Surat']"
+Market,object,28007,0,20,"['Bardoli', 'Bardoli(Katod)', 'Bardoli(Katod)']"
+Commodity,object,28007,0,68,"['Brinjal', 'Bhindi', 'Bhindi']"
+Variety,object,28007,0,42,"['Other', 'Other', 'Other']"
+Arrival_Date,datetime64[ns],28007,0,710,"[Timestamp('2023-05-11 00:00:00'), Timestamp('2024-07-01 00:00:00'), Timestamp('2024-07-09 00:00:00')]"
+Min_Price,int64,28007,0,660,"[1800, 3000, 3000]"
+Max_Price,int64,28007,0,942,"[2000, 3750, 3500]"
+Modal_Price,int64,28007,0,1252,"[1850, 3500, 3250]"
+Commodity_Code,int64,28007,0,69,"[35, 85, 85]"

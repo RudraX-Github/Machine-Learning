@@ -1,0 +1,4 @@
+Data Cleaning Log - Bagasara
+============================================================
+
+• Converted Date  to datetime format

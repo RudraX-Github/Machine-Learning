@@ -1,0 +1,4 @@
+Data Cleaning Log - Sanad
+============================================================
+
+• Converted Date  to datetime format

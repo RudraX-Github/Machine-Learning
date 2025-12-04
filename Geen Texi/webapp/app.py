@@ -3,20 +3,62 @@ import numpy as np
 import joblib
 import pickle
 import os
+import sys
+import warnings
+
+# Suppress numpy deprecation warnings
+warnings.filterwarnings('ignore')
 
 # Set model directory
-MODEL_DIR = os.path.join(os.path.dirname(__file__), '../Models')
+MODEL_DIR = r"D:\CUDA_Experiments\Git_HUB\Machine-Learning\Geen Texi\Models"
 
-# Load models
+# Custom unpickler to handle numpy random state compatibility issues
+class NumpyRNGPickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        # Handle numpy random state compatibility
+        if module == 'numpy.random' and 'MT19937' in name:
+            # Use the current numpy random state instead
+            module = 'numpy.random._mt19937'
+            name = 'MT19937'
+        elif module == 'numpy.random._pickle':
+            # Handle the pickle module reference
+            return super().find_class('numpy.random._pickle', name)
+        return super().find_class(module, name)
+
+# Load models with compatibility handling
 @st.cache_resource
 def load_models():
     models = {}
-    models['Random Forest'] = joblib.load(os.path.join(MODEL_DIR, 'rf_model.pkl'))
-    models['Gradient Boosting'] = joblib.load(os.path.join(MODEL_DIR, 'gb_model.pkl'))
-    models['Extra Trees'] = joblib.load(os.path.join(MODEL_DIR, 'et_model.pkl'))
-    with open(os.path.join(MODEL_DIR, 'meta_model.pkl'), 'rb') as f:
-        models['Stacking Ensemble'] = pickle.load(f)
-    scaler = joblib.load(os.path.join(MODEL_DIR, 'scaler.pkl'))
+    
+    # Load Random Forest model
+    try:
+        models['Random Forest'] = joblib.load(os.path.join(MODEL_DIR, 'rf_model.pkl'), mmap_mode=None)
+    except (ValueError, ModuleNotFoundError) as e:
+        st.warning(f"Could not load Random Forest model: {e}")
+    
+    # Load Gradient Boosting model
+    try:
+        models['Gradient Boosting'] = joblib.load(os.path.join(MODEL_DIR, 'gb_model.pkl'), mmap_mode=None)
+    except (ValueError, ModuleNotFoundError) as e:
+        st.warning(f"Could not load Gradient Boosting model: {e}")
+    
+    # Load Extra Trees model if it exists
+    et_path = os.path.join(MODEL_DIR, 'et_model.pkl')
+    if os.path.exists(et_path):
+        try:
+            models['Extra Trees'] = joblib.load(et_path, mmap_mode=None)
+        except (ValueError, ModuleNotFoundError) as e:
+            st.warning(f"Could not load Extra Trees model: {e}")
+    
+    # Load Stacking Ensemble model
+    try:
+        with open(os.path.join(MODEL_DIR, 'meta_model.pkl'), 'rb') as f:
+            models['Stacking Ensemble'] = pickle.load(f)
+    except (ValueError, ModuleNotFoundError) as e:
+        st.warning(f"Could not load Stacking Ensemble model: {e}")
+    
+    # Load scaler
+    scaler = joblib.load(os.path.join(MODEL_DIR, 'scaler.pkl'), mmap_mode=None)
     return models, scaler
 
 models, scaler = load_models()

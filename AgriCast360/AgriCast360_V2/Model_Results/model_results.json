@@ -1,0 +1,111 @@
+{
+  "best_model": "Stacking",
+  "best_model_metrics": {
+    "test_mae": 334.0985798439701,
+    "test_rmse": 816.2708747320313,
+    "test_mape_percent": 9.448462705528026,
+    "test_r2": 0.9603696091552437
+  },
+  "all_models_comparison": [
+    {
+      "Model": "Stacking",
+      "Train MAE": 272.92788511502204,
+      "Test MAE": 334.0985798439701,
+      "Train RMSE": 641.1443931581974,
+      "Test RMSE": 816.2708747320313,
+      "Train MAPE (%)": 8.080128683977495,
+      "Test MAPE (%)": 9.448462705528026,
+      "Train R\u00b2": 0.9753470258689456,
+      "Test R\u00b2": 0.9603696091552437
+    },
+    {
+      "Model": "RF (Tuned)",
+      "Train MAE": "N/A",
+      "Test MAE": 319.81067570616744,
+      "Train RMSE": "N/A",
+      "Test RMSE": 819.1663169378212,
+      "Train MAPE (%)": "N/A",
+      "Test MAPE (%)": 8.85251774739522,
+      "Train R\u00b2": "N/A",
+      "Test R\u00b2": 0.9600879599536349
+    },
+    {
+      "Model": "Random Forest",
+      "Train MAE": 213.20058479475676,
+      "Test MAE": 313.1762088852405,
+      "Train RMSE": 541.4550841391132,
+      "Test RMSE": 827.3486846944364,
+      "Train MAPE (%)": 6.427416672323962,
+      "Test MAPE (%)": 8.720618474035108,
+      "Train R\u00b2": 0.9824174243526715,
+      "Test R\u00b2": 0.95928664279777
+    },
+    {
+      "Model": "Voting",
+      "Train MAE": 327.43203601543263,
+      "Test MAE": 361.30561646378516,
+      "Train RMSE": 759.2017373067815,
+      "Test RMSE": 856.8656294203957,
+      "Train MAPE (%)": 9.731357740396446,
+      "Test MAPE (%)": 10.427000550031067,
+      "Train R\u00b2": 0.9654321786307832,
+      "Test R\u00b2": 0.9563297981315102
+    },
+    {
+      "Model": "Linear Regression",
+      "Train MAE": 423.50938941345703,
+      "Test MAE": 427.47080515149923,
+      "Train RMSE": 890.6817664902807,
+      "Test RMSE": 925.2252358058988,
+      "Train MAPE (%)": 13.445615445529171,
+      "Test MAPE (%)": 13.398329925684472,
+      "Train R\u00b2": 0.952422376398066,
+      "Test R\u00b2": 0.9490839512654491
+    },
+    {
+      "Model": "LR (Tuned)",
+      "Train MAE": "N/A",
+      "Test MAE": 427.47080515149923,
+      "Train RMSE": "N/A",
+      "Test RMSE": 925.2252358058988,
+      "Train MAPE (%)": "N/A",
+      "Test MAPE (%)": 13.398329925684472,
+      "Train R\u00b2": "N/A",
+      "Test R\u00b2": 0.9490839512654491
+    },
+    {
+      "Model": "Neural Network",
+      "Train MAE": 603.4939015949267,
+      "Test MAE": 605.0447416733032,
+      "Train RMSE": 1029.9715198857834,
+      "Test RMSE": 1028.4077427153543,
+      "Train MAPE (%)": 21.731498687207342,
+      "Test MAPE (%)": 21.773086919594274,
+      "Train R\u00b2": 0.9363778829574585,
+      "Test R\u00b2": 0.9370942115783691
+    },
+    {
+      "Model": "XGB (Tuned)",
+      "Train MAE": "N/A",
+      "Test MAE": 399.9804431321986,
+      "Train RMSE": "N/A",
+      "Test RMSE": 1052.1055324928725,
+      "Train MAPE (%)": "N/A",
+      "Test MAPE (%)": 11.415924291437376,
+      "Train R\u00b2": "N/A",
+      "Test R\u00b2": 0.9341617226600647
+    },
+    {
+      "Model": "XGBoost",
+      "Train MAE": 399.2185995926776,
+      "Test MAE": 419.14488699905695,
+      "Train RMSE": 1002.2208011059512,
+      "Test RMSE": 1067.0153847789795,
+      "Train MAPE (%)": 11.903759713946952,
+      "Test MAPE (%)": 12.240551307269824,
+      "Train R\u00b2": 0.9397600889205933,
+      "Test R\u00b2": 0.9322824478149414
+    }
+  ],
+  "timestamp": "2025-12-02T14:16:38.661832"
+}

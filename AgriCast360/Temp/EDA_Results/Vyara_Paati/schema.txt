@@ -1,0 +1,32 @@
+File: Vyara_Paati.csv
+Rows: 366, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        2024-01-01           
+dewpt (°C)                float64         366        18.2                 
+dhi (W/m²)                int64           366        41                   
+dni (W/m²)                int64           366        340                  
+ghi (W/m²)                int64           366        215                  
+max_dhi (W/m²)            int64           366        116                  
+max_dni (W/m²)            int64           366        910                  
+max_ghi (W/m²)            int64           366        759                  
+max_temp (°C)             float64         366        30.7                 
+max_uv (Index)            float64         366        6.3                  
+max_wind_dir (°)          int64           366        154                  
+max_wind_spd (m/s)        float64         366        3.2                  
+min_temp (°C)             float64         366        19.6                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        1004                 
+rh (%)                    float64         366        0.71                 
+slp (hPa)                 int64           366        1013                 
+solar_rad (W/m²)          int64           366        215                  
+temp (°C)                 float64         366        24.2                 
+wind_dir (°)              int64           366        154                  
+wind_gust_spd (m/s)       float64         366        6.0                  
+wind_spd (m/s)            float64         366        1.9                  
+market_name (Text)        object          366        Vyara_Paati          
+query_lat (°)             float64         366        21.11                
+query_lon (°)             float64         366        73.38                

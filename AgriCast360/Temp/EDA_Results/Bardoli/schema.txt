@@ -1,0 +1,35 @@
+File: Bardoli.csv
+Rows: 366, Columns: 30
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds                    int64           366        0                    Cloud cover percentage %
+datetime                  object          366        01-01-2024           Date of observation Date (DD-MM-YYYY)
+dewpt                     float64         366        17.9                 Dew point temperature °C
+dhi                       int64           366        41                   Diffuse Horizontal Irradiance (solar radiation scattered by atmosphere) W/m²
+dni                       int64           366        340                  Direct Normal Irradiance (solar radiation directly from the sun) W/m²
+ghi                       int64           366        215                  Global Horizontal Irradiance (total solar radiation on horizontal surface) W/m²
+max_dhi                   int64           366        116                  Maximum DHI recorded during the day W/m²
+max_dni                   int64           366        910                  Maximum DNI recorded during the day W/m²
+max_ghi                   int64           366        759                  Maximum GHI recorded during the day W/m²
+max_temp                  float64         366        30.7                 Maximum temperature recorded °C
+max_uv                    float64         366        6.3                  Maximum UV index Index (dimensionless)
+max_wind_dir              int64           366        156                  Wind direction at maximum wind speed Degrees (° from North)
+max_wind_spd              float64         366        3.6                  Maximum wind speed recorded m/s
+min_temp                  float64         366        20.0                 Minimum temperature recorded °C
+precip                    float64         366        0.0                  Precipitation amount mm
+precip_gpm                float64         366        0.0                  Precipitation rate (from GPM satellite or model) mm/hr
+pres                      int64           366        1008                 Atmospheric pressure at station level hPa
+rh                        int64           366        68                   Relative humidity %
+slp                       int64           366        1013                 Sea-level pressure hPa
+solar_rad                 int64           366        215                  Solar radiation W/m²
+t_dhi                     int64           366        954                  Timestamp for DHI measurement Unix time (seconds)
+t_dni                     int64           366        7816                 Timestamp for DNI measurement Unix time (seconds)
+t_ghi                     int64           366        4946                 Timestamp for GHI measurement Unix time (seconds)
+t_solar_rad               int64           366        4946                 Timestamp for solar radiation measurement Unix time (seconds)
+temp                      float64         366        24.5                 Air temperature °C
+ts                        int64           366        1704047400           General timestamp for record Unix time (seconds)
+wind_dir                  int64           366        156                  Average wind direction Degrees (° from North)
+wind_gust_spd             float64         366        5.6                  Wind gust speed (short-term peak) m/s
+wind_spd                  float64         366        2.2                  Average wind speed m/s
+Market                    object          366        Bardoli              

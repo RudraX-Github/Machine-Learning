@@ -1,0 +1,20 @@
+Column: Min_Price
+  IQR: 2500.00
+  Bounds: [-2750.00, 7250.00]
+  Outliers: 1636 (7.80%)
+--------------------
+Column: Max_Price
+  IQR: 3687.50
+  Bounds: [-3531.25, 11218.75]
+  Outliers: 1339 (6.38%)
+--------------------
+Column: Modal_Price
+  IQR: 3200.00
+  Bounds: [-3150.00, 9650.00]
+  Outliers: 1435 (6.84%)
+--------------------
+Column: Commodity_Code
+  IQR: 132.00
+  Bounds: [-156.00, 372.00]
+  Outliers: 1 (0.00%)
+--------------------

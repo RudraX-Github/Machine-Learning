@@ -1,0 +1,4 @@
+Data Cleaning Log - Bardoli
+============================================================
+
+• Converted datetime to datetime format

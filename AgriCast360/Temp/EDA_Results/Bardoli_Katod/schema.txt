@@ -1,0 +1,29 @@
+File: Bardoli_Katod.csv
+Rows: 366, Columns: 24
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        2024-01-01           
+dewpt (°C)                float64         366        17.9                 
+dhi (W/m²)                int64           366        41                   
+dni (W/m²)                int64           366        340                  
+ghi (W/m²)                int64           366        215                  
+max_dhi (W/m²)            int64           366        116                  
+max_dni (W/m²)            int64           366        910                  
+max_ghi (W/m²)            int64           366        759                  
+max_temp (°C)             float64         366        30.4                 
+max_uv (Index)            float64         366        6.3                  
+max_wind_dir (°)          int64           366        154                  
+max_wind_spd (m/s)        float64         366        4.0                  
+min_temp (°C)             float64         366        20.0                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        1010                 
+rh (%)                    float64         366        0.68                 
+slp (hPa)                 int64           366        1013                 
+solar_rad (W/m²)          int64           366        215                  
+temp (°C)                 float64         366        24.4                 
+wind_dir (°)              int64           366        154                  
+wind_gust_spd (m/s)       float64         366        7.2                  
+wind_spd (m/s)            float64         366        2.7                  

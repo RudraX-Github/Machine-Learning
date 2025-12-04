@@ -1,0 +1,4 @@
+Data Cleaning Log - Nizar
+============================================================
+
+• Converted Date  to datetime format

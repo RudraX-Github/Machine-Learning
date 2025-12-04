@@ -1,0 +1,11 @@
+Column,Data Type,Non-Null Count,Null Count,Unique Values,Sample Values
+State,object,35559,0,1,"['Gujarat', 'Gujarat', 'Gujarat']"
+District,object,35559,0,1,"['Amreli', 'Amreli', 'Amreli']"
+Market,object,35559,0,8,"['Amreli', 'Amreli', 'Amreli']"
+Commodity,object,35559,0,50,"['Bajra', 'Bajra', 'Bajra']"
+Variety,object,35559,0,76,"['Hybrid', 'Hybrid', 'Hybrid']"
+Arrival_Date,datetime64[ns],35559,0,683,"[Timestamp('2024-07-01 00:00:00'), Timestamp('2024-07-22 00:00:00'), Timestamp('2024-07-26 00:00:00')]"
+Min_Price,int64,35559,0,2127,"[1845, 2145, 2055]"
+Max_Price,int64,35559,0,2993,"[2315, 2355, 2450]"
+Modal_Price,int64,35559,0,5170,"[2175, 2345, 2430]"
+Commodity_Code,int64,35559,0,51,"[28, 28, 28]"

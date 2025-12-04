@@ -1,0 +1,4 @@
+Index,Feature,Data Type,Mean (Training),Std (Training)
+0,Max_Price,float64,5768.0147991543345,4905.486294103203
+1,Modal_Price,float64,5084.248111296737,4518.290055910037
+2,Commodity_Code,float64,102.031682904833,109.2827955316233

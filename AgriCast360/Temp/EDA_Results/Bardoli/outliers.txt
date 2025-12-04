@@ -1,0 +1,140 @@
+Column: clouds
+  IQR: 80.00
+  Bounds: [-114.00, 206.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: dewpt
+  IQR: 9.75
+  Bounds: [0.90, 39.90]
+  Outliers: 0 (0.00%)
+--------------------
+Column: dhi
+  IQR: 9.00
+  Bounds: [31.50, 67.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: dni
+  IQR: 67.00
+  Bounds: [260.50, 528.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: ghi
+  IQR: 103.75
+  Bounds: [94.62, 509.62]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_dhi
+  IQR: 6.00
+  Bounds: [111.00, 135.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_dni
+  IQR: 13.00
+  Bounds: [908.50, 960.50]
+  Outliers: 18 (4.92%)
+--------------------
+Column: max_ghi
+  IQR: 198.50
+  Bounds: [551.75, 1345.75]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_temp
+  IQR: 5.50
+  Bounds: [22.15, 44.15]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_uv
+  IQR: 4.45
+  Bounds: [-1.95, 15.85]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_wind_dir
+  IQR: 90.50
+  Bounds: [8.50, 370.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_wind_spd
+  IQR: 1.60
+  Bounds: [0.80, 7.20]
+  Outliers: 18 (4.92%)
+--------------------
+Column: min_temp
+  IQR: 6.30
+  Bounds: [10.95, 36.15]
+  Outliers: 0 (0.00%)
+--------------------
+Column: precip
+  IQR: 2.30
+  Bounds: [-3.45, 5.75]
+  Outliers: 67 (18.31%)
+--------------------
+Column: precip_gpm
+  IQR: 2.30
+  Bounds: [-3.45, 5.75]
+  Outliers: 67 (18.31%)
+--------------------
+Column: pres
+  IQR: 7.00
+  Bounds: [989.50, 1017.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: rh
+  IQR: 30.00
+  Bounds: [7.00, 127.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: slp
+  IQR: 8.00
+  Bounds: [993.00, 1025.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: solar_rad
+  IQR: 146.50
+  Bounds: [-67.75, 518.25]
+  Outliers: 0 (0.00%)
+--------------------
+Column: t_dhi
+  IQR: 227.50
+  Bounds: [683.00, 1593.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: t_dni
+  IQR: 1545.50
+  Bounds: [5987.00, 12169.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: t_ghi
+  IQR: 2384.00
+  Bounds: [2172.50, 11708.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: t_solar_rad
+  IQR: 3366.75
+  Bounds: [-1552.38, 11914.62]
+  Outliers: 0 (0.00%)
+--------------------
+Column: temp
+  IQR: 4.30
+  Bounds: [19.45, 36.65]
+  Outliers: 0 (0.00%)
+--------------------
+Column: ts
+  IQR: 15768000.00
+  Bounds: [1688279400.00, 1751351400.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: wind_dir
+  IQR: 90.50
+  Bounds: [8.50, 370.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: wind_gust_spd
+  IQR: 3.60
+  Bounds: [1.00, 15.40]
+  Outliers: 4 (1.09%)
+--------------------
+Column: wind_spd
+  IQR: 1.65
+  Bounds: [-0.55, 6.05]
+  Outliers: 8 (2.19%)
+--------------------

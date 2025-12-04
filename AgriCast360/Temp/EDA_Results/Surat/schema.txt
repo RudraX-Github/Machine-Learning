@@ -1,0 +1,32 @@
+File: Surat.csv
+Rows: 366, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        2024-01-01           
+dewpt (°C)                float64         366        17.1                 
+dhi (W/m²)                int64           366        41                   
+dni (W/m²)                int64           366        340                  
+ghi (W/m²)                int64           366        215                  
+max_dhi (W/m²)            int64           366        116                  
+max_dni (W/m²)            int64           366        910                  
+max_ghi (W/m²)            int64           366        759                  
+max_temp (°C)             float64         366        29.6                 
+max_uv (Index)            float64         366        6.3                  
+max_wind_dir (°)          int64           366        216                  
+max_wind_spd (m/s)        float64         366        4.0                  
+min_temp (°C)             float64         366        19.8                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        1012                 
+rh (%)                    float64         366        0.66                 
+slp (hPa)                 int64           366        1013                 
+solar_rad (W/m²)          int64           366        215                  
+temp (°C)                 float64         366        24.0                 
+wind_dir (°)              int64           366        216                  
+wind_gust_spd (m/s)       float64         366        7.2                  
+wind_spd (m/s)            float64         366        1.5                  
+market_name (Text)        object          366        Surat                
+query_lat (°)             float64         366        21.1934170129143     
+query_lon (°)             float64         366        72.8529827687544     

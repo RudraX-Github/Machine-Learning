@@ -1,0 +1,32 @@
+File: Kosamba_Vankal.csv
+Rows: 110, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         110        0.58                 
+Date                      object          110        2024-09-13           
+dewpt (°C)                float64         110        24.5                 
+dhi (W/m²)                int64           110        51                   
+dni (W/m²)                int64           110        400                  
+ghi (W/m²)                int64           110        322                  
+max_dhi (W/m²)            int64           110        126                  
+max_dni (W/m²)            int64           110        941                  
+max_ghi (W/m²)            int64           110        1014                 
+max_temp (°C)             float64         110        31.1                 
+max_uv (Index)            float64         110        7.0                  
+max_wind_dir (°)          int64           110        225                  
+max_wind_spd (m/s)        float64         110        4.8                  
+min_temp (°C)             float64         110        25.9                 
+precip (mm)               float64         110        0.0                  
+precip_gpm (mm/hr)        float64         110        0.0                  
+pres (hPa)                int64           110        998                  
+rh (%)                    float64         110        0.82                 
+slp (hPa)                 int64           110        1007                 
+solar_rad (W/m²)          int64           110        274                  
+temp (°C)                 float64         110        27.9                 
+wind_dir (°)              int64           110        225                  
+wind_gust_spd (m/s)       float64         110        12.4                 
+wind_spd (m/s)            float64         110        3.7                  
+market_name (Text)        object          110        Kosamba_Vankal       
+query_lat (°)             float64         110        21.43                
+query_lon (°)             float64         110        73.23                

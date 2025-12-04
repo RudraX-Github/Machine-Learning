@@ -1,0 +1,32 @@
+File: Rajula.csv
+Rows: 366, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        2024-01-01           
+dewpt (°C)                float64         366        15.8                 
+dhi (W/m²)                int64           366        41                   
+dni (W/m²)                int64           366        339                  
+ghi (W/m²)                int64           366        216                  
+max_dhi (W/m²)            int64           366        116                  
+max_dni (W/m²)            int64           366        910                  
+max_ghi (W/m²)            int64           366        760                  
+max_temp (°C)             float64         366        28.5                 
+max_uv (Index)            float64         366        6.3                  
+max_wind_dir (°)          int64           366        146                  
+max_wind_spd (m/s)        float64         366        4.4                  
+min_temp (°C)             float64         366        19.3                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        1009                 
+rh (%)                    float64         366        0.64                 
+slp (hPa)                 int64           366        1014                 
+solar_rad (W/m²)          int64           366        216                  
+temp (°C)                 float64         366        23.2                 
+wind_dir (°)              int64           366        146                  
+wind_gust_spd (m/s)       float64         366        7.6                  
+wind_spd (m/s)            float64         366        2.7                  
+market_name (Text)        object          366        Rajula               
+query_lat (°)             float64         366        21.0339169150099     
+query_lon (°)             float64         366        71.4439137655692     

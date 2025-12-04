@@ -1,0 +1,32 @@
+File: Uchhal.csv
+Rows: 366, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        2024-01-01           
+dewpt (°C)                float64         366        19.7                 
+dhi (W/m²)                int64           366        41                   
+dni (W/m²)                int64           366        342                  
+ghi (W/m²)                int64           366        215                  
+max_dhi (W/m²)            int64           366        115                  
+max_dni (W/m²)            int64           366        912                  
+max_ghi (W/m²)            int64           366        760                  
+max_temp (°C)             float64         366        29.3                 
+max_uv (Index)            float64         366        6.2                  
+max_wind_dir (°)          int64           366        194                  
+max_wind_spd (m/s)        float64         366        2.8                  
+min_temp (°C)             float64         366        20.0                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        1000                 
+rh (%)                    float64         366        0.78                 
+slp (hPa)                 int64           366        1014                 
+solar_rad (W/m²)          int64           366        215                  
+temp (°C)                 float64         366        24.0                 
+wind_dir (°)              int64           366        194                  
+wind_gust_spd (m/s)       float64         366        5.2                  
+wind_spd (m/s)            float64         366        1.6                  
+market_name (Text)        object          366        Uchhal               
+query_lat (°)             float64         366        21.17                
+query_lon (°)             float64         366        73.74                

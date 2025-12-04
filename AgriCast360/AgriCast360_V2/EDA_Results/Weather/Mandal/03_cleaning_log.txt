@@ -1,0 +1,4 @@
+Data Cleaning Log - Mandal
+============================================================
+
+• Converted Date  to datetime format

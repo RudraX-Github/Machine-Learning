@@ -1,0 +1,11 @@
+Column,Data Type,Non-Null Count,Null Count,Unique Values,Sample Values
+State,object,20983,0,1,"['Gujarat', 'Gujarat', 'Gujarat']"
+District,object,20983,0,1,"['Ahmedabad', 'Ahmedabad', 'Ahmedabad']"
+Market,object,20983,0,7,"['Ahmedabad (Vasana)', 'Ahmedabad (Vasana)', 'Ahmedabad (Vasana)']"
+Commodity,object,20983,0,60,"['Cabbage', 'Cabbage', 'Cabbage']"
+Variety,object,20983,0,25,"['Other', 'Other', 'Other']"
+Arrival_Date,datetime64[ns],20983,0,647,"[Timestamp('2024-07-08 00:00:00'), Timestamp('2024-07-10 00:00:00'), Timestamp('2024-07-13 00:00:00')]"
+Min_Price,int64,20983,0,951,"[1200, 1500, 2000]"
+Max_Price,int64,20983,0,1314,"[3300, 3800, 3800]"
+Modal_Price,int64,20983,0,1507,"[2950, 3050, 3100]"
+Commodity_Code,int64,20983,0,62,"[154, 154, 154]"

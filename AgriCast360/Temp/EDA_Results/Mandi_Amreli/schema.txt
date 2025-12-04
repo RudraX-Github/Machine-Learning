@@ -1,0 +1,15 @@
+File: Mandi_Amreli.xlsx
+Rows: 35559, Columns: 10
+----------------------------------------
+Column                    Type            Non-Null   Sample
+----------------------------------------
+State                     object          35559      Gujarat
+District                  object          35559      Amreli
+Market                    object          35559      Amreli
+Commodity                 object          35559      Bajra
+Variety                   object          35559      Hybrid
+Arrival_Date              datetime64[ns]  35559      2024-07-01 00:00:00
+Min_Price                 int64           35559      1845
+Max_Price                 int64           35559      2315
+Modal_Price               int64           35559      2175
+Commodity_Code            int64           35559      28

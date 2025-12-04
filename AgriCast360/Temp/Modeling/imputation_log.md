@@ -1,0 +1,61 @@
+# Missing Value Imputation Log
+
+**Total records:** 36,901
+
+## Imputation Operations
+
+- price_lag_1d: Forward fill - 26 → 0
+- price_lag_7d: Forward fill - 201 → 0
+- price_lag_14d: Forward fill - 427 → 0
+- temp_lag_1d: Forward fill - 88 → 1
+- precip_lag_1d: Forward fill - 88 → 1
+- temp_lag_7d: Forward fill - 588 → 5
+- precip_lag_7d: Forward fill - 588 → 5
+- temp_lag_14d: Forward fill - 1326 → 10
+- precip_lag_14d: Forward fill - 1326 → 10
+- temp_lag_90d: Forward fill - 8428 → 66
+- precip_lag_90d: Forward fill - 8428 → 66
+- humidity_lag_90d: Forward fill - 8428 → 66
+- price_volatility_7d: Fill with 0 - 26 → 0
+- price_volatility_30d: Fill with 0 - 26 → 0
+- price_change_1d: Fill with 0 - 26 → 0
+- price_change_7d: Fill with 0 - 201 → 0
+- query_lat (°): Median fill (21.33)
+- query_lon (°): Median fill (72.54)
+- clouds: Median fill (nan)
+- dewpt: Median fill (nan)
+- dhi: Median fill (nan)
+- dni: Median fill (nan)
+- ghi: Median fill (nan)
+- max_dhi: Median fill (nan)
+- max_dni: Median fill (nan)
+- max_ghi: Median fill (nan)
+- max_temp: Median fill (nan)
+- max_uv: Median fill (nan)
+- max_wind_dir: Median fill (nan)
+- max_wind_spd: Median fill (nan)
+- min_temp: Median fill (nan)
+- precip: Median fill (nan)
+- precip_gpm: Median fill (nan)
+- pres: Median fill (nan)
+- rh: Median fill (nan)
+- slp: Median fill (nan)
+- solar_rad: Median fill (nan)
+- t_dhi: Median fill (nan)
+- t_dni: Median fill (nan)
+- t_ghi: Median fill (nan)
+- t_solar_rad: Median fill (nan)
+- temp: Median fill (nan)
+- ts: Median fill (nan)
+- wind_dir: Median fill (nan)
+- wind_gust_spd: Median fill (nan)
+- wind_spd: Median fill (nan)
+- temp_lag_1d: Median fill (28.30)
+- precip_lag_1d: Median fill (0.00)
+- temp_lag_7d: Median fill (28.20)
+- precip_lag_7d: Median fill (0.00)
+- temp_lag_14d: Median fill (28.40)
+- precip_lag_14d: Median fill (0.00)
+- temp_lag_90d: Median fill (29.10)
+- precip_lag_90d: Median fill (0.00)
+- humidity_lag_90d: Median fill (0.71)

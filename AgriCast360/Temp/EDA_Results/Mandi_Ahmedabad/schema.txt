@@ -1,0 +1,15 @@
+File: Mandi_Ahmedabad.xlsx
+Rows: 20983, Columns: 10
+----------------------------------------
+Column                    Type            Non-Null   Sample
+----------------------------------------
+State                     object          20983      Gujarat
+District                  object          20983      Ahmedabad
+Market                    object          20983      Ahmedabad (Vasana)
+Commodity                 object          20983      Cabbage
+Variety                   object          20983      Other
+Arrival_Date              datetime64[ns]  20983      2024-07-08 00:00:00
+Min_Price                 int64           20983      1200
+Max_Price                 int64           20983      3300
+Modal_Price               int64           20983      2950
+Commodity_Code            int64           20983      154

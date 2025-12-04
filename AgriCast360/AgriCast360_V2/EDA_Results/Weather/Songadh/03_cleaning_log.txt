@@ -1,0 +1,4 @@
+Data Cleaning Log - Songadh
+============================================================
+
+• Converted Date  to datetime format

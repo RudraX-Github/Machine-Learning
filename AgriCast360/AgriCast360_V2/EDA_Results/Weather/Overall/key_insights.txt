@@ -1,0 +1,11 @@
+KEY WEATHER INSIGHTS
+============================================================
+
+• Temperature Range: 20.8°C to 36.3°C
+• Average Temperature: 28.1°C
+• Total Precipitation: 2249.00 mm
+• Average Daily Precipitation: 6.14 mm
+• Humidity Range: 27.0% to 97.0%
+• Average Humidity: 66.3%
+• Solar Radiation Range: 30.0 to 360.0 W/m²
+• Average Solar Radiation: 223.7 W/m²

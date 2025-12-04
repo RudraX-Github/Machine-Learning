@@ -1,0 +1,11 @@
+Column,Ahmedabad_Type,Ahmedabad_NonNull,Amreli_Type,Amreli_NonNull,Surat_Type,Surat_NonNull
+Arrival_Date,datetime64[ns],20983,datetime64[ns],35559,datetime64[ns],28007
+Commodity,object,20983,object,35559,object,28007
+Commodity_Code,int64,20983,int64,35559,int64,28007
+District,object,20983,object,35559,object,28007
+Market,object,20983,object,35559,object,28007
+Max_Price,int64,20983,int64,35559,int64,28007
+Min_Price,int64,20983,int64,35559,int64,28007
+Modal_Price,int64,20983,int64,35559,int64,28007
+State,object,20983,object,35559,object,28007
+Variety,object,20983,object,35559,object,28007

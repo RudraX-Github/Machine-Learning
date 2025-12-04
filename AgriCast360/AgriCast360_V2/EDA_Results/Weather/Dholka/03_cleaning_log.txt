@@ -1,0 +1,4 @@
+Data Cleaning Log - Dholka
+============================================================
+
+• Converted Date  to datetime format

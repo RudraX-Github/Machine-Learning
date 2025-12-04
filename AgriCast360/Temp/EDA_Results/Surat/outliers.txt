@@ -1,0 +1,125 @@
+Column: clouds (%)
+  IQR: 0.49
+  Bounds: [-0.68, 1.29]
+  Outliers: 0 (0.00%)
+--------------------
+Column: dewpt (°C)
+  IQR: 8.60
+  Bounds: [4.20, 38.60]
+  Outliers: 1 (0.27%)
+--------------------
+Column: dhi (W/m²)
+  IQR: 9.00
+  Bounds: [31.50, 67.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: dni (W/m²)
+  IQR: 67.00
+  Bounds: [260.50, 528.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: ghi (W/m²)
+  IQR: 103.75
+  Bounds: [94.62, 509.62]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_dhi (W/m²)
+  IQR: 6.00
+  Bounds: [111.00, 135.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_dni (W/m²)
+  IQR: 13.00
+  Bounds: [908.50, 960.50]
+  Outliers: 18 (4.92%)
+--------------------
+Column: max_ghi (W/m²)
+  IQR: 198.50
+  Bounds: [551.75, 1345.75]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_temp (°C)
+  IQR: 4.75
+  Bounds: [22.88, 41.88]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_uv (Index)
+  IQR: 4.47
+  Bounds: [-1.61, 16.29]
+  Outliers: 0 (0.00%)
+--------------------
+Column: max_wind_dir (°)
+  IQR: 82.00
+  Bounds: [38.00, 366.00]
+  Outliers: 1 (0.27%)
+--------------------
+Column: max_wind_spd (m/s)
+  IQR: 1.83
+  Bounds: [-0.24, 7.06]
+  Outliers: 5 (1.37%)
+--------------------
+Column: min_temp (°C)
+  IQR: 6.07
+  Bounds: [12.21, 36.51]
+  Outliers: 0 (0.00%)
+--------------------
+Column: precip (mm)
+  IQR: 1.95
+  Bounds: [-2.92, 4.88]
+  Outliers: 63 (17.21%)
+--------------------
+Column: precip_gpm (mm/hr)
+  IQR: 1.95
+  Bounds: [-2.92, 4.88]
+  Outliers: 63 (17.21%)
+--------------------
+Column: pres (hPa)
+  IQR: 8.00
+  Bounds: [991.00, 1023.00]
+  Outliers: 0 (0.00%)
+--------------------
+Column: rh (%)
+  IQR: 0.25
+  Bounds: [0.19, 1.19]
+  Outliers: 0 (0.00%)
+--------------------
+Column: slp (hPa)
+  IQR: 7.00
+  Bounds: [994.50, 1022.50]
+  Outliers: 0 (0.00%)
+--------------------
+Column: solar_rad (W/m²)
+  IQR: 123.75
+  Bounds: [-0.62, 494.38]
+  Outliers: 0 (0.00%)
+--------------------
+Column: temp (°C)
+  IQR: 4.05
+  Bounds: [19.98, 36.18]
+  Outliers: 0 (0.00%)
+--------------------
+Column: wind_dir (°)
+  IQR: 82.00
+  Bounds: [38.00, 366.00]
+  Outliers: 1 (0.27%)
+--------------------
+Column: wind_gust_spd (m/s)
+  IQR: 3.70
+  Bounds: [1.75, 16.55]
+  Outliers: 4 (1.09%)
+--------------------
+Column: wind_spd (m/s)
+  IQR: 0.60
+  Bounds: [0.40, 2.80]
+  Outliers: 25 (6.83%)
+--------------------
+Column: query_lat (°)
+  IQR: 0.00
+  Bounds: [21.19, 21.19]
+  Outliers: 0 (0.00%)
+--------------------
+Column: query_lon (°)
+  IQR: 0.00
+  Bounds: [72.85, 72.85]
+  Outliers: 0 (0.00%)
+--------------------

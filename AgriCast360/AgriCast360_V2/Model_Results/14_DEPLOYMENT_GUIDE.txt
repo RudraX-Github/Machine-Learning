@@ -1,0 +1,125 @@
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                   MODEL DEPLOYMENT & USAGE GUIDE                             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🚀 PRODUCTION MODEL: Stacking
+
+📦 MODEL FILES:
+   Location: D:\CUDA_Experiments\Git_HUB\Machine-Learning\AgriCast360\AgriCast360_V2\Models
+   File: Model file for Stacking
+
+📊 MODEL CHARACTERISTICS:
+   • Input Features: 3 variables
+   • Output: Single regression prediction
+   • Training Samples: 67,639
+   • Testing Samples: 16,910
+
+🔧 MODEL PERFORMANCE (PRODUCTION):
+   Test MAE:  334.0986
+   Test RMSE: 816.2709
+   Test MAPE: 9.4485%
+   Test R²:   0.9604
+
+📋 FEATURE LIST (3 features):
+
+   1. Max_Price
+   2. Modal_Price
+   3. Commodity_Code
+
+⚙️ PREPROCESSING REQUIREMENTS:
+
+   1. FEATURE SCALING:
+      • Use StandardScaler (fitted on training data)
+      • Mean: saved during training
+      • Standard Deviation: saved during training
+      • Apply: (X - mean) / std
+
+   2. MISSING VALUE HANDLING:
+      • Fill missing values with column mean
+      • Use training data statistics for filling
+
+   3. FEATURE ORDER:
+      • Maintain exact order of features
+      • Remove any extra columns
+      • Expected shape: (n_samples, 3)
+
+💻 USAGE EXAMPLE:
+
+   import pickle
+   import numpy as np
+   import pandas as pd
+   from sklearn.preprocessing import StandardScaler
+
+   # Load model
+   with open('model_file.pkl', 'rb') as f:
+       model = pickle.load(f)
+
+   # Prepare new data
+   new_data = pd.DataFrame({...})  # Your data
+   new_data_scaled = scaler.transform(new_data)
+
+   # Make predictions
+   predictions = model.predict(new_data_scaled)
+
+   # Get prediction confidence (if available)
+   # For tree-based models, use prediction intervals
+
+✅ DEPLOYMENT CHECKLIST:
+
+   □ Verify model file integrity
+   □ Load and test model on sample data
+   □ Implement input validation
+   □ Set up error handling
+   □ Create monitoring dashboard
+   □ Document feature mappings
+   □ Set up retraining schedule (quarterly)
+   □ Create fallback models
+   □ Implement A/B testing framework
+   □ Set up prediction logging
+
+⚠️ IMPORTANT CONSIDERATIONS:
+
+   1. DATA DISTRIBUTION:
+      • Monitor for data drift in production
+      • Compare new data distribution to training data
+      • Retrain if KL-divergence exceeds threshold
+
+   2. PREDICTION RANGES:
+      • Expected output range: 200.00 to 52505.00
+      • Flag predictions outside this range
+      • Investigate unusual patterns
+
+   3. TEMPORAL PATTERNS:
+      • Model trained on: 84,549 historical records
+      • Seasonal patterns may affect predictions
+      • Consider separate models for different seasons
+
+   4. CONFIDENCE INTERVALS:
+      • Prediction uncertainty varies by input
+      • Use residual std: 816.2654
+      • 95% CI: ±1599.8802
+
+🔄 RETRAINING SCHEDULE:
+
+   Frequency: Every 3 months
+   Data Requirement: At least 1 month new data
+   Performance Threshold: R² > 0.9124 (95% of current)
+   Validation: Test on holdout set from new data
+
+📞 SUPPORT & TROUBLESHOOTING:
+
+   Issue: Low prediction accuracy on new data
+   Action: Retrain model with new data, check for data drift
+
+   Issue: Model fails to load
+   Action: Verify pickle file integrity, check Python version compatibility
+
+   Issue: Inconsistent predictions
+   Action: Ensure feature scaling is applied, check feature order
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Generated: 2025-12-02 14:22:09
+Model Version: 1.0
+Status: Production Ready

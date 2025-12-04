@@ -1,0 +1,4 @@
+Data Cleaning Log - Savarkundla
+============================================================
+
+• Converted Date  to datetime format

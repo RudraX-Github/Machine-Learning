@@ -1,0 +1,4 @@
+Data Cleaning Log - Mandi_Surat
+============================================================
+
+• Converted Arrival_Date to datetime format

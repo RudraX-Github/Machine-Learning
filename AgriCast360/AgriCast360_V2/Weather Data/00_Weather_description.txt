@@ -1,20 +1,3 @@
-Overcast clouds
-Broken clouds
-Scattered clouds
-Few clouds
-Clear Sky
-Light snow
-Snow
-Flurries
-Fog
-Haze
-Mix snow/rain
-Drizzle
-Light rain
-Heavy snow
-
-
-
 🌦️ Weather Dataset Column Descriptions
 Column				Description								Unit
 clouds			Cloud cover percentage								%

@@ -1,0 +1,32 @@
+File: Mahuva_Anaval.csv
+Rows: 364, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         364        0.0                  
+Date                      object          364        2024-01-01           
+dewpt (°C)                float64         364        18.3                 
+dhi (W/m²)                int64           364        42                   
+dni (W/m²)                int64           364        343                  
+ghi (W/m²)                int64           364        218                  
+max_dhi (W/m²)            int64           364        116                  
+max_dni (W/m²)            int64           364        913                  
+max_ghi (W/m²)            int64           364        768                  
+max_temp (°C)             float64         364        30.7                 
+max_uv (Index)            float64         364        6.4                  
+max_wind_dir (°)          int64           364        175                  
+max_wind_spd (m/s)        float64         364        3.2                  
+min_temp (°C)             float64         364        18.9                 
+precip (mm)               float64         364        0.0                  
+precip_gpm (mm/hr)        float64         364        0.0                  
+pres (hPa)                int64           364        1006                 
+rh (%)                    float64         364        0.73                 
+slp (hPa)                 int64           364        1013                 
+solar_rad (W/m²)          int64           364        218                  
+temp (°C)                 float64         364        23.8                 
+wind_dir (°)              int64           364        175                  
+wind_gust_spd (m/s)       float64         364        6.8                  
+wind_spd (m/s)            float64         364        1.7                  
+market_name (Text)        object          364        Mahuva_Anaval        
+query_lat (°)             float64         364        20.84                
+query_lon (°)             float64         364        73.26                

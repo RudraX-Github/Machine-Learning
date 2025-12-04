@@ -1,0 +1,32 @@
+File: Songadh_Umrada.csv
+Rows: 366, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        2024-01-01           
+dewpt (°C)                float64         366        18.7                 
+dhi (W/m²)                int64           366        41                   
+dni (W/m²)                int64           366        342                  
+ghi (W/m²)                int64           366        215                  
+max_dhi (W/m²)            int64           366        115                  
+max_dni (W/m²)            int64           366        912                  
+max_ghi (W/m²)            int64           366        760                  
+max_temp (°C)             float64         366        29.6                 
+max_uv (Index)            float64         366        6.2                  
+max_wind_dir (°)          int64           366        190                  
+max_wind_spd (m/s)        float64         366        2.8                  
+min_temp (°C)             float64         366        19.3                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        998                  
+rh (%)                    float64         366        0.74                 
+slp (hPa)                 int64           366        1013                 
+solar_rad (W/m²)          int64           366        215                  
+temp (°C)                 float64         366        23.9                 
+wind_dir (°)              int64           366        190                  
+wind_gust_spd (m/s)       float64         366        4.8                  
+wind_spd (m/s)            float64         366        1.7                  
+market_name (Text)        object          366        Songadh_Umrada       
+query_lat (°)             float64         366        21.16                
+query_lon (°)             float64         366        73.56                

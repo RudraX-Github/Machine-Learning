@@ -1,0 +1,31 @@
+Column,Data Type,Non-Null Count,Null Count,Unique Values,Sample Values,Description,Unit
+clouds,int64,366,0,89,"[0, 0, 17]",,
+datetime,object,366,0,366,"['01-01-2024', '02-01-2024', '03-01-2024']",,Date of observation
+dewpt,float64,366,0,143,"[17.9, 18.0, 17.9]",,
+dhi,int64,366,0,15,"[41, 41, 42]",,
+dni,int64,366,0,99,"[340, 340, 340]",,
+ghi,int64,366,0,142,"[215, 216, 216]",,
+max_dhi,int64,366,0,14,"[116, 116, 116]",,
+max_dni,int64,366,0,49,"[910, 910, 911]",,
+max_ghi,int64,366,0,193,"[759, 760, 762]",,
+max_temp,float64,366,0,46,"[30.7, 28.9, 28.1]",,Maximum temperature recorded
+max_uv,float64,366,0,91,"[6.3, 6.3, 6.3]",,
+max_wind_dir,int64,366,0,180,"[156, 173, 188]",,Wind direction at maximum wind speed
+max_wind_spd,float64,366,0,19,"[3.6, 3.2, 3.6]",,Maximum wind speed recorded
+min_temp,float64,366,0,44,"[20.0, 18.5, 17.4]",,Minimum temperature recorded
+precip,float64,366,0,80,"[0.0, 0.0, 0.0]",,
+precip_gpm,float64,366,0,80,"[0.0, 0.0, 0.0]",,Precipitation rate (from GPM satellite or model)
+pres,int64,366,0,21,"[1008, 1008, 1007]",,
+rh,int64,366,0,68,"[68, 74, 79]",,
+slp,int64,366,0,21,"[1013, 1013, 1013]",,
+solar_rad,int64,366,0,210,"[215, 216, 210]",,Solar radiation
+t_dhi,int64,366,0,217,"[954, 954, 955]",,
+t_dni,int64,366,0,334,"[7816, 7820, 7825]",,
+t_ghi,int64,366,0,334,"[4946, 4957, 4968]",,
+t_solar_rad,int64,366,0,358,"[4946, 4957, 4834]",,Timestamp for solar radiation measurement
+temp,float64,366,0,128,"[24.5, 23.1, 22.1]",,
+ts,int64,366,0,366,"[1704047400, 1704133800, 1704220200]",,
+wind_dir,int64,366,0,180,"[156, 173, 188]",,Average wind direction
+wind_gust_spd,float64,366,0,31,"[5.6, 6.4, 6.0]",,Wind gust speed (short-term peak)
+wind_spd,float64,366,0,55,"[2.2, 2.1, 2.4]",,Average wind speed
+Market,object,366,0,1,"['Bardoli', 'Bardoli', 'Bardoli']",,

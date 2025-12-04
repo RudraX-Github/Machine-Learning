@@ -1,0 +1,4 @@
+Data Cleaning Log - Songadh_Badarpada
+============================================================
+
+• Converted Date  to datetime format

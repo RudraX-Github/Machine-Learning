@@ -1,0 +1,4 @@
+Data Cleaning Log - Nizar_Kukarmuda
+============================================================
+
+• Converted Date  to datetime format

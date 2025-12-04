@@ -1,0 +1,2 @@
+total_features,features_transformed,highly_skewed_before,highly_skewed_after,high_kurtosis_before,high_kurtosis_after,skew_improved_features,kurt_improved_features,avg_skew_reduction,avg_kurt_reduction,total_samples,date_range,locations,commodities_count
+85,46,40,10,36,13,45,36,2.375668808191048,38.12221151324987,22926,2024-01-31 00:00:00 to 2024-12-31 00:00:00,"['ahmedabad', 'amreli', 'surat']",81

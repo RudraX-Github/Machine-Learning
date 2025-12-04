@@ -1,0 +1,15 @@
+File: Mandi_Surat.xlsx
+Rows: 28007, Columns: 10
+----------------------------------------
+Column                    Type            Non-Null   Sample
+----------------------------------------
+State                     object          28007      Gujarat
+District                  object          28007      Surat
+Market                    object          28007      Bardoli
+Commodity                 object          28007      Brinjal
+Variety                   object          28007      Other
+Arrival_Date              datetime64[ns]  28007      2023-05-11 00:00:00
+Min_Price                 int64           28007      1800
+Max_Price                 int64           28007      2000
+Modal_Price               int64           28007      1850
+Commodity_Code            int64           28007      35

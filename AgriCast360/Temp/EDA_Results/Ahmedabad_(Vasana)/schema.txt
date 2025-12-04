@@ -1,0 +1,32 @@
+File: Ahmedabad_(Vasana).csv
+Rows: 366, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        01-01-2024           
+dewpt (°C)                float64         366        15.8                 
+dhi (W/m²)                int64           366        40                   
+dni (W/m²)                int64           366        331                  
+ghi (W/m²)                int64           366        204                  
+max_dhi (W/m²)            int64           366        114                  
+max_dni (W/m²)            int64           366        901                  
+max_ghi (W/m²)            int64           366        730                  
+max_temp (°C)             float64         366        27.4                 
+max_uv (Index)            float64         366        5.8                  
+max_wind_dir (°)          int64           366        89                   
+max_wind_spd (m/s)        float64         366        3.8                  
+min_temp (°C)             float64         366        15.2                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        1009                 
+rh (%)                    float64         366        0.74                 
+slp (hPa)                 int64           366        1014                 
+solar_rad (W/m²)          int64           366        204                  
+temp (°C)                 float64         366        20.9                 
+wind_dir (°)              int64           366        89                   
+wind_gust_spd (m/s)       float64         366        4.8                  
+wind_spd (m/s)            float64         366        2.1                  
+market_name (Text)        object          366        Ahmedabad_Chimanb... 
+query_lat (°)             float64         366        22.99697686          
+query_lon (°)             float64         366        72.53639246          

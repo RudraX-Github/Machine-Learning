@@ -1,0 +1,43 @@
+Cucumbar(Kheera) -> Cucumbar
+Mango (Raw-Ripe) -> Mango (Raw)
+French Beans (Frasbean) -> French Beans
+Pointed gourd (Parval) -> Parval
+Elephant Yam (Suran) -> Suran
+Surat Beans (Papadi) -> Papadi
+Cummin Seed(Jeera) -> Jeera
+Isabgul (Psyllium) -> Isabgul
+Sesamum(Sesame,Gingelly,Til) -> Til
+Paddy(Dhan)(Common) -> Paddy(Dhan)
+Paddy(Dhan)(Common)(Whole) -> Paddy(Dhan)
+Suva (Dill Seed) -> Suva
+Amla(Nelli Kai) -> Amla
+Arhar (Tur/Red Gram)(Whole) -> Arhar
+Arhar (Tur/Red Gram) -> Arhar
+Bajra(Pearl Millet/Cumbu) -> Bajra
+Bengal Gram(Gram)(Whole) -> Bengal Gram
+Black Gram (Urd Beans)(Whole) -> Urd Beans
+Black Gram (Urd Beans) -> Urd Beans
+Coriander(Leaves) -> Coriander (Leaves)
+Corriander seed -> Coriander (seed)
+Cucumbar(Kheera) -> Cucumbar
+Guar Seed(Cluster Beans Seed) -> Guar Seed
+Methi(Leaves) -> Methi (Leaves)
+Methi Seeds -> Methi (Seeds)
+Mint(Pudina) -> Pudina
+Rat Tail Radish (Mogari) -> Mogari
+Yam (Ratalu) -> Ratalu
+Banana - Green -> Banana (G)
+Bhindi(Ladies Finger) -> Bhindi
+Green Gram (Moong)(Whole) -> Moong
+Green Gram (Moong) -> Moong
+Jowar(Sorghum) -> Jowar
+Kabuli Chana(Chickpeas-White) -> Kabuli Chana
+Kulthi(Horse Gram) -> Kulthi
+Cowpea (Lobia/Karamani) -> Cowpea
+Cowpea(Veg) -> Cowpea
+Gram Raw(Chholia) -> Chholia
+Kartali (Kantola) -> Kantola
+Lentil (Masur) -> Masur
+Little gourd (Kundru) -> Kundru
+Pegeon Pea (Arhar Fali) -> Arhar Fali
+Ridgeguard(Tori) -> Tori

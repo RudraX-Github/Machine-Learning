@@ -1,0 +1,32 @@
+File: Babra.csv
+Rows: 366, Columns: 27
+----------------------------------------------------------------------------------------------------
+Column                    Type            Non-Null   Sample               Description
+----------------------------------------------------------------------------------------------------
+clouds (%)                float64         366        0.0                  
+Date                      object          366        2024-01-01           
+dewpt (°C)                float64         366        12.7                 
+dhi (W/m²)                int64           366        41                   
+dni (W/m²)                int64           366        336                  
+ghi (W/m²)                int64           366        213                  
+max_dhi (W/m²)            int64           366        115                  
+max_dni (W/m²)            int64           366        909                  
+max_ghi (W/m²)            int64           366        752                  
+max_temp (°C)             float64         366        28.5                 
+max_uv (Index)            float64         366        6.1                  
+max_wind_dir (°)          int64           366        291                  
+max_wind_spd (m/s)        float64         366        2.8                  
+min_temp (°C)             float64         366        16.7                 
+precip (mm)               float64         366        0.0                  
+precip_gpm (mm/hr)        float64         366        0.0                  
+pres (hPa)                int64           366        996                  
+rh (%)                    float64         366        0.58                 
+slp (hPa)                 int64           366        1014                 
+solar_rad (W/m²)          int64           366        213                  
+temp (°C)                 float64         366        21.7                 
+wind_dir (°)              int64           366        291                  
+wind_gust_spd (m/s)       float64         366        6.0                  
+wind_spd (m/s)            float64         366        2.2                  
+market_name (Text)        object          366        Babra                
+query_lat (°)             float64         366        21.8483550607114     
+query_lon (°)             float64         366        71.3112979502455     

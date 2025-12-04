@@ -1,0 +1,4 @@
+Data Cleaning Log - Mandi_Amreli
+============================================================
+
+• Converted Arrival_Date to datetime format

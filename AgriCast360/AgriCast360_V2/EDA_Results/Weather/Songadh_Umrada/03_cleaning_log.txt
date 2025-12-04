@@ -1,0 +1,4 @@
+Data Cleaning Log - Songadh_Umrada
+============================================================
+
+• Converted Date  to datetime format
