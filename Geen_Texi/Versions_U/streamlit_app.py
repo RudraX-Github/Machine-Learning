@@ -254,7 +254,7 @@ def get_smart_duration(distance, pickup_datetime, traffic_modifier=0):
             speed = 16
             traffic_status = "Weekend Traffic"
 
-    speed += traffic_modifier
+    speed -= traffic_modifier
     if speed < 1: speed = 1
     
     duration_min = (distance / speed) * 60
