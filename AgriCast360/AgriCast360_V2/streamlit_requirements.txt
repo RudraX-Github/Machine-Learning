@@ -1,0 +1,37 @@
+"""
+AgriCast360 Streamlit App - Requirements File
+Python 3.8+ Compatible
+"""
+
+# Core Web Framework
+streamlit>=1.28.0
+streamlit-option-menu>=0.3.6
+
+# Data Processing & Analysis
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Machine Learning & Models
+scikit-learn>=1.0.0
+xgboost>=1.5.0
+tensorflow>=2.8.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# Utilities
+python-dotenv>=0.19.0
+requests>=2.26.0
+Pillow>=8.3.0
+
+# Optional: For better performance
+lightgbm>=3.3.0
+catboost>=1.0.0
+
+# Optional: For deployment
+gunicorn>=20.1.0
+
+# Optional: For data validation
+pydantic>=1.8.0
