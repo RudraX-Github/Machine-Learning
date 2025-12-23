@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Taxi Fare Prediction Project</title>
+    <title>NYC Smart Taxi Predictor | Project Showcase</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,7 +124,7 @@
             display: none;
         }
         
-        /* Added style for <code> tags - Green Theme */
+        /* Code tag style */
         code {
             background-color: rgba(0, 0, 0, 0.3);
             padding: 2px 5px;
@@ -137,14 +137,8 @@
         
         /* Keyframes for background glow pulse */
         @keyframes pulse {
-            0%, 100% { 
-                opacity: 0.1; 
-                transform: scale(0.9) rotate(0deg); 
-            }
-            50% { 
-                opacity: 0.2; 
-                transform: scale(1.1) rotate(5deg); 
-            }
+            0%, 100% { opacity: 0.1; transform: scale(0.9) rotate(0deg); }
+            50% { opacity: 0.2; transform: scale(1.1) rotate(5deg); }
         }
         
         /* Keyframes for illusion structures */
@@ -163,7 +157,7 @@
             height: 500px;
             background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0) 60%);
             border-radius: 45% 55% 70% 30% / 30% 60% 40% 70%;
-            z-index: -10; /* Behind content */
+            z-index: -10;
             animation: rotate-illusion 25s infinite ease-in-out;
             filter: blur(20px);
         }
@@ -176,165 +170,10 @@
             height: 600px;
             background: radial-gradient(circle, rgba(190, 242, 100, 0.1) 0%, rgba(190, 242, 100, 0) 60%);
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            z-index: -10; /* Behind content */
+            z-index: -10;
             animation: rotate-illusion 30s infinite linear reverse;
             filter: blur(10px);
         }
-        
-        /* --- VISUALS STYLES --- */
-        
-        /* Performance Dial */
-        .dial-container {
-            width: 180px;
-            height: 180px;
-            position: relative;
-        }
-        .dial-bg {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(
-                rgba(255, 255, 255, 0.1) 0deg 270deg,
-                transparent 270deg 360deg
-            );
-            position: absolute;
-        }
-        .dial-value {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            position: absolute;
-            background: conic-gradient(
-                #22c55e 0deg,
-                #bef264 180deg,
-                #22c55e 240.3deg, /* 89% of 270 degrees */
-                transparent 240.3deg 270deg,
-                transparent 270deg 360deg
-            );
-            animation: fill-dial 2s 0.5s cubic-bezier(0.23, 1, 0.320, 1) forwards;
-            transform: rotate(-90deg);
-            opacity: 0;
-        }
-        .dial-inner {
-            width: 140px;
-            height: 140px;
-            background: #0a191f; /* Match bg */
-            border-radius: 50%;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .dial-percent {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #E0E0E0;
-            animation: fade-in-text 1s 2s forwards;
-            opacity: 0;
-        }
-        .dial-label {
-            font-size: 0.9rem;
-            color: #a7f3d0;
-            animation: fade-in-text 1s 2.2s forwards;
-            opacity: 0;
-        }
-        @keyframes fill-dial {
-            from { opacity: 1; clip-path: polygon(50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%); }
-            to { opacity: 1; clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%); }
-        }
-        @keyframes fade-in-text {
-            to { opacity: 1; }
-        }
-        
-        /* Feature Importance Bar Chart */
-        .bar-chart-container {
-            width: 100%;
-            space-y: 0.75rem;
-        }
-        .bar-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .bar-label {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #a7f3d0;
-            width: 90px;
-            flex-shrink: 0;
-            white-space: nowrap;
-        }
-        .bar-bg {
-            flex-grow: 1;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .bar-value {
-            height: 100%;
-            background: linear-gradient(90deg, #22c55e, #a7f3d0);
-            border-radius: 4px;
-            animation: fill-bar 1.5s 0.5s cubic-bezier(0.23, 1, 0.320, 1) forwards;
-            transform: translateX(-100%);
-        }
-        @keyframes fill-bar {
-            to { transform: translateX(0); }
-        }
-        
-        /* Data Transformation Visual */
-        .hist-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            width: 100%;
-            height: 80px; /* Set a fixed height */
-            gap: 2px;
-        }
-        .hist-bar {
-            flex-grow: 1;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 2px 2px 0 0;
-            transition: height 1s ease-in-out;
-        }
-        .hist-bar-filled {
-             background: linear-gradient(180deg, #a7f3d0, #22c55e);
-        }
-        
-        /* Download Button Style */
-        .download-btn {
-            flex: 1;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            background-color: rgba(34, 197, 94, 0.3); /* green-600/50 */
-            color: white;
-            font-weight: 600;
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
-            transition: all 0.3s;
-            font-size: 0.875rem; /* text-sm */
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem; /* gap-2 */
-            text-align: center;
-            cursor: pointer;
-        }
-        .download-btn:hover {
-            background-color: #22c55e; /* bg-green-600 */
-        }
-        /* Style for disabled state */
-        .download-btn:disabled {
-            background-color: rgba(107, 114, 128, 0.3); /* gray-500/50 */
-            color: rgba(209, 213, 219, 0.7); /* gray-300/70 */
-            cursor: not-allowed;
-        }
-
     </style>
 </head>
 <body class="antialiased relative">
@@ -353,7 +192,6 @@
             </rect>
         </svg>
     </div>
-
     <div class="illusion-1"></div>
     <div class="illusion-2"></div>
     <div class="absolute top-0 right-0 w-96 h-96 md:w-[500px] md:h-[500px] bg-green-600 rounded-full -z-10 filter blur-[120px] animate-[pulse_8s_infinite_ease-in-out]"></div>
@@ -362,11 +200,17 @@
     <header class="sticky top-0 z-50 w-full">
         <nav class="glass-card max-w-4xl mx-auto m-4 rounded-xl">
             <div class="flex items-center justify-between p-4 lg:px-8">
-                <a href="#" class="text-xl font-bold gradient-text">Green Taxi Project</a>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="car-taxi-front" class="text-green-400 w-6 h-6"></i>
+                    <a href="#" class="text-xl font-bold gradient-text">NYC Smart Predictor</a>
+                </div>
                 <div class="flex items-center space-x-6">
-                    <a href="#overview" class="hidden md:block text-gray-300 hover:text-white transition-colors">Overview</a>
-                    <a href="#visuals" class="hidden md:block text-gray-300 hover:text-white transition-colors">Visuals</a>
-                    <a href="#workflow" class="hidden md:block text-gray-300 hover:text-white transition-colors">Workflow</a>
+                    <a href="#stats" class="hidden md:block text-gray-300 hover:text-white transition-colors">Stats</a>
+                    <a href="#journey" class="hidden md:block text-gray-300 hover:text-white transition-colors">Journey</a>
+                    <a href="#tech" class="hidden md:block text-gray-300 hover:text-white transition-colors">Technology</a>
+                    <a href="https://github.com/RudraX-Github" target="_blank" class="text-gray-300 hover:text-green-400 transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -374,189 +218,57 @@
 
     <main class="max-w-4xl mx-auto px-4 md:px-8">
 
-        <section id="overview" class="min-h-[70vh] flex items-center justify-center text-center py-24 reveal">
+        <section id="overview" class="min-h-[70vh] flex items-center justify-center text-center py-20 reveal">
             <div>
+                <div class="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-green-400 uppercase bg-green-900/30 rounded-full border border-green-500/20">
+                    v7.0 Stable Release
+                </div>
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
-                    Green Taxi <span class="gradient-text">Fare Prediction</span>
+                    Predicting the Pulse of <br/>
+                    <span class="gradient-text">New York City</span>
                 </h1>
-                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10">
-                    A machine learning project to accurately estimate taxi fares using data science.
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+                    Transforming millions of raw GPS logs into 97% accurate fare predictions. Powered by XGBoost, visualized in 3D, designed for humans.
                 </p>
-                <a href="#visuals" class="px-8 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105">
-                    See Visual Insights
-                </a>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://appgeentexi-knxvdxa73fejth6yqevnxv.streamlit.app/#nyc-smart-taxi-predictor" target="_blank" class="px-8 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                        <i data-lucide="rocket" class="w-5 h-5"></i> Launch Application
+                    </a>
+                    <a href="https://github.com/RudraX-Github/Machine-Learning/tree/main/Geen%20Texi/Versions-U" target="_blank" class="px-8 py-3 bg-white/5 text-white font-semibold rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i data-lucide="code" class="w-5 h-5"></i> Source Code
+                    </a>
+                </div>
             </div>
         </section>
 
-        <section id="glance" class="py-14">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 reveal">Project at a Glance</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section id="stats" class="py-14">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 reveal">Performance Metrics</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 
-                <div class="glass-card rounded-2xl p-6 reveal">
-                    <div class="flex items-center gap-4 mb-6">
-                        <i data-lucide="database" class="w-10 h-10 text-green-400"></i>
-                        <h3 class="text-2xl font-bold text-white">Data Source</h3>
-                    </div>
-                    <p class="text-gray-300 mb-6">Analysis is based on the <code>Green_Dataset.csv</code> file, detailing individual trip records.</p>
-                    
-                    <div class="flex flex-wrap gap-3">
-                        <button id="download-csv-btn" 
-                           data-url="https://raw.githubusercontent.com/RudraX-Github/Machine-Learning/main/Geen%20Texi/Green_Dataset.csv" 
-                           data-filename="Green_Dataset.csv"
-                           class="download-btn">
-                            <i data-lucide="download-cloud" class="w-4 h-4 icon"></i>
-                            <span class="btn-text">Download CSV</span>
-                        </button>
-                        <button id="download-ipynb-btn" 
-                           data-url="https://raw.githubusercontent.com/RudraX-Github/Machine-Learning/main/Geen%20Texi/EDA-Green.ipynb" 
-                           data-filename="EDA-Green.ipynb"
-                           class="download-btn">
-                            <i data-lucide="download-cloud" class="w-4 h-4 icon"></i>
-                            <span class="btn-text">Download Notebook</span>
-                        </button>
-                    </div>
-                    </div>
-
-                <div class="glass-card rounded-2xl p-6 reveal">
-                    <div class="flex items-center gap-4 mb-6">
-                        <i data-lucide="target" class="w-10 h-10 text-green-400"></i>
-                        <h3 class="text-2xl font-bold text-white">Primary Goal</h3>
-                    </div>
-                    <p class="text-gray-300">Predict the <code>Total_amount</code> of a taxi fare using robust data preprocessing and ensemble models.</p>
+                <div class="glass-card rounded-2xl p-6 text-center reveal">
+                    <h3 class="text-3xl font-bold gradient-text">97%</h3>
+                    <p class="text-gray-400 text-sm mt-2 uppercase tracking-wide">Model R² Score</p>
                 </div>
-                
-                <div class="glass-card rounded-2xl p-6 reveal">
-                    <div class="flex items-center gap-4 mb-6">
-                        <i data-lucide="trending-up" class="w-10 h-10 text-green-400"></i>
-                        <h3 class="text-2xl font-bold text-white">Best Performance</h3>
-                    </div>
-                     <p class="text-gray-300">
-                        A Linear Regression model, applied after data transformation, achieved the highest score.
-                     </p>
-                     <p class="text-3xl font-bold text-center gradient-text mt-2">R² ≈ 0.89</p>
+                <div class="glass-card rounded-2xl p-6 text-center reveal" style="transition-delay: 100ms">
+                    <h3 class="text-3xl font-bold text-white">100k+</h3>
+                    <p class="text-gray-400 text-sm mt-2 uppercase tracking-wide">Data Points</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 text-center reveal" style="transition-delay: 200ms">
+                    <h3 class="text-3xl font-bold text-white">40+</h3>
+                    <p class="text-gray-400 text-sm mt-2 uppercase tracking-wide">NYC Landmarks</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 text-center reveal" style="transition-delay: 300ms">
+                    <h3 class="text-3xl font-bold text-white">3D</h3>
+                    <p class="text-gray-400 text-sm mt-2 uppercase tracking-wide">Spatial Mapping</p>
                 </div>
 
             </div>
         </section>
 
-        <section id="visuals" class="py-14">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 reveal">Visual Insights</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <div class="glass-card rounded-2xl p-6 reveal">
-                    <h3 class="text-2xl font-bold text-white mb-6">Model Performance (R²)</h3>
-                    <div class="flex items-center justify-center">
-                        <div class="dial-container">
-                            <div class="dial-bg"></div>
-                            <div class="dial-value"></div>
-                            <div class="dial-inner">
-                                <div class="dial-percent">89%</div>
-                                <div class="dial-label">Accuracy</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card rounded-2xl p-6 reveal">
-                    <h3 class="text-2xl font-bold text-white mb-6">Key Feature Importance</h3>
-                    <div class="bar-chart-container mt-8 space-y-3">
-                        <div class="bar-item">
-                            <div class="bar-label">Fare_amount</div>
-                            <div class="bar-bg">
-                                <div class="bar-value" style="width: 95%;"></div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Trip_distance</div>
-                            <div class="bar-bg">
-                                <div class="bar-value" style="width: 80%; animation-delay: 0.2s;"></div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Tolls_amount</div>
-                            <div class="bar-bg">
-                                <div class="bar-value" style="width: 45%; animation-delay: 0.4s;"></div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">rate_code</div>
-                            <div class="bar-bg">
-                                <div class="bar-value" style="width: 30%; animation-delay: 0.6s;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card rounded-2xl p-6 reveal">
-                    <h3 class="text-2xl font-bold text-white mb-6">Data Transformation</h3>
-                    <div class="flex items-center justify-around mt-8">
-                        <div class="w-2/5 text-center">
-                            <div class="hist-container">
-                                <div class="hist-bar hist-bar-filled" style="height: 100%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 80%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 65%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 50%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 30%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 20%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 15%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 10%"></div>
-                            </div>
-                            <p class="text-gray-400 mt-2 text-sm">Before (Skewed)</p>
-                        </div>
-                        
-                        <i data-lucide="arrow-right" class="w-12 h-12 text-green-400 flex-shrink-0"></i>
-                        
-                        <div class="w-2/5 text-center">
-                            <div class="hist-container">
-                                <div class="hist-bar hist-bar-filled" style="height: 10%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 30%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 70%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 100%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 70%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 30%"></div>
-                                <div class="hist-bar hist-bar-filled" style="height: 10%"></div>
-                            </div>
-                            <p class="text-green-300 mt-2 text-sm">After (Normalized)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card rounded-2xl p-6 reveal">
-                    <h3 class="text-2xl font-bold text-white mb-6">Technology Stack</h3>
-                    <div class="grid grid-cols-3 gap-6 text-center mt-8">
-                        <div class="text-gray-300">
-                            <i data-lucide="code-2" class="w-12 h-12 mx-auto text-green-400"></i>
-                            <p class="mt-2">Python</p>
-                        </div>
-                        <div class="text-gray-300">
-                            <i data-lucide="database" class="w-12 h-12 mx-auto text-green-400"></i>
-                            <p class="mt-2">Pandas</p>
-                        </div>
-                        <div class="text-gray-300">
-                            <i data-lucide="cpu" class="w-12 h-12 mx-auto text-green-400"></i>
-                            <p class="mt-2">Scikit-learn</p>
-                        </div>
-                        <div class="text-gray-300">
-                            <i data-lucide="bar-chart-2" class="w-12 h-12 mx-auto text-green-400"></i>
-                            <p class="mt-2">Seaborn</p>
-                        </div>
-                        <div class="text-gray-300">
-                            <i data-lucide="package" class="w-12 h-12 mx-auto text-green-400"></i>
-                            <p class="mt-2">Numpy</p>
-                        </div>
-                        <div class="text-gray-300">
-                            <i data-lucide="save" class="w-12 h-12 mx-auto text-green-400"></i>
-                            <p class="mt-2">Joblib</p>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </section>
-
-
-        <section id="workflow" class="py-14">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 reveal">Data Science Methodology</h2>
+        <section id="journey" class="py-14">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 reveal">The Development Journey</h2>
+            <p class="text-gray-400 text-center mb-12 reveal">From raw CSV files to a production-grade Streamlit application.</p>
+            
             <div id="timeline-container" class="relative max-w-3xl mx-auto">
                 <div class="timeline-animated-line"></div>
                 <div class="timeline-connector"></div>
@@ -564,77 +276,103 @@
                 <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-2xl font-bold text-white mb-3">1. Exploratory Data Analysis (EDA)</h3>
-                        <p class="text-gray-300">Analyzed data structure, checked for missing values, and visualized feature correlations to understand initial patterns.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-2xl font-bold text-white mb-3">2. Data Cleaning</h3>
-                        <p class="text-gray-300">Removed outliers from <code>Fare_amount</code> and <code>Trip_distance</code> using the IQR method to improve model stability.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-2xl font-bold text-white mb-3">3. Feature Engineering</h3>
-                        <p class="text-gray-300">Transformed categorical features like <code>rate_code</code> into numerical data using one-hot encoding so the model can read them.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-2xl font-bold text-white mb-3">4. Data Transformation</h3>
-                        <p class="text-gray-300">Corrected data skewness in key features using a Yeo-Johnson power transformation to create a "bell curve."</T>
-                    </div>
-                </div>
-                
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-2xl font-bold text-white mb-3">5. Scaling</h3>
-                        <p class="text-gray-300">Standardized all numerical features to a common scale, preventing any single feature from unfairly dominating the model.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-2xl font-bold text-white mb-3">6. Model Training</h3>
-                        <p class="text-gray-300">Trained multiple models, including Random Forest and Gradient Boosting, on the processed data to find the best predictor.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="text-2xl font-bold text-white mb-3">7. Evaluation & Serialization</h3>
-                        <p class="text-gray-300">Assessed models using R² on unseen test data and saved the best performers (<code>.pkl</code>) for deployment in an app.</p>
-                        
-                        <div class="mt-4 pt-4 border-t border-white/10">
-                            <h4 class="text-sm font-semibold text-gray-200 mb-2">Serialized Project Files:</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>gb_model.pkl</code></span>
-                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>meta_model.pkl</code></span>
-                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>rf_model.pkl</code></span>
-                                <span class="bg-gray-700/50 text-gray-300 text-xs py-1 px-3 rounded-full"><code>scaler.pkl</code></span>
-                            </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold text-white">The Foundation: Data Discovery</h3>
+                            <span class="text-xs font-mono text-green-400 bg-green-900/30 px-2 py-1 rounded">PHASE 1</span>
                         </div>
-                        </div>
+                        <p class="text-gray-300">
+                            Starting with <code>Green_Data.csv</code>, we decoded cryptic IDs (RateCodeID: 2 = JFK) and ran automated audits to visualize distribution skews before writing a single line of model code.
+                        </p>
+                    </div>
                 </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold text-white">The Science: EDA & Modeling</h3>
+                            <span class="text-xs font-mono text-green-400 bg-green-900/30 px-2 py-1 rounded">PHASE 2</span>
+                        </div>
+                        <p class="text-gray-300">
+                            Feature Engineering was the secret sauce. We extracted time metrics and interaction features. After testing Linear Regression and Decision Trees, <strong>XGBoost</strong> emerged as the champion with 97% accuracy.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold text-white">The Architecture</h3>
+                            <span class="text-xs font-mono text-green-400 bg-green-900/30 px-2 py-1 rounded">PHASE 3</span>
+                        </div>
+                        <p class="text-gray-300">
+                            Building the bridge between user input and the model matrix. We implemented the Haversine formula for distance, traffic logic simulators, and TLC surcharge rules to create a smart logic layer.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold text-white">UX Evolution (v7.0)</h3>
+                            <span class="text-xs font-mono text-green-400 bg-green-900/30 px-2 py-1 rounded">PHASE 4</span>
+                        </div>
+                        <p class="text-gray-300">
+                            Moved to a Premium Dark Mode. Integrated PyDeck for 3D Arc Layers. Replaced Lat/Lon inputs with landmark selectors and added a "Smart Insight Engine" to explain pricing context.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="py-14">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 reveal">Under The Hood</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="glass-card rounded-2xl p-6 text-center reveal">
+                    <div class="w-12 h-12 mx-auto bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="cpu" class="w-6 h-6 text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">XGBoost Engine</h3>
+                    <p class="text-gray-300 text-sm">
+                        Serialized into a <code>.pkl</code> artifact, handling complex non-linear relationships between traffic, time, and location.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 text-center reveal" style="transition-delay: 100ms">
+                    <div class="w-12 h-12 mx-auto bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="map" class="w-6 h-6 text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">PyDeck 3D</h3>
+                    <p class="text-gray-300 text-sm">
+                        Visual rendering of the trip using Arc Layers. Connects pickup and drop-off points with glowing paths over a pitch-black map.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 text-center reveal" style="transition-delay: 200ms">
+                    <div class="w-12 h-12 mx-auto bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-6 h-6 text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Streamlit Cloud</h3>
+                    <p class="text-gray-300 text-sm">
+                        Deployed for instant accessibility. The app bridges Python logic with an interactive web frontend seamlessly.
+                    </p>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <footer class="text-center py-16 mt-14 border-t border-white/10">
-        <p class="text-gray-400 max-w-3xl mx-auto mb-4">&copy; 2025 Green Taxi Project. Design based on Rudresh Chovatiya's portfolio.</p>
+    <footer class="text-center py-16 mt-14 border-t border-white/10 glass-card mx-4 rounded-t-xl mb-0">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <i data-lucide="car-taxi-front" class="text-green-400 w-6 h-6"></i>
+            <span class="text-xl font-bold text-white">NYC Smart Predictor</span>
+        </div>
         <p class="text-gray-500 text-sm max-w-3xl mx-auto">
-            Disclaimer: This project is an academic exercise. Predictions are based on historical data and do not represent guaranteed real-world fares.
+            &copy; 2025 NYC Smart Predictor Project. Built with Python, XGBoost, and Streamlit.
         </p>
     </footer>
 
@@ -694,71 +432,6 @@
                     animatedLine.style.height = `${drawHeight}px`;
                 }
             }
-            
-            // --- NEW: Force Download Helper Function ---
-            async function forceDownload(url, filename, btnElement) {
-                const originalText = btnElement.querySelector('.btn-text').textContent;
-                const icon = btnElement.querySelector('.icon');
-                
-                // Set loading state
-                btnElement.querySelector('.btn-text').textContent = "Downloading...";
-                btnElement.disabled = true;
-                if (icon) icon.style.display = 'none'; // Hide icon
-
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
-                    const blob = await response.blob();
-                    
-                    const objectUrl = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = objectUrl;
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                    
-                    // Cleanup
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(objectUrl);
-
-                } catch (error) {
-                    console.error("Download failed:", error);
-                    btnElement.querySelector('.btn-text').textContent = "Error";
-                    // Re-enable after a delay so user sees "Error"
-                    setTimeout(() => {
-                         btnElement.querySelector('.btn-text').textContent = originalText;
-                         if (icon) icon.style.display = 'inline-flex';
-                         btnElement.disabled = false;
-                    }, 2000);
-                } finally {
-                    // Restore button state
-                    if (btnElement.querySelector('.btn-text').textContent !== "Error") {
-                        btnElement.querySelector('.btn-text').textContent = originalText;
-                        if (icon) icon.style.display = 'inline-flex';
-                        btnElement.disabled = false;
-                    }
-                }
-            }
-
-            // --- Add Download Event Listeners ---
-            const csvBtn = document.getElementById('download-csv-btn');
-            const ipynbBtn = document.getElementById('download-ipynb-btn');
-
-            if (csvBtn) {
-                csvBtn.addEventListener('click', function(e) {
-                    e.preventDefault(); // Prevent default button action
-                    forceDownload(this.dataset.url, this.dataset.filename, this);
-                });
-            }
-            
-            if (ipynbBtn) {
-                ipynbBtn.addEventListener('click', function(e) {
-                    e.preventDefault(); // Prevent default button action
-                    forceDownload(this.dataset.url, this.dataset.filename, this);
-                });
-            }
-            // --- End Download Script ---
-            
         });
     </script>
 
