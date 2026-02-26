@@ -23,6 +23,7 @@ import warnings
 import logging
 import urllib.request
 import os
+import tempfile
 
 warnings.filterwarnings('ignore')
 
@@ -45,9 +46,6 @@ logger = logging.getLogger(__name__)
 # ENVIRONMENT DETECTION & PATH CONFIGURATION
 # ============================================================================
 
-# Detect if running on Streamlit Cloud
-IS_STREAMLIT_CLOUD = os.getenv('STREAMLIT_SERVER_HEADLESS') == 'true'
-
 # GitHub repository configuration
 GITHUB_USERNAME = "RudraX-Github"
 GITHUB_REPO = "Machine-Learning"
@@ -56,18 +54,14 @@ GITHUB_BASE_PATH = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/{GITHUB
 GITHUB_MODELS_URL = f"{GITHUB_BASE_PATH}/Models"
 GITHUB_DATA_URL = f"{GITHUB_BASE_PATH}/Processed_Data"
 
-# Define paths
-if IS_STREAMLIT_CLOUD:
-    # Use GitHub URLs for Streamlit Cloud
-    MODELS_FOLDER = None
-    PROCESSED_DATA_FOLDER = None
-    USE_GITHUB = True
-else:
-    # Use local paths for local development
-    ROOT_FOLDER = Path(r"D:\CUDA_Experiments\Git_HUB\Machine-Learning\AgriCast360\AgriCast360_V2")
-    MODELS_FOLDER = ROOT_FOLDER / "Models"
-    PROCESSED_DATA_FOLDER = ROOT_FOLDER / "Processed_Data"
-    USE_GITHUB = False
+# Dynamic local paths (fixes hardcoded D:\ path issues)
+try:
+    ROOT_FOLDER = Path(__file__).parent
+except NameError:
+    ROOT_FOLDER = Path.cwd()
+
+MODELS_FOLDER = ROOT_FOLDER / "Models"
+PROCESSED_DATA_FOLDER = ROOT_FOLDER / "Processed_Data"
 
 # Custom CSS for better UI
 st.markdown("""
@@ -110,13 +104,13 @@ st.markdown("""
 # GITHUB FILE DOWNLOAD UTILITIES
 # ============================================================================
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def download_file_from_github(file_url, file_type='pickle'):
-    """Download a file from GitHub and cache it"""
+    """Download a file from GitHub with robust error handling and caching"""
     try:
-        # Create cache directory if it doesn't exist
-        cache_dir = Path.home() / '.agricast360_cache'
-        cache_dir.mkdir(exist_ok=True)
+        # Use temp directory for better cross-platform/cloud compatibility
+        cache_dir = Path(tempfile.gettempdir()) / '.agricast360_cache'
+        cache_dir.mkdir(exist_ok=True, parents=True)
         
         # Extract filename from URL
         filename = file_url.split('/')[-1]
@@ -125,7 +119,9 @@ def download_file_from_github(file_url, file_type='pickle'):
         # Download if not already cached
         if not cache_path.exists():
             logger.info(f"Downloading from GitHub: {filename}")
-            urllib.request.urlretrieve(file_url, str(cache_path))
+            req = urllib.request.Request(file_url, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req) as response, open(cache_path, 'wb') as out_file:
+                out_file.write(response.read())
             logger.info(f"✅ Downloaded: {filename}")
         
         # Load the file based on type
@@ -134,124 +130,121 @@ def download_file_from_github(file_url, file_type='pickle'):
                 return pickle.load(f)
         elif file_type == 'csv':
             return pd.read_csv(cache_path)
-        
+            
     except Exception as e:
         logger.error(f"Error downloading file {file_url}: {str(e)}")
-        st.error(f"Failed to download file: {str(e)}")
         return None
 
 # ============================================================================
 # MODEL LOADING & CACHING
 # ============================================================================
 
-@st.cache_resource
+@st.cache_resource(show_spinner="Loading predictive models...")
 def load_models():
-    """Load all trained models and scalers from local or GitHub"""
-    try:
-        models = {}
-        
-        # Load all models
-        model_files = {
-            '01_linear_regression': 'Linear Regression',
-            '02_random_forest': 'Random Forest',
-            '03_xgboost': 'XGBoost',
-            '05_linear_regression_tuned': 'Linear Regression (Tuned)',
-            '06_random_forest_tuned': 'Random Forest (Tuned)',
-            '07_xgboost_tuned': 'XGBoost (Tuned)',
-            '08_stacking_ensemble': 'Stacking Ensemble',
-            '09_voting_ensemble': 'Voting Ensemble'
-        }
-        
-        for file_key, model_name in model_files.items():
-            try:
-                if USE_GITHUB:
-                    # Download from GitHub
-                    file_url = f"{GITHUB_MODELS_URL}/{file_key}.pkl"
-                    models[model_name] = download_file_from_github(file_url, 'pickle')
-                else:
-                    # Load from local path
-                    model_path = MODELS_FOLDER / f"{file_key}.pkl"
-                    if model_path.exists():
-                        with open(model_path, 'rb') as f:
-                            models[model_name] = pickle.load(f)
-                        logger.info(f"✅ Loaded: {model_name}")
-                    else:
-                        logger.warning(f"⚠️ Model not found: {model_path}")
-            except Exception as e:
-                logger.warning(f"Warning loading {model_name}: {str(e)}")
-        
-        # Load scalers
-        scalers = {}
-        scaler_files = ['scaler_standard.pkl', 'scaler_robust.pkl']
-        
-        for scaler_file in scaler_files:
-            try:
-                if USE_GITHUB:
-                    # Download from GitHub
-                    file_url = f"{GITHUB_DATA_URL}/{scaler_file}"
-                    scalers[scaler_file.replace('.pkl', '')] = download_file_from_github(file_url, 'pickle')
-                else:
-                    # Load from local path
-                    scaler_path = PROCESSED_DATA_FOLDER / scaler_file
-                    if scaler_path.exists():
-                        with open(scaler_path, 'rb') as f:
-                            scaler_name = scaler_file.replace('.pkl', '')
-                            scalers[scaler_name] = pickle.load(f)
-                        logger.info(f"✅ Loaded scaler: {scaler_name}")
-            except Exception as e:
-                logger.warning(f"Warning loading scaler {scaler_file}: {str(e)}")
-        
-        return models, scalers
+    """Load all trained models and scalers from local or GitHub seamlessly"""
+    models = {}
     
-    except Exception as e:
-        logger.error(f"Error loading models: {str(e)}")
-        st.error(f"Failed to load models: {str(e)}")
-        return {}, {}
+    # Define models dictionary
+    model_files = {
+        '01_linear_regression': 'Linear Regression',
+        '02_random_forest': 'Random Forest',
+        '03_xgboost': 'XGBoost',
+        '05_linear_regression_tuned': 'Linear Regression (Tuned)',
+        '06_random_forest_tuned': 'Random Forest (Tuned)',
+        '07_xgboost_tuned': 'XGBoost (Tuned)',
+        '08_stacking_ensemble': 'Stacking Ensemble',
+        '09_voting_ensemble': 'Voting Ensemble'
+    }
+    
+    for file_key, model_name in model_files.items():
+        # 1. Try Loading Locally First
+        model_path = MODELS_FOLDER / f"{file_key}.pkl"
+        if model_path.exists():
+            try:
+                with open(model_path, 'rb') as f:
+                    models[model_name] = pickle.load(f)
+                logger.info(f"✅ Loaded locally: {model_name}")
+                continue  # Skip Github fetching if successful locally
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to load local model {model_name}: {e}")
+        
+        # 2. Fallback to GitHub Download
+        file_url = f"{GITHUB_MODELS_URL}/{file_key}.pkl"
+        try:
+            model = download_file_from_github(file_url, 'pickle')
+            if model is not None:
+                models[model_name] = model
+        except Exception as e:
+            logger.warning(f"Warning downloading {model_name}: {str(e)}")
 
-@st.cache_resource
+    # Load scalers
+    scalers = {}
+    scaler_files = ['scaler_standard.pkl', 'scaler_robust.pkl']
+    
+    for scaler_file in scaler_files:
+        scaler_name = scaler_file.replace('.pkl', '')
+        scaler_path = PROCESSED_DATA_FOLDER / scaler_file
+        
+        # 1. Try Loading Locally First
+        if scaler_path.exists():
+            try:
+                with open(scaler_path, 'rb') as f:
+                    scalers[scaler_name] = pickle.load(f)
+                logger.info(f"✅ Loaded locally scaler: {scaler_name}")
+                continue
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to load local scaler {scaler_file}: {e}")
+                
+        # 2. Fallback to GitHub Download
+        file_url = f"{GITHUB_DATA_URL}/{scaler_file}"
+        try:
+            scaler = download_file_from_github(file_url, 'pickle')
+            if scaler is not None:
+                scalers[scaler_name] = scaler
+        except Exception as e:
+            logger.warning(f"Warning downloading scaler {scaler_file}: {str(e)}")
+            
+    return models, scalers
+
+@st.cache_resource(show_spinner="Fetching datasets...")
 def load_processed_data():
     """Load processed data and metadata from local or GitHub"""
-    try:
-        features_data = None
-        features_scaled = None
-        
-        if USE_GITHUB:
-            # Download from GitHub
-            try:
-                file_url = f"{GITHUB_DATA_URL}/features_raw.csv"
-                features_data = download_file_from_github(file_url, 'csv')
-                if features_data is not None:
-                    features_data = features_data.iloc[:1000]
-                    logger.info(f"✅ Loaded features data: {features_data.shape}")
-            except Exception as e:
-                logger.warning(f"Warning loading features_raw.csv: {str(e)}")
-            
-            try:
-                file_url = f"{GITHUB_DATA_URL}/features_scaled_robust.csv"
-                features_scaled = download_file_from_github(file_url, 'csv')
-                if features_scaled is not None:
-                    features_scaled = features_scaled.iloc[:1000]
-                    logger.info(f"✅ Loaded scaled features: {features_scaled.shape}")
-            except Exception as e:
-                logger.warning(f"Warning loading features_scaled_robust.csv: {str(e)}")
-        else:
-            # Load from local path
-            features_path = PROCESSED_DATA_FOLDER / "features_raw.csv"
-            features_scaled_path = PROCESSED_DATA_FOLDER / "features_scaled_robust.csv"
-            
-            if features_path.exists():
-                features_data = pd.read_csv(features_path, nrows=1000)
-                logger.info(f"✅ Loaded features data: {features_data.shape}")
-            
-            if features_scaled_path.exists():
-                features_scaled = pd.read_csv(features_scaled_path, nrows=1000)
-                logger.info(f"✅ Loaded scaled features: {features_scaled.shape}")
-        
-        return features_data, features_scaled
+    features_data = None
+    features_scaled = None
     
-    except Exception as e:
-        logger.error(f"Error loading processed data: {str(e)}")
-        return None, None
+    # 1. Try Features Raw Data
+    raw_path = PROCESSED_DATA_FOLDER / "features_raw.csv"
+    if raw_path.exists():
+        try:
+            features_data = pd.read_csv(raw_path, nrows=1000)
+            logger.info("✅ Loaded local features_raw.csv")
+        except Exception as e:
+            logger.warning(f"Error loading local raw features: {e}")
+            
+    if features_data is None:
+        file_url = f"{GITHUB_DATA_URL}/features_raw.csv"
+        df = download_file_from_github(file_url, 'csv')
+        if df is not None:
+            features_data = df.iloc[:1000]
+            logger.info("✅ Loaded features_raw.csv from GitHub")
+
+    # 2. Try Scaled Features Data
+    scaled_path = PROCESSED_DATA_FOLDER / "features_scaled_robust.csv"
+    if scaled_path.exists():
+        try:
+            features_scaled = pd.read_csv(scaled_path, nrows=1000)
+            logger.info("✅ Loaded local features_scaled_robust.csv")
+        except Exception as e:
+            logger.warning(f"Error loading local scaled features: {e}")
+            
+    if features_scaled is None:
+        file_url = f"{GITHUB_DATA_URL}/features_scaled_robust.csv"
+        df = download_file_from_github(file_url, 'csv')
+        if df is not None:
+            features_scaled = df.iloc[:1000]
+            logger.info("✅ Loaded features_scaled_robust.csv from GitHub")
+            
+    return features_data, features_scaled
 
 # ============================================================================
 # HELPER FUNCTIONS
@@ -549,9 +542,9 @@ if app_mode == "🔮 Predictions":
         available_commodities = ["Ajwan", "Wheat", "Rice", "Cotton", "Tobacco", "Other"]
     
     if not models:
-        st.error("❌ No models loaded. Please check the Models folder.")
+        st.error("❌ No models loaded. Please check the Github connection or Models folder.")
     else:
-        st.success(f"✅ Loaded {len(models)} trained models")
+        st.success(f"✅ Loaded {len(models)} trained models successfully!")
         st.info(f"📊 Available commodities: {len(available_commodities)}")
         
         # Create tabs for different prediction types
