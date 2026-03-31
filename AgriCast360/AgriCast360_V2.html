@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriCast360 V2 - Predictive Intelligence Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2E7D32;
+            --primary-dark: #1B5E20;
+            --primary-light: #4CAF50;
+            --accent: #FFD700;
+            --accent-glow: rgba(255, 215, 0, 0.4);
+            --text-light: #f5f7fa;
+            --text-dark: #2d3436;
+            --text-muted: #636e72;
+            --surface-light: rgba(255, 255, 255, 0.85);
+            --surface-dark: rgba(20, 25, 30, 0.85);
+            --border-light: rgba(46, 125, 50, 0.2);
+            --border-dark: rgba(139, 195, 74, 0.3);
+            --glass: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px; /* Standardize root font size */
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: #f4f7f6;
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body.dark-mode {
+            background: #0b0f14;
+            color: var(--text-light);
+            --glass: rgba(15, 20, 25, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-muted: #a0a0a0;
+            --surface-light: rgba(25, 30, 35, 0.85);
+        }
+
+        /* =========================================
+           GLOBAL LIVE ANIMATIONS (ENTIRE PAGE)
+           ========================================= */
+
+        .global-perspective {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            perspective: 1000px;
+            z-index: -3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .global-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            bottom: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(rgba(46, 125, 50, 0.2) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(46, 125, 50, 0.2) 2px, transparent 2px);
+            background-size: 50px 50px;
+            transform-origin: center center;
+            transform: rotateX(60deg) translateY(0);
+            animation: gridMove3D 5s linear infinite;
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        body.dark-mode .global-grid {
+            background-image: 
+                linear-gradient(rgba(139, 195, 74, 0.15) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(139, 195, 74, 0.15) 2px, transparent 2px);
+        }
+
+        @keyframes gridMove3D {
+            0% { transform: rotateX(60deg) translateY(0); }
+            100% { transform: rotateX(60deg) translateY(50px); }
+        }
+
+        .bg-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -2;
+            opacity: 0.5;
+            transition: transform 0.1s ease-out;
+        }
+        
+        .blob-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: rgba(46, 125, 50, 0.3); animation: floatBlob 20s infinite alternate ease-in-out; }
+        .blob-2 { bottom: 10%; right: -5%; width: 500px; height: 500px; background: rgba(139, 195, 74, 0.2); animation: floatBlob 25s infinite alternate-reverse ease-in-out; }
+        .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: rgba(255, 215, 0, 0.1); animation: floatBlob 15s infinite alternate ease-in-out; }
+        .blob-4 { bottom: -20%; left: 20%; width: 350px; height: 350px; background: rgba(46, 125, 50, 0.2); animation: floatBlob 18s infinite alternate-reverse ease-in-out; }
+
+        body.dark-mode .blob-1 { background: rgba(46, 125, 50, 0.15); }
+        body.dark-mode .blob-2 { background: rgba(139, 195, 74, 0.1); }
+        body.dark-mode .blob-3 { background: rgba(255, 215, 0, 0.05); }
+        body.dark-mode .blob-4 { background: rgba(46, 125, 50, 0.1); }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(30px, 30px) scale(1.1) rotate(180deg); }
+            100% { transform: translate(-20px, 50px) scale(0.9) rotate(360deg); }
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 15vh;
+            background: linear-gradient(to bottom, transparent, rgba(139, 195, 74, 0.3), transparent);
+            box-shadow: 0 0 30px rgba(139, 195, 74, 0.2);
+            opacity: 0.4;
+            z-index: 9999;
+            pointer-events: none;
+            animation: scanlineSweep 8s linear infinite;
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes scanlineSweep {
+            0% { top: -20vh; }
+            100% { top: 120vh; }
+        }
+
+        .global-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -10vh;
+            opacity: 0;
+            animation: globalFloatUp linear infinite;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        @keyframes globalFloatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* ============ HEADER & NAVIGATION ============ */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 10000;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+            padding: 0.8rem 2rem; /* Reduced padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(11, 15, 20, 0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .navbar-brand {
+            display: flex; align-items: center; gap: 10px; color: var(--primary);
+            font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px;
+        }
+
+        .navbar-brand span { font-size: 1.5rem; animation: slightSway 3s ease-in-out infinite alternate; display: inline-block; }
+        @keyframes slightSway { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+
+        .navbar-brand div div:first-child { line-height: 1.1; }
+        .navbar-brand div div:last-child {
+            font-size: 0.65rem; font-weight: 600; color: var(--text-muted);
+            letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;
+        }
+
+        .nav-controls { display: flex; gap: 15px; align-items: center; }
+
+        .theme-toggle {
+            background: transparent; border: 2px solid var(--border-light); color: var(--text-dark);
+            width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1rem; display: flex; align-items: center; justify-content: center;
+        }
+
+        body.dark-mode .theme-toggle { color: var(--accent); border-color: rgba(255, 215, 0, 0.3); }
+        .theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: rgba(46, 125, 50, 0.1); }
+
+        /* ============ LIVE MARKET TICKER ============ */
+        .live-ticker-container {
+            position: fixed;
+            top: 65px; /* Adjusted based on new navbar height */
+            left: 0; width: 100%;
+            background: #0a0e12; color: #a6e22e; padding: 6px 0; z-index: 9999;
+            font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; font-weight: 800;
+            overflow: hidden; display: flex; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(166, 226, 46, 0.4);
+        }
+
+        .ticker-track { display: flex; white-space: nowrap; animation: tickerScroll 35s linear infinite; }
+        .ticker-track:hover { animation-play-state: paused; }
+
+        .ticker-item { padding: 0 2rem; display: flex; align-items: center; gap: 8px; text-shadow: 0 0 5px rgba(166, 226, 46, 0.4); }
+        .trend-up { color: #a6e22e; }
+        .trend-down { color: #ff3366; text-shadow: 0 0 5px rgba(255, 51, 102, 0.4); }
+        .ticker-val { display: inline-block; min-width: 55px; transition: color 0.1s; }
+
+        @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            margin-top: 90px;
+            min-height: calc(100vh - 90px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Perfect Centering */
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* Hero Specific AI Radar */
+        .radar-container {
+            position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 550px; height: 550px; /* Reduced Size */
+            z-index: 5; pointer-events: none;
+            transition: transform 0.1s ease-out;
+        }
+
+        .radar-sweep {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 70%, rgba(46, 125, 50, 0.3) 100%);
+            animation: radarSpin 3s linear infinite;
+            border: 1px solid rgba(46, 125, 50, 0.2); box-shadow: inset 0 0 30px rgba(46, 125, 50, 0.1);
+        }
+
+        .radar-ring {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border-radius: 50%; border: 1px solid rgba(46, 125, 50, 0.4);
+            width: 0; height: 0; opacity: 1;
+            animation: ping 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+        .radar-ring:nth-child(2) { animation-delay: 1.3s; }
+        .radar-ring:nth-child(3) { animation-delay: 2.6s; }
+
+        @keyframes ping { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 100%; height: 100%; opacity: 0; } }
+
+        .radar-grid-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; }
+        .radar-grid-lines::before, .radar-grid-lines::after { content: ''; position: absolute; background: rgba(46, 125, 50, 0.3); }
+        .radar-grid-lines::before { top: 50%; left: 0; right: 0; height: 1px; }
+        .radar-grid-lines::after { top: 0; bottom: 0; left: 50%; width: 1px; }
+
+        body.dark-mode .radar-sweep {
+            background: conic-gradient(from 0deg, transparent 70%, rgba(139, 195, 74, 0.3) 100%);
+            border-color: rgba(139, 195, 74, 0.2); box-shadow: inset 0 0 30px rgba(139, 195, 74, 0.1);
+        }
+        body.dark-mode .radar-ring { border-color: rgba(139, 195, 74, 0.4); }
+        body.dark-mode .radar-grid-lines::before, body.dark-mode .radar-grid-lines::after { background: rgba(139, 195, 74, 0.3); }
+
+        @keyframes radarSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .data-node {
+            position: absolute; width: 6px; height: 6px; background: var(--primary); border-radius: 50%;
+            box-shadow: 0 0 10px 3px rgba(46, 125, 50, 0.8); animation: blinkNode 2s infinite alternate;
+        }
+        body.dark-mode .data-node { background: #8bc34a; box-shadow: 0 0 10px 3px rgba(139, 195, 74, 0.8); }
+
+        @keyframes blinkNode { 0% { opacity: 0.1; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.5); } 100% { opacity: 0.1; transform: scale(0.5); } }
+
+        .hero-content {
+            text-align: center; 
+            position: relative; 
+            z-index: 20; 
+            max-width: 850px; 
+            padding: 2rem;
+            margin: 0 auto; /* Perfect horizontal centering */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center; /* Perfect vertical centering within self */
+            animation: scaleUpFade 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            backdrop-filter: blur(2px); 
+            border-radius: 30px;
+            width: 100%;
+        }
+
+        @keyframes scaleUpFade { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 6px; padding: 0.5rem 1.2rem;
+            background: rgba(46, 125, 50, 0.1); color: var(--primary); border-radius: 50px;
+            font-size: 0.85rem; font-weight: 800; margin-bottom: 1.5rem; border: 1px solid rgba(46, 125, 50, 0.4);
+            letter-spacing: 1px; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.15); position: relative; overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); animation: badgeShine 4s infinite;
+        }
+        @keyframes badgeShine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        body.dark-mode .hero-badge { background: rgba(139, 195, 74, 0.15); color: #8bc34a; border-color: rgba(139, 195, 74, 0.4); }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem); /* Scaled down for perfect view */
+            font-weight: 900; line-height: 1.15; color: var(--text-dark);
+            margin-bottom: 1.2rem; letter-spacing: -1px; text-shadow: 0 8px 25px rgba(255,255,255,0.8);
+        }
+        body.dark-mode .hero h1 { text-shadow: 0 8px 25px rgba(0,0,0,0.8); }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, #2E7D32, #8bc34a, #FFB300, #2E7D32); background-size: 300% 300%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; animation: gradientShift 6s ease infinite;
+        }
+
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .hero p {
+            font-size: 1.1rem; color: var(--text-dark); opacity: 0.85; margin-bottom: 2.5rem;
+            font-weight: 500; line-height: 1.6; max-width: 650px; text-align: center;
+        }
+        body.dark-mode .hero p { color: var(--text-light); opacity: 0.9; }
+
+        /* ANIMATED CTA BUTTONS */
+        .cta-buttons { 
+            display: flex; 
+            gap: 1rem; 
+            justify-content: center; 
+            align-items: center;
+            margin-bottom: 1rem; 
+            position: relative; 
+            z-index: 30; 
+            flex-wrap: wrap; 
+            width: 100%;
+        }
+
+        .cta-buttons .btn {
+            padding: 0.8rem 1.8rem; border-radius: 50px; font-size: 0.95rem; font-weight: 700; cursor: pointer; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px; position: relative; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        body.dark-mode .cta-buttons .btn { box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+
+        .cta-buttons .btn:hover { z-index: 10; transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
+        body.dark-mode .cta-buttons .btn:hover { box-shadow: 0 12px 25px rgba(0,0,0,0.6); }
+
+        .btn-live {
+            background: linear-gradient(135deg, #FFB300, #F57C00); color: #fff; border: 2px solid rgba(255,255,255,0.2); animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow { 0% { box-shadow: 0 4px 10px rgba(0,0,0,0.1), 0 0 0 0 rgba(255, 179, 0, 0.6); } 50% { box-shadow: 0 4px 10px rgba(0,0,0,0.1), 0 0 20px 10px rgba(255, 179, 0, 0); } 100% { box-shadow: 0 4px 10px rgba(0,0,0,0.1), 0 0 0 0 rgba(255, 179, 0, 0); } }
+        .btn-live:hover { background: linear-gradient(135deg, #FFA000, #E65100); animation-play-state: paused; }
+
+        .btn-primary { background: var(--primary); color: white; border: 2px solid rgba(255,255,255,0.1); }
+        .btn-primary:hover { background: var(--primary-dark); }
+
+        .btn-secondary { background: var(--surface-light); color: var(--text-dark); border: 2px solid var(--border-light); backdrop-filter: blur(10px); }
+        body.dark-mode .btn-secondary { background: rgba(30, 35, 40, 0.85); color: var(--text-light); border-color: rgba(255,255,255,0.15); }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+        body.dark-mode .btn-secondary:hover { color: #8bc34a; border-color: #8bc34a; }
+
+        /* ============ STATS BAR ============ */
+        .stats-strip {
+            position: relative; margin: 2rem auto; width: 95%; max-width: 1000px; /* Reduced max-width */
+            background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem 3rem; /* Reduced padding */
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 40px rgba(0,0,0,0.1); z-index: 20;
+        }
+
+        @media (max-width: 992px) {
+            .stats-strip { flex-wrap: wrap; gap: 1.5rem; margin: 2rem auto; width: 90%; justify-content: center; padding: 1.5rem; }
+            .stat-divider { display: none; }
+            .cta-buttons { flex-direction: column; align-items: stretch; width: 100%; max-width: 300px;}
+        }
+
+        .stat-item { text-align: center; display: flex; flex-direction: column; gap: 0.2rem; transition: transform 0.3s ease; }
+        .stat-item:hover { transform: scale(1.05); }
+
+        .stat-value {
+            font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), #8bc34a);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;
+        }
+        body.dark-mode .stat-value { background: linear-gradient(135deg, #8bc34a, #FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .stat-label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .stat-divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--border-light), transparent); }
+        body.dark-mode .stat-divider { background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent); }
+
+        /* ============ MAIN CONTAINER ============ */
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; position: relative; z-index: 10; }
+
+        /* ============ ADVANCED TABS ============ */
+        .tab-navigation {
+            display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 4rem; background: var(--surface-light);
+            padding: 0.6rem; border-radius: 50px; width: fit-content; margin-left: auto; margin-right: auto; flex-wrap: wrap;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid var(--border-light); backdrop-filter: blur(20px);
+            position: sticky; top: 110px; z-index: 100;
+        }
+        body.dark-mode .tab-navigation { border-color: var(--border-dark); }
+
+        .tab-btn {
+            padding: 0.6rem 1.5rem; border-radius: 30px; background: transparent; border: none; color: var(--text-muted);
+            font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary);
+            z-index: -1; transform: scaleY(0); transition: transform 0.3s ease; transform-origin: bottom; border-radius: 30px;
+        }
+        body.dark-mode .tab-btn::before { background: #8bc34a; }
+
+        .tab-btn:hover { color: var(--primary); }
+        body.dark-mode .tab-btn:hover { color: #8bc34a; }
+
+        .tab-btn.active { color: white; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3); }
+        .tab-btn.active::before { transform: scaleY(1); }
+        body.dark-mode .tab-btn.active { color: #111; box-shadow: 0 4px 12px rgba(139, 195, 74, 0.3); }
+
+        /* ============ SECTION STYLING ============ */
+        section { margin-bottom: 5rem; display: none; }
+        section.active { display: block; animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        section h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1.2rem; color: var(--text-dark); text-align: center; letter-spacing: -0.5px; }
+        .section-desc { text-align: center; color: var(--text-muted); max-width: 700px; margin: 0 auto 3rem auto; font-size: 1.05rem; line-height: 1.7; }
+        section h3 { font-size: 1.4rem; font-weight: 800; margin: 2.5rem 0 1.2rem 0; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        body.dark-mode section h3 { color: #8bc34a; }
+
+        /* =========================================
+           ILLUSIVE GLASSMORPHISM CARDS
+           ========================================= */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; perspective: 1000px; }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+            border-radius: 20px; padding: 2rem; 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.9);
+            border-left: 1px solid rgba(255, 255, 255, 0.7);
+            position: relative; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.3); 
+            display: flex; flex-direction: column;
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+            transform-style: preserve-3d; opacity: 0;
+            animation: slideUpStaggered 0.6s ease forwards, ambientFloat 6s ease-in-out infinite alternate;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s, 0s; }
+        .card:nth-child(2) { animation-delay: 0.2s, 1s; }
+        .card:nth-child(3) { animation-delay: 0.3s, 2s; }
+        .card:nth-child(4) { animation-delay: 0.4s, 3s; }
+
+        @keyframes slideUpStaggered { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes ambientFloat { 0% { transform: translateY(0px); } 100% { transform: translateY(-6px); } }
+
+        body.dark-mode .card { 
+            background: linear-gradient(135deg, rgba(30, 35, 40, 0.4), rgba(15, 20, 25, 0.15));
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+        }
+
+        .card:hover { 
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+            box-shadow: 0 20px 40px rgba(46, 125, 50, 0.12), inset 0 0 20px rgba(255, 255, 255, 0.5); 
+            border-color: rgba(255,255,255,0.9); z-index: 2; animation-play-state: paused; 
+        }
+        
+        body.dark-mode .card:hover { 
+            background: linear-gradient(135deg, rgba(40, 45, 50, 0.5), rgba(20, 25, 30, 0.25));
+            box-shadow: 0 20px 40px rgba(139, 195, 74, 0.12), inset 0 0 20px rgba(255, 255, 255, 0.08); 
+            border-color: rgba(255,255,255,0.3); 
+        }
+
+        .card > * { transform: translateZ(20px); }
+
+        .live-status-dot {
+            position: absolute; top: 1.2rem; right: 1.2rem; width: 8px; height: 8px; border-radius: 50%;
+            background: #a6e22e; box-shadow: 0 0 8px #a6e22e; animation: blinkNode 1.5s infinite alternate; transform: translateZ(15px);
+        }
+
+        .card h3 { font-size: 1.25rem; margin-bottom: 0.8rem; margin-top: 0; color: var(--text-dark); padding-right: 15px;}
+        body.dark-mode .card h3 { color: var(--text-light); }
+        .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; flex-grow: 1; margin-bottom: 1.2rem; }
+
+        .card-icon {
+            font-size: 2rem; margin-bottom: 1.2rem; background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(139, 195, 74, 0.2));
+            width: 55px; height: 55px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            color: var(--primary); transition: transform 0.3s ease; transform: translateZ(30px);
+        }
+        .card:hover .card-icon { transform: translateZ(30px) scale(1.1) rotate(5deg); }
+
+        .report-card { border-top: 3px solid var(--primary); }
+        .report-card.eda { border-top-color: #673AB7; } .report-card.feat { border-top-color: #2196F3; }
+        .report-card.prep { border-top-color: #009688; } .report-card.time { border-top-color: #FF9800; }
+
+
+        /* =========================================
+           ANIMATED VIEW PAGES BUTTONS
+           ========================================= */
+        .btn-view-page {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.15) !important;
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            border-radius: 10px;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        body.dark-mode .btn-view-page { background: rgba(0, 0, 0, 0.25) !important; }
+
+        .btn-view-page::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: buttonShine 2.5s infinite; z-index: -1;
+        }
+        
+        body.dark-mode .btn-view-page::before { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); }
+
+        .btn-view-page:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px currentColor; 
+            background: currentColor !important; 
+            color: white !important; 
+        }
+        
+        .btn-view-page .arrow {
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .btn-view-page:hover .arrow {
+            transform: translate(4px, -4px); 
+        }
+
+        /* ============ MODEL TABLE ============ */
+        .model-table-container {
+            overflow-x: auto; background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.5); margin-top: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05); backdrop-filter: blur(25px); opacity: 0; animation: slideUpStaggered 0.5s 0.2s ease forwards, ambientFloat 6s ease-in-out infinite alternate;
+        }
+        body.dark-mode .model-table-container { background: linear-gradient(135deg, rgba(30, 35, 40, 0.4), rgba(15, 20, 25, 0.15)); border-color: rgba(255, 255, 255, 0.1); }
+        
+        .model-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .model-table th, .model-table td { padding: 1.2rem; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.95rem; }
+        body.dark-mode .model-table th, body.dark-mode .model-table td { border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .model-table th { background: rgba(46, 125, 50, 0.08); font-weight: 800; color: var(--primary); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        body.dark-mode .model-table th { background: rgba(139, 195, 74, 0.1); color: #8bc34a; }
+        .model-table tr:hover { background: rgba(46, 125, 50, 0.05); }
+        body.dark-mode .model-table tr:hover { background: rgba(255,255,255,0.05); }
+
+        .badge { padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; display: inline-block;}
+        .badge-fast { background: #e3f2fd; color: #1565c0; } .badge-med { background: #fff3e0; color: #e65100; } .badge-slow { background: #fce4ec; color: #c2185b; }
+        body.dark-mode .badge-fast { background: rgba(21, 101, 192, 0.2); color: #64b5f6; } body.dark-mode .badge-med { background: rgba(230, 81, 0, 0.2); color: #ffb74d; } body.dark-mode .badge-slow { background: rgba(194, 24, 91, 0.2); color: #f06292; }
+
+        /* ============ PIPELINE ============ */
+        .pipeline { display: flex; flex-direction: column; gap: 2.5rem; position: relative; margin: 3rem 0; }
+        .pipeline::before { content: ''; position: absolute; left: 2.5rem; top: 2rem; bottom: 2rem; width: 3px; background: linear-gradient(to bottom, var(--primary), rgba(46, 125, 50, 0.1)); border-radius: 4px; z-index: 0; }
+
+        .pipeline-stage { display: flex; gap: 2rem; align-items: center; position: relative; z-index: 1; transition: transform 0.3s; opacity: 0; animation: slideUpStaggered 0.5s ease forwards; }
+        .pipeline-stage:nth-child(1) { animation-delay: 0.1s; } .pipeline-stage:nth-child(2) { animation-delay: 0.2s; }
+        .pipeline-stage:nth-child(3) { animation-delay: 0.3s; } .pipeline-stage:nth-child(4) { animation-delay: 0.4s; }
+
+        .pipeline-stage:hover { transform: translateX(8px); }
+
+        .stage-number {
+            width: 5rem; height: 5rem; background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2)); border: 3px solid var(--primary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; color: var(--primary);
+            flex-shrink: 0; box-shadow: 0 8px 15px rgba(46, 125, 50, 0.2); transition: transform 0.3s, background 0.3s, color 0.3s; backdrop-filter: blur(15px);
+        }
+        .pipeline-stage:hover .stage-number { background: var(--primary); color: white; transform: rotate(360deg) scale(1.1); }
+        body.dark-mode .stage-number { background: linear-gradient(135deg, rgba(30, 35, 40, 0.6), rgba(15, 20, 25, 0.2)); border-color: #8bc34a; color: #8bc34a; box-shadow: 0 8px 15px rgba(139, 195, 74, 0.2); }
+        body.dark-mode .pipeline-stage:hover .stage-number { background: #8bc34a; color: #111; }
+
+        .stage-content { background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)); border: 1px solid rgba(255,255,255,0.5); padding: 2rem; border-radius: 16px; flex-grow: 1; box-shadow: 0 8px 20px rgba(0,0,0,0.05); backdrop-filter: blur(25px); }
+        body.dark-mode .stage-content { background: linear-gradient(135deg, rgba(30, 35, 40, 0.4), rgba(15, 20, 25, 0.15)); border-color: rgba(255, 255, 255, 0.1); }
+        .stage-content h4 { font-size: 1.3rem; margin-bottom: 0.6rem; color: var(--text-dark); font-weight: 800;}
+        body.dark-mode .stage-content h4 { color: var(--text-light); }
+
+        /* ============ FOOTER ============ */
+        .footer { background: #0a0e12; color: white; padding: 4rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; position: relative; overflow: hidden; z-index: 10; }
+        .footer::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; height: 4px; background: linear-gradient(90deg, transparent, var(--primary), transparent); }
+        .footer h3 { font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1rem;}
+        .footer-stack { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .footer-stack span { background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; color: #ccc; border: 1px solid rgba(255,255,255,0.1); }
+
+        @media (max-width: 768px) {
+            .pipeline::before { left: 2.5rem; } .pipeline-stage { gap: 1.5rem; flex-direction: column; align-items: flex-start; }
+            .stage-number { width: 4rem; height: 4rem; font-size: 1.5rem; margin-left: 0; } .hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- =========================================
+         GLOBAL ANIMATED BACKGROUNDS
+         ========================================= -->
+         
+    <!-- Global 3D Grid Perspective -->
+    <div class="global-perspective">
+        <div class="global-grid"></div>
+    </div>
+
+    <!-- Global Parallax Light Blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+    <div class="bg-blob blob-4"></div>
+
+    <!-- Global Holographic Scanline -->
+    <div class="scanline"></div>
+
+    <!-- Global Floating Data Particles -->
+    <div class="global-particles" id="particles">
+        <div class="particle" style="left: 10%; animation-duration: 15s; font-size: 2rem;">🍃</div>
+        <div class="particle" style="left: 30%; animation-duration: 22s; animation-delay: 2s; font-size: 2.5rem;">🌾</div>
+        <div class="particle" style="left: 60%; animation-duration: 18s; animation-delay: 5s; font-size: 1.5rem;">🌿</div>
+        <div class="particle" style="left: 85%; animation-duration: 25s; animation-delay: 1s; font-size: 2.2rem;">🌱</div>
+        <div class="particle" style="left: 50%; animation-duration: 20s; animation-delay: 8s; font-size: 1.8rem;">🍂</div>
+        <div class="particle" style="left: 75%; animation-duration: 17s; animation-delay: 4s; font-size: 2rem;">🚜</div>
+        <div class="particle" style="left: 20%; animation-duration: 19s; animation-delay: 7s; font-size: 1.5rem;">💧</div>
+        <div class="particle" style="left: 90%; animation-duration: 24s; animation-delay: 3s; font-size: 1.2rem;">☀️</div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>🌾</span>
+            <div>
+                <div>AgriCast360</div>
+                <div>PREDICTIVE INTELLIGENCE (V2)</div>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
+        </div>
+    </nav>
+
+    <!-- LIVE MARKET TICKER -->
+    <div class="live-ticker-container">
+        <div class="ticker-track">
+            <!-- Items duplicated for seamless scrolling -->
+            <div class="ticker-item"><span class="trend-up">🟢 WHEAT: <span class="ticker-val" data-base="2150">₹2,150</span> (+1.2%)</span></div>
+            <div class="ticker-item"><span class="trend-down">🔴 RICE (BASMATI): <span class="ticker-val" data-base="3420">₹3,420</span> (-0.8%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 SOYBEAN: <span class="ticker-val" data-base="4200">₹4,200</span> (+2.1%)</span></div>
+            <div class="ticker-item"><span class="trend-down">🔴 MAIZE: <span class="ticker-val" data-base="1850">₹1,850</span> (-0.5%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 COTTON: <span class="ticker-val" data-base="6100">₹6,100</span> (+1.5%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 MUSTARD: <span class="ticker-val" data-base="5050">₹5,050</span> (+0.4%)</span></div>
+            <div class="ticker-item"><span class="trend-down">🔴 SUGARCANE: <span class="ticker-val" data-base="3100">₹3,100</span> (-0.2%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 BARLEY: <span class="ticker-val" data-base="2300">₹2,300</span> (+1.1%)</span></div>
+            
+            <!-- Duplicated set -->
+            <div class="ticker-item"><span class="trend-up">🟢 WHEAT: <span class="ticker-val" data-base="2150">₹2,150</span> (+1.2%)</span></div>
+            <div class="ticker-item"><span class="trend-down">🔴 RICE (BASMATI): <span class="ticker-val" data-base="3420">₹3,420</span> (-0.8%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 SOYBEAN: <span class="ticker-val" data-base="4200">₹4,200</span> (+2.1%)</span></div>
+            <div class="ticker-item"><span class="trend-down">🔴 MAIZE: <span class="ticker-val" data-base="1850">₹1,850</span> (-0.5%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 COTTON: <span class="ticker-val" data-base="6100">₹6,100</span> (+1.5%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 MUSTARD: <span class="ticker-val" data-base="5050">₹5,050</span> (+0.4%)</span></div>
+            <div class="ticker-item"><span class="trend-down">🔴 SUGARCANE: <span class="ticker-val" data-base="3100">₹3,100</span> (-0.2%)</span></div>
+            <div class="ticker-item"><span class="trend-up">🟢 BARLEY: <span class="ticker-val" data-base="2300">₹2,300</span> (+1.1%)</span></div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero active">
+        <!-- Live AI Radar Animation (Interactive Parallax Target) -->
+        <div class="radar-container" id="radar-parallax">
+            <div class="radar-ring"></div>
+            <div class="radar-ring"></div>
+            <div class="radar-ring"></div>
+            <div class="radar-sweep"></div>
+            <div class="radar-grid-lines"></div>
+            <!-- Pulsing Data Nodes -->
+            <div class="data-node" style="top: 20%; left: 30%; animation-delay: 0.5s;"></div>
+            <div class="data-node" style="top: 70%; left: 80%; animation-delay: 1.2s;"></div>
+            <div class="data-node" style="top: 40%; left: 75%; animation-delay: 0.8s;"></div>
+            <div class="data-node" style="top: 80%; left: 25%; animation-delay: 1.5s;"></div>
+            <div class="data-node" style="top: 15%; left: 60%; animation-delay: 0.2s;"></div>
+            <div class="data-node" style="top: 60%; left: 15%; animation-delay: 1.8s;"></div>
+            <div class="data-node" style="top: 50%; left: 50%; width:10px; height:10px; box-shadow: 0 0 15px var(--primary); animation: none;"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">🚀 SYSTEM LIVE & ACTIVE</div>
+            <h1>Intelligent Crop Price & <br><span>Yield Prediction System</span></h1>
+            <p>Moving beyond descriptive analytics to predictive intelligence. AgriCast360 V2 leverages an ensemble of 9 Machine Learning models, an 85-feature matrix, and dynamic routing to forecast agricultural markets with unprecedented accuracy.</p>
+            
+            <div class="cta-buttons">
+                <a href="https://machine-learning-y89vvfjqkfntky27x2jtcr.streamlit.app/" target="_blank" class="btn btn-live">Launch Live App 🚀</a>
+                <button class="btn btn-primary" onclick="switchTab('analytics')">Explore Data Pipeline</button>
+                <a href="https://github.com/RudraX-Github/Machine-Learning/tree/main/AgriCast360/AgriCast360_V2" target="_blank" class="btn btn-secondary">View Source Code</a>
+            </div>
+        </div>
+
+        <!-- STATS STRIP -->
+        <div class="stats-strip">
+            <div class="stat-item">
+                <div class="stat-value" data-value="85">0</div>
+                <div class="stat-label">Engineered Features</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-value" id="live-records-counter" data-value="84549">0</div>
+                <div class="stat-label">Raw Data Records <span style="color:#a6e22e; font-size:0.6rem; animation: pulse-glow 1s infinite;">● LIVE</span></div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-value" data-value="94">0</div>
+                <div class="stat-label">Commodities Tracked</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-value" data-value="9">0</div>
+                <div class="stat-label">ML Models Trained</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- TAB NAVIGATION -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="features">AI Prediction Engines</button>
+            <button class="tab-btn" data-tab="analytics">Data & Analytics</button>
+            <button class="tab-btn" data-tab="models">Model Zoo (9)</button>
+            <button class="tab-btn" data-tab="architecture">ML Architecture</button>
+            <button class="tab-btn" data-tab="ui">Application UI</button>
+        </div>
+
+        <!-- TAB 1: AI PREDICTION ENGINES -->
+        <section id="features" class="active">
+            <h2>Core Prediction Engines</h2>
+            <p class="section-desc">AgriCast360 V2 introduces dual prediction pipelines, combining historical market data with complex environmental variables.</p>
+            
+            <div class="card-grid">
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">💰</div>
+                    <h3>Crop Price Prediction</h3>
+                    <p>Predicts market prices at the Mandi-level. Integrates temporal features with environmental data to generate highly accurate price bands.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">🌾</div>
+                    <h3>Yield & Supply Estimation</h3>
+                    <p>Estimates tons/hectare production capacity. Accounts for seasonal factors (Kharif/Rabi), area cultivated, historical yield baselines, and extreme climate risks.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">🧠</div>
+                    <h3>Intelligent Model Routing</h3>
+                    <p>The system automatically selects the best-performing models based on the commodity's price range. Low-priced crops route to Linear/RF models, while high-value commodities route to Stacking/XGBoost.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">⚡</div>
+                    <h3>Batch Processing Engine</h3>
+                    <p>Upload CSV files containing bulk feature data to process hundreds of predictions simultaneously across the ensemble network. Results are synthesized into downloadable reports.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: DATA & ANALYTICS -->
+        <section id="analytics">
+            <h2>Data Engineering & Analytics</h2>
+            <p class="section-desc">The foundation of AgriCast360 V2 relies on robust data mining, advanced feature engineering, and time-series profiling across 84,549 historical records.</p>
+            
+            <div class="card-grid">
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">⏱️</div>
+                    <h3>Time Series Profiling</h3>
+                    <p>Analysis of 730 days of market dynamics across 3 distinct markets and 94 commodities. The data reveals an average baseline price of <strong>₹5,127.79</strong> but exposes significant volatility at <strong>±₹4,400.27</strong>.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">🌦️</div>
+                    <h3>Weather Lag Correlation</h3>
+                    <p>Our EDA pipeline revealed a critical insight: Weather conditions from <strong>7 to 30 days prior</strong> strongly influence current market arrivals and prices, necessitating the creation of rolling environmental windows.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">📐</div>
+                    <h3>Rigorous Preprocessing</h3>
+                    <p>Data passes through strict normalization and scaling algorithms. Over 84k raw rows are distilled into <strong>14,000+</strong> high-quality, fully imputed samples containing exactly <strong>85 Usable Features</strong> ready for ML processing.</p>
+                </div>
+            </div>
+
+            <!-- COMPREHENSIVE REPORT LINKS SECTION -->
+            <div style="margin-top: 5rem; padding-top: 2.5rem; border-top: 2px dashed var(--border-light);">
+                <h3 style="margin-bottom: 0.8rem; justify-content: center; font-size: 1.8rem;">📑 Comprehensive Pipeline Reports</h3>
+                <p class="section-desc" style="margin-bottom: 3rem;">Access our detailed, interactive HTML reports generated during the V2 pipeline execution. These documents contain deep-dive visualizations, statistical summaries, and exploratory charts.</p>
+                
+                <div class="card-grid">
+                    <div class="card report-card eda tilt-card">
+                        <div class="live-status-dot"></div>
+                        <div class="card-icon" style="background: rgba(103, 58, 183, 0.1); color: #673AB7;">🔍</div>
+                        <h3>Exploratory Data Analysis</h3>
+                        <p>Comprehensive overview of raw data distributions, correlation heatmaps, missing value analysis, and initial weather-price correlations.</p>
+                        <button class="btn-view-page" style="margin-top: auto; width: 100%; border-color: #673AB7; color: #673AB7;" onclick="window.open('https://htmlpreview.github.io/?https://github.com/RudraX-Github/Visualization-Power-BI-/blob/main/AgriCast360/Version%202.0/AgriCast360_EDA_Report.html', '_blank')">View EDA Report <span class="arrow">↗</span></button>
+                    </div>
+
+                    <div class="card report-card feat tilt-card">
+                        <div class="live-status-dot"></div>
+                        <div class="card-icon" style="background: rgba(33, 150, 243, 0.1); color: #2196F3;">⚙️</div>
+                        <h3>Feature Engineering</h3>
+                        <p>Deep dive into the creation of 85 advanced features including Heat Index Proxy, Price Drought Interaction, and Growing Degree Days.</p>
+                        <button class="btn-view-page" style="margin-top: auto; width: 100%; border-color: #2196F3; color: #2196F3;" onclick="window.open('https://htmlpreview.github.io/?https://github.com/RudraX-Github/Visualization-Power-BI-/blob/main/AgriCast360/Version%202.0/AgriCast360_Feature_Engineering_Report.html', '_blank')">View Engineering <span class="arrow">↗</span></button>
+                    </div>
+
+                    <div class="card report-card prep tilt-card">
+                        <div class="live-status-dot"></div>
+                        <div class="card-icon" style="background: rgba(0, 150, 136, 0.1); color: #009688;">📐</div>
+                        <h3>Feature Preprocessing</h3>
+                        <p>Detailed metrics on data cleaning, Robust/Standard scaling, and normalization of 14,000+ data samples ready for ML training.</p>
+                        <button class="btn-view-page" style="margin-top: auto; width: 100%; border-color: #009688; color: #009688;" onclick="window.open('https://htmlpreview.github.io/?https://github.com/RudraX-Github/Visualization-Power-BI-/blob/main/AgriCast360/Version%202.0/AgriCast360_Feature_Preprocessing_Report.html', '_blank')">View Preprocessing <span class="arrow">↗</span></button>
+                    </div>
+
+                    <div class="card report-card time tilt-card">
+                        <div class="live-status-dot"></div>
+                        <div class="card-icon" style="background: rgba(255, 152, 0, 0.1); color: #FF9800;">📈</div>
+                        <h3>Time Series Analysis</h3>
+                        <p>In-depth analysis of 730 days of market dynamics, revealing seasonal trends, price volatility baselines, and temporal shifts.</p>
+                        <button class="btn-view-page" style="margin-top: auto; width: 100%; border-color: #FF9800; color: #FF9800;" onclick="window.open('https://htmlpreview.github.io/?https://github.com/RudraX-Github/Visualization-Power-BI-/blob/main/AgriCast360/Version%202.0/AgriCast360_TimeSeries_Analysis_Report.html', '_blank')">View Time Series <span class="arrow">↗</span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: MODEL ZOO -->
+        <section id="models">
+            <h2>The Model Zoo</h2>
+            <p class="section-desc">Version 2 utilizes an ensemble of 9 specialized Machine Learning models trained on the 85 preprocessed features. Instead of relying on a single algorithm, the platform intelligently aggregates predictions to minimize error.</p>
+            
+            <div class="model-table-container">
+                <table class="model-table">
+                    <thead>
+                        <tr>
+                            <th>Model Architecture</th>
+                            <th>Type / Complexity</th>
+                            <th>Best Used For</th>
+                            <th>Inference Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Linear Regression (Base & Tuned)</strong></td>
+                            <td>Baseline / Low</td>
+                            <td>Stable, linear relationships and low-price range commodities (< ₹5,000).</td>
+                            <td><span class="badge badge-fast">Very Fast</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Random Forest (Base & Tuned)</strong></td>
+                            <td>Bagging Ensemble / Med</td>
+                            <td>Capturing non-linear weather relationships and extracting feature importance.</td>
+                            <td><span class="badge badge-fast">Fast</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>XGBoost (Base & Tuned)</strong></td>
+                            <td>Boosting Ensemble / High</td>
+                            <td>Complex pattern recognition; optimal for medium/high price bands.</td>
+                            <td><span class="badge badge-med">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Voting Ensemble</strong></td>
+                            <td>Simple Ensemble / High</td>
+                            <td>Robust consensus building across mid-range commodities (₹5k - ₹15k).</td>
+                            <td><span class="badge badge-slow">Slow</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stacking Ensemble</strong></td>
+                            <td>Meta-Ensemble / Very High</td>
+                            <td>Maximum accuracy for high-value premium commodities (> ₹15,000).</td>
+                            <td><span class="badge badge-slow">Slow</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 3rem;">🎯 The Smart Routing Strategy</h3>
+            <div class="card-grid">
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">📉</div>
+                    <h3>Tier 1: Volume Crops</h3>
+                    <p><strong>< ₹5,000 midpoint</strong><br>Routes directly to Tuned Linear Regression and Random Forest. Favors speed and stability for common staples.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">⚖️</div>
+                    <h3>Tier 2: Mid-Market</h3>
+                    <p><strong>₹5,000 - ₹15,000 midpoint</strong><br>Engages XGBoost and Voting Ensembles to balance complex weather sensitivities with historical momentum.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">📈</div>
+                    <h3>Tier 3: Premium Cash Crops</h3>
+                    <p><strong>> ₹15,000 midpoint</strong><br>Deploys the heavy Stacking Ensemble and Tuned XGBoost to extract maximum precision where financial stakes are highest.</p>
+                </div>
+            </div>
+
+            <!-- INTERACTIVE MODEL EVALUATION LINK -->
+            <div class="card tilt-card" style="text-align: center; margin-top: 4rem; padding: 3rem 2rem; background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(139, 195, 74, 0.15)); border-radius: 20px; border: 1px dashed var(--primary); position: relative; overflow: hidden; animation: none;">
+                <div class="live-status-dot"></div>
+                <div class="bg-blob blob-3" style="z-index: 0; filter: blur(30px); position: absolute;"></div>
+                <div style="position: relative; z-index: 2;">
+                    <div style="font-size: 3rem; margin-bottom: 0.8rem; animation: pulse-glow 2s infinite; display: inline-block; border-radius: 50%;">📊</div>
+                    <h3 style="margin-top: 0; justify-content: center; font-size: 1.8rem; margin-bottom: 0.8rem;">Interactive Model Evaluation</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 650px; margin-left: auto; margin-right: auto; font-size: 1rem;">Explore interactive Chart.js visualizations comparing model outputs, ensemble accuracy, and price spread dynamics across different markets.</p>
+                    
+                    <!-- ANIMATED BUTTON TARGET -->
+                    <button class="btn-view-page" style="font-size: 1rem; padding: 1rem 2.5rem; border-radius: 50px; margin: 0 auto; border-color: var(--primary); color: var(--primary);" onclick="window.open('https://htmlpreview.github.io/?https://github.com/RudraX-Github/Visualization-Power-BI-/blob/main/AgriCast360/Version%202.0/AgriCast360_modelReports.html', '_blank')">
+                        View Comprehensive Model Reports <span class="arrow">↗</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: ARCHITECTURE -->
+        <section id="architecture">
+            <h2>System Architecture (V2)</h2>
+            <p class="section-desc">The predictive pipeline is built entirely in Python using a serverless-friendly architecture, progressing from raw EDA to artifact inference via Streamlit.</p>
+            
+            <div class="pipeline">
+                <div class="pipeline-stage">
+                    <div class="stage-number">1</div>
+                    <div class="stage-content tilt-card">
+                        <div class="live-status-dot"></div>
+                        <h4>Data Ingestion & EDA</h4>
+                        <p>Raw files from 3 markets containing 94 commodities are parsed. Extensive Exploratory Data Analysis generates insights into 7-30 day weather lags and high price volatility.</p>
+                    </div>
+                </div>
+                <div class="pipeline-stage">
+                    <div class="stage-number">2</div>
+                    <div class="stage-content tilt-card">
+                        <div class="live-status-dot"></div>
+                        <h4>Feature Engineering & Preprocessing</h4>
+                        <p>Generation of critical interaction terms (e.g., Heat_Index_Proxy). The resulting 85 usable features undergo Strict Robust/Standard Scaling to normalize 14,000+ data samples against outliers.</p>
+                    </div>
+                </div>
+                <div class="pipeline-stage">
+                    <div class="stage-number">3</div>
+                    <div class="stage-content tilt-card">
+                        <div class="live-status-dot"></div>
+                        <h4>Model Training & Artifact Storage</h4>
+                        <p>The 9 ensemble models are trained on the preprocessed feature matrix. Trained objects (`.pkl` files) and Scaler instances are uploaded to a centralized GitHub repository.</p>
+                    </div>
+                </div>
+                <div class="pipeline-stage">
+                    <div class="stage-number">4</div>
+                    <div class="stage-content tilt-card">
+                        <div class="live-status-dot"></div>
+                        <h4>Dynamic Streamlit Inference</h4>
+                        <p>The UI dynamically pulls artifacts from GitHub, sanitizes real-time user input through the loaded `RobustScaler`, and executes the Parallel Inference Engine for rapid price/yield generation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: UI/APP LAYER -->
+        <section id="ui">
+            <h2>The Application Interface</h2>
+            <p class="section-desc">AgriCast360 V2 is delivered via an interactive Streamlit web application, replacing static dashboards with live, parameter-driven AI predictions.</p>
+            
+            <!-- NEW LIVE APP HIGHLIGHT CARD -->
+            <div style="background: linear-gradient(135deg, #1B5E20, #4CAF50); border-radius: 20px; padding: 3rem 1.5rem; text-align: center; color: white; margin-bottom: 3rem; box-shadow: 0 15px 40px rgba(46, 125, 50, 0.3); position: relative; overflow: hidden;" class="card tilt-card">
+                <div class="live-status-dot" style="background: white; box-shadow: 0 0 15px white;"></div>
+                <div class="bg-blob blob-1" style="background: rgba(255,255,255,0.1); z-index: 0; position: absolute;"></div>
+                <div style="position: relative; z-index: 1;">
+                    <h2 style="color: white; font-size: 2.2rem; margin-bottom: 0.8rem;">Experience the AI Live</h2>
+                    <p style="font-size: 1.1rem; opacity: 0.9; max-width: 650px; margin: 0 auto 2rem auto; line-height: 1.6; color: white;">Interact with our predictive models, adjust weather parameters in real-time, and see ensemble forecasting in action directly in your browser.</p>
+                    <a href="https://machine-learning-y89vvfjqkfntky27x2jtcr.streamlit.app/" target="_blank" class="btn btn-live" style="font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: 50px;">
+                        Launch Predictive App 🚀
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">🎛️</div>
+                    <h3>Interactive Parameter Tuning</h3>
+                    <p>Users can manipulate sliders for localized temperature, rainfall, and drought risks. The system instantly recalculates price and yield projections based on these theoretical "what-if" environmental scenarios.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">📊</div>
+                    <h3>Real-time Visualizations</h3>
+                    <p>Unlike static V1 BI dashboards, V2 dynamically renders horizontal bar charts comparing individual model outputs, and line charts showing where the AI's predicted price point lands against historical minimums, maximums, and moving averages.</p>
+                </div>
+                <div class="card tilt-card">
+                    <div class="live-status-dot"></div>
+                    <div class="card-icon">📥</div>
+                    <h3>Data Portability</h3>
+                    <p>Built-in CSV templating allows agribusinesses to upload daily operational sheets, process them through the ensemble models automatically, and download the forecasted outputs natively.</p>
+                </div>
+            </div>
+
+            <div class="card tilt-card" style="text-align: center; margin-top: 4rem; padding: 3rem 1.5rem; background: var(--surface-light); border-radius: 20px; border: 1px solid var(--border-light); box-shadow: 0 8px 30px rgba(0,0,0,0.03); animation: none;">
+                <div class="live-status-dot"></div>
+                <h3 style="margin-top: 0; justify-content: center; font-size: 1.6rem;">Host it Yourself</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;">The Streamlit application (`streamlit_app.py`) is fully self-contained and ready to run locally or on any cloud provider.</p>
+                <div style="background: #1e1e1e; padding: 1.5rem; border-radius: 12px; text-align: left; max-width: 500px; margin: 0 auto; font-family: 'Courier New', monospace; color: #a6e22e; font-size: 1rem; border: 1px solid #333; box-shadow: inset 0 5px 15px rgba(0,0,0,0.5); transform: translateZ(20px);">
+                    <span style="color: #f92672;">pip</span> install -r requirements.txt<br><br>
+                    <span style="color: #f92672;">streamlit</span> run streamlit_app.py
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3><span>🌾</span> AgriCast360 Version 2</h3>
+            <p style="font-size: 1rem; opacity: 0.8; margin-top: 0.5rem;">Comprehensive Crop Price, Yield & Supply Prediction System</p>
+            
+            <div class="footer-stack">
+                <span>Python 3.11</span>
+                <span>Streamlit App</span>
+                <span>Scikit-Learn</span>
+                <span>XGBoost</span>
+                <span>Pandas/NumPy</span>
+                <span>Chart.js/Matplotlib</span>
+            </div>
+
+            <p style="margin-top: 3rem; opacity: 0.4; font-size: 0.85rem;">
+                © 2024 AgriCast360 | Powered by Machine Learning & Weather Analytics
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        // Live Interaction Parallax for Fixed Elements
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            
+            const radar = document.getElementById('radar-parallax');
+            if(radar) radar.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+            
+            const blobs = document.querySelectorAll('.bg-blob');
+            blobs.forEach((blob, i) => {
+                const speed = (i + 1) * 1.5;
+                blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // Live Market Ticker Flickering Illusion
+        setInterval(() => {
+            const tickerVals = document.querySelectorAll('.ticker-val');
+            const randomElement = tickerVals[Math.floor(Math.random() * tickerVals.length)];
+            const baseVal = parseInt(randomElement.getAttribute('data-base'));
+            const fluctuation = Math.floor(Math.random() * 5) - 2; 
+            
+            const newVal = baseVal + fluctuation;
+            randomElement.textContent = `₹${newVal.toLocaleString()}`;
+            randomElement.style.color = fluctuation > 0 ? '#a6e22e' : (fluctuation < 0 ? '#ff3366' : '');
+            
+            setTimeout(() => {
+                randomElement.textContent = `₹${baseVal.toLocaleString()}`;
+                randomElement.style.color = '';
+            }, 600);
+        }, 1500);
+
+        // Animated Stats Counter
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-value'));
+            if(isNaN(target)) return;
+            const duration = 2500;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                    element.textContent = target.toLocaleString() + (target > 1000 ? '+' : '');
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString() + (target > 1000 ? '+' : '');
+                }
+            }, 16);
+        }
+
+        // Live Data Simulation 
+        let currentRecords = 84549;
+        setInterval(() => {
+            const liveCounter = document.getElementById('live-records-counter');
+            if(liveCounter && liveCounter.classList.contains('counted')) {
+                const addRandom = Math.floor(Math.random() * 5) + 1;
+                currentRecords += addRandom;
+                liveCounter.textContent = currentRecords.toLocaleString() + '+';
+                liveCounter.style.transform = 'scale(1.1)';
+                liveCounter.style.color = '#a6e22e';
+                setTimeout(() => {
+                    liveCounter.style.transform = 'scale(1)';
+                    liveCounter.style.color = ''; 
+                }, 300);
+            }
+        }, 4000);
+
+        // Intersection Observer for Animations
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    if(entry.target.classList.contains('stat-value') && !entry.target.classList.contains('counted')) {
+                        animateCounter(entry.target);
+                        entry.target.classList.add('counted');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.stat-value').forEach(el => {
+                if(el.hasAttribute('data-value')) observer.observe(el);
+            });
+            init3DTilt(); 
+        });
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('section').forEach(sec => {
+                if(!sec.classList.contains('hero')) {
+                    sec.classList.remove('active');
+                }
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            const yOffset = -120; 
+            const element = document.querySelector('.tab-navigation');
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                switchTab(e.target.getAttribute('data-tab'));
+            });
+        });
+
+        // Custom Vanilla JS 3D Tilt Effect
+        function init3DTilt() {
+            const cards = document.querySelectorAll('.tilt-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; 
+                    const y = e.clientY - rect.top;  
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -10;
+                    const rotateY = ((x - centerX) / centerX) * 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    card.style.animationPlayState = 'paused'; 
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    card.style.animationPlayState = 'running'; 
+                });
+            });
+        }
+    </script>
+</body>
+</html>
